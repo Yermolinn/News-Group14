@@ -6,14 +6,7 @@ export async function getNews(query) {
 
   return await fetch(URL)
     .then(data => data.json())
-    .then(({response}) => {
-      console.log(response);
-
-      response.docs.map(article => {
-        console.log(article);
-      })
-})
-        
+    .then((response) => console.log(response.response.docs))
 }
 
 const formEl = document.getElementById('search-form');
@@ -24,7 +17,6 @@ function onSubmit(e) {
   e.preventDefault();
   const formEl = e.currentTarget;
   const value = formEl.elements.searchQuery.value.trim();
-  console.log(value);
-  getNews.query = value;
-  getNews().finally(() => formEl.reset());
+  getNews(value);
+  formEl.reset();
 }
