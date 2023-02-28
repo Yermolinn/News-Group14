@@ -2,3 +2,18 @@
 @import './sass/_common';
 @import './sass/_mixin';
 @import './sass/_vars';
+
+
+@import './components/categories/categories.scss';
+@import './components/favoriteNews/favoriteNews.scss';
+@import './components/firebaseAPI/firebaseAPI.scss';
+@import './components/footer/footer.scss';
+@import './components/loader/loader.scss';
+@import './components/main/main.scss';
+@import './components/mode-switcher/mode-switcher.scss';
+@import './components/newsCard/newsCard.scss';
+@import './components/pagination/pagination.scss';
+@import './components/readNews/readNews.scss';
+@import './components/render/render.scss';
+@import './components/searchNews/searchNews.scss';
+@import './components/weather/weather.scss';
