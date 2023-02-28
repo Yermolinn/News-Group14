@@ -1,5 +1,5 @@
 import './components/ArticlesSearchAPI/ArticlesSearchAPI.js';
-import './components/TimesNewsWireAPI/TimesNewsWireAPI';
+import './components/TimesNewswireAPI/TimesNewswireAPI';
 import './components/MostPopularAPI/MostPopularAPI';
 import './components/render/render.js';
 import './components/button/button.js';
