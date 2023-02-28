@@ -1,1 +1,14 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap');
+
+
+html {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+body {
+    font-family: 'Manrope', sans-serif;
+    padding: 0 16px;
+}
