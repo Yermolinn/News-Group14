@@ -3,7 +3,11 @@
 @import './sass/_mixin';
 @import './sass/_vars';
 
-
+@import './components/ArticlesSearchAPI/ArticlesSearchAPI.scss';
+@import './components/MostPopularAPI/MostPopularAPI.scss';
+@import './components/TimesNewswireAPI/TimesNewswireAPI.scss';
+@import './components/render/render.scss';
+@import './components/button/button.scss';
 @import './components/categories/categories.scss';
 @import './components/favoriteNews/favoriteNews.scss';
 @import './components/firebaseAPI/firebaseAPI.scss';
@@ -14,6 +18,4 @@
 @import './components/newsCard/newsCard.scss';
 @import './components/pagination/pagination.scss';
 @import './components/readNews/readNews.scss';
-@import './components/render/render.scss';
-@import './components/searchNews/searchNews.scss';
-@import './components/weather/weather.scss';
+@import './components/openWeatherAPI/openWeatherAPI.scss';
