@@ -1,2 +1,0 @@
-async function e(e){const t=`https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${e}&api-key=HR9YxGV98GGTmMcKHA5eY4Aer5nJgRvJ`;return await fetch(t).then((e=>e.json())).then((e=>{console.log(e)}))}document.getElementById("search-form").addEventListener("submit",(function(t){t.preventDefault();const n=t.currentTarget,r=n.elements.searchQuery.value.trim();e.query=r,e().finally((()=>n.reset()))}));
-//# sourceMappingURL=index.ee366490.js.map
