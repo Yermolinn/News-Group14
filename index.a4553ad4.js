@@ -1,0 +1,2 @@
+document.getElementById("search-form").addEventListener("submit",(function(e){e.preventDefault();const t=e.currentTarget;(async function(e){const t=`https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=HR9YxGV98GGTmMcKHA5eY4Aer5nJgRvJ&q=${e}`;await fetch(t).then((e=>e.json())).then((e=>console.log(e.response.docs)))})(t.elements.searchQuery.value.trim()),t.reset()}));
+//# sourceMappingURL=index.a4553ad4.js.map
