@@ -1,5 +1,6 @@
 import './components/ArticlesSearchAPI/ArticlesSearchAPI.js';
 import './components/TimesNewswireAPI/TimesNewswireAPI';
+import './components/calendar/calendar.js';
 import './components/MostPopularAPI/MostPopularAPI';
 import './components/render/render.js';
 import './components/button/button.js';
@@ -14,12 +15,3 @@ import './components/newsCard/newsCard.js';
 import './components/pagination/pagination.js';
 import './components/readNews/readNews.js';
 import './components/openWeatherAPI/openWeatherAPI.js';
-
-
-
-
-
-
-
-
-
