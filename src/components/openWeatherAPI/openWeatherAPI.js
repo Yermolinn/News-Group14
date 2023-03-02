@@ -1,0 +1,243 @@
+// import { getGeo } from "./scr/getGeo";
+ 
+const weatherContainer = document.querySelector('.weather-container');
+const moreWeatherBtn = document.querySelector('.more-weather-btn');
+const moreWatherContainer = document.querySelector('.weather-for-week'); 
+const weekWeather = document.querySelector('.week-weather');
+// async function getGeo(params) {
+//      function geo_success(position) {
+//         // do_something(position.coords.latitude, position.coords.longitude);
+//         const latitude  = position.coords.latitude;
+//          const longitude = position.coords.longitude;
+//          console.log(latitude);
+//          console.log(longitude);
+         
+//         const key = 'a0572400057a18022ba680699689d40f';
+      
+//         const responce = await fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit={limit}&appid=${key}`)
+//         const result = await responce.json();
+//         console.log(result);
+
+        
+//         }
+
+//         function geo_error() {
+//         alert("No Geo");
+//         }
+
+//         const geo_options = {
+//         enableHighAccuracy: true,
+//         maximumAge        : 30000,
+//         timeout           : 27000
+//         };
+
+//     // console.log(position);
+
+//         const wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
+//         console.log(wpid);
+    
+
+// }
+    
+
+async function loadWeather(params) {
+
+    async function geoSuccess(position) {
+        // do_something(position.coords.latitude, position.coords.longitude);
+        const latitude  = position.coords.latitude;
+         const longitude = position.coords.longitude;
+        //  console.log(latitude);
+        //  console.log(longitude);
+         
+        // const key = 'a0572400057a18022ba680699689d40f';
+      
+        // const responce = await fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit={limit}&appid=${key}`)
+        // const result = await responce.json();
+        // console.log(result);
+
+        const key = 'a0572400057a18022ba680699689d40f';
+
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (response.ok) {
+            getWeather(data);
+            
+        } else {
+        weatherContainer.innerHTML = data.message;
+        }
+
+
+        moreWeatherBtn.addEventListener('click', onMoreWeatherBtnClick);
+
+
+        async function onMoreWeatherBtnClick(params) {
+            console.log(5);
+            moreWeatherBtn.classList.add('more-weather-is-hidden');
+            // const key = 'a0572400057a18022ba680699689d40f';
+            const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric&cnt=7&exclude=current,minutely,hourly,alerts`;
+
+            const response = await fetch(url);
+            const data = await response.json();
+            console.log(data);
+
+            if (response.ok) {
+            getMoreWeather(data);
+            
+            } else {
+            weatherContainer.innerHTML = data.message;
+            }
+
+           
+
+
+        }
+
+         
+    }
+
+        function geoError() {
+        alert("No Geo");
+        }
+
+        const geoOptions = {
+        enableHighAccuracy: true
+        
+        
+    };
+    
+    // timeout           : 27000
+    // maximumAge        : 30000,
+
+    // console.log(position);
+
+    // const wpid = navigator.geolocation.watchPosition(geoSuccess, geoError, geoOptions);
+    // // alert('wpid');
+
+    const wpid = navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+
+    
+
+
+    
+
+
+}
+
+
+    // weatherContainer.innerHTML = `<div class="loading"><img src="./Spinner-1s-200px.gif" alt="Loading"></div>`;
+
+    
+    
+
+
+function getWeather(data) {
+    // console.log(data);
+
+    const location = data.name;
+    const temp = Math.round(data.main.temp);
+    // const feelsLike = Math.round(data.main.feels_like);
+    const weatherStatus = data.weather[0].main;
+    const weatherIcon = data.weather[0].icon;
+    const weatherDay = new Date(data.dt * 1000).toLocaleDateString('en', { weekday: 'short', });
+    const weatherDate = new Date(data.dt * 1000).toLocaleDateString( 'en-DE', {year: 'numeric', month: 'short', day: 'numeric' });
+    // const day = new Date(data.dt * 1000).getDay();
+    // console.log(day);
+
+    const info = `
+    <div class="header">
+            <div class="weather-main">
+                <div class="weather-temp">${temp}</div>
+                
+                <div class="additional-weather-info">
+                    <div class="weather-status">${weatherStatus}</div>
+                    <div class="weather-city">${location}</div>  
+                </div>
+                </div>
+            
+            <div class="weather-icon"><img src="http://openweathermap.org/img/wn/${weatherIcon}@2x.png" alt="${weatherIcon}"></div>
+        </div>
+        <div class="weather-date">${weatherDay} <br> ${weatherDate}</div>`;
+    
+    // weatherContainer.innerHTML = info;
+    weatherContainer.insertAdjacentHTML("afterbegin", info);
+
+
+    
+};
+
+
+if (weatherContainer) {
+    loadWeather();
+};
+
+
+function getMoreWeather(data) {
+    console.log(data);
+
+    
+    
+
+     const markup = data.list;
+     console.log(markup);
+
+    const moreWeather = markup.map((item) => 
+        // const getMoreWeatherDate = new Date(item.dt * 1000).toLocaleDateString("en", {weekday: "long",});
+        // const getMoreWeatherTemp = item.main.temp.toFixed(0);
+        // const getMoreweatherIcon = item.weather[0].icon;
+
+        `<div class="weather-per-day">
+            <div class="weather-more-day">${new Date((item.dt * 1000)*7).toLocaleDateString("en", { weekday: "short", })}</div>
+                <div class="weather-more-icon"><img src="http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png" alt="${item.weather[0].icon}"></div>
+                <div class="weather-more-temp">${Math.round(item.main.temp)}</div>
+        </div>`
+        
+        // const moreWeatherMarkup = stringMarkup.join(' ');
+        
+    ).join(' ');
+    
+            // console.log(moreWeather);
+    
+    console.log(moreWeather);   
+    // weatherContainer.insertAdjacentHTML("beforeend", moreWeather);
+    // weekWeather.innerHTML = moreWeather;
+    weekWeather.insertAdjacentHTML("beforeend", moreWeather);
+    // moreWatherContainer.insertAdjacentHTML("beforeend", moreWeather);
+            
+    // weatherContainer.innerHTML = moreWeather;
+}
+
+// moreWeatherBtn.addEventListener('click', onMoreWeatherBtnClick);
+ 
+//         async function onMoreWeatherBtnClick(data) {
+//             console.log(5);
+//             weatherContainer.innerHTML = '';
+
+//             const location = data.name;
+//             const temp = Math.round(data.main.temp);
+//             const feelsLike = Math.round(data.main.feels_like);
+//             const weatherStatus = data.weather[0].main;
+//             const weatherIcon = data.weather[0].icon;
+//             const weatherDate = new Date(data.dt * 1000).toDateString();
+//             // const day = new Date(data.dt * 1000).getDay();
+//             // console.log(day);
+
+//             const info = `
+//             <div class="header">
+//                     <div class="weather-main">
+//                         <div class="weather-temp">${temp}</div>
+                        
+//                         <div class="additional-weather-info">
+//                             <div class="weather-status">${weatherStatus}</div>
+//                             <div class="weather-city">${location}</div>  
+//                         </div>
+//                         </div>
+                    
+//                     <div class="weather-icon"><img src="http://openweathermap.org/img/wn/${weatherIcon}@2x.png" alt="${weatherIcon}"></div>
+//                 </div>
+//                 <div class="weather-date">${weatherDate}</div>`;
+            
+//             // weatherContainer.innerHTML = info;
+//             weatherContainer.insertAdjacentHTML("afterbegin", info); }
