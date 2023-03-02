@@ -2,6 +2,8 @@
 @import './sass/_common';
 @import './sass/_mixin';
 @import './sass/_vars';
+@import './sass/header/logo.scss';
+@import './sass/header/menu.scss';
 
 @import './components/ArticlesSearchAPI/ArticlesSearchAPI.scss';
 @import './components/MostPopularAPI/MostPopularAPI.scss';
