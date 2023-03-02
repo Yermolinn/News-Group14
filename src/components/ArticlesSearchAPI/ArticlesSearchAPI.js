@@ -1,6 +1,6 @@
 const ENDPOINT = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
 const API_KEY = 'api-key=HR9YxGV98GGTmMcKHA5eY4Aer5nJgRvJ';
-
+import { fetchGallery } from '../render/render';
 export async function getNews(query) {
   const URL = `${ENDPOINT}?${API_KEY}&q=${query}`;
 
@@ -18,5 +18,5 @@ function onSubmit(e) {
   const formEl = e.currentTarget;
   const value = formEl.elements.searchQuery.value.trim();
   getNews(value);
-  formEl.reset();
+  fetchGallery().finally(() => formEl.reset());
 }
