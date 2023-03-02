@@ -39,7 +39,8 @@ async function loadWeather(params) {
             moreWeatherBtn.classList.add('more-weather-is-hidden');
             // const key = 'a0572400057a18022ba680699689d40f';
             const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric&cnt=7&exclude=current,minutely,hourly,alerts`;
-
+            // https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alert&appid=${key}
+            // https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric&cnt=7&exclude=current,minutely,hourly,alerts
             const response = await fetch(url);
             const data = await response.json();
             console.log(data);
@@ -143,7 +144,7 @@ function getMoreWeather(data) {
         // const getMoreweatherIcon = item.weather[0].icon;
 
         `<div class="weather-per-day">
-            <div class="weather-more-day">${new Date((item.dt * 1000)*7).toLocaleDateString("en", { weekday: "short", })}</div>
+            <div class="weather-more-day">${new Date((item.dt * 1000)).toLocaleDateString("en", { weekday: "short", })}</div>
                 <div class="weather-more-icon"><img src="http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png" alt="${item.weather[0].icon}"></div>
                 <div class="weather-more-temp">${Math.round(item.main.temp)}</div>
         </div>`
