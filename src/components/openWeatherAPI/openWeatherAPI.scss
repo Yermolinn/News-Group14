@@ -83,16 +83,22 @@ font-family: 'Roboto';
     line-height: 16px;
 };
 
-.weather-city::before{
-    content: '';
-    background-image: url("https://cdn-icons-png.flaticon.com/512/599/599502.png");
-    background-size: contain;
-    display: inline-block;
-    width: 18px;
-        height: 18px;
-        margin-right: 4px;
+// .weather-city::before{
+//     content: '';
+//     background-image: url("https://cdn-icons-png.flaticon.com/512/599/599502.png");
+//     background-size: contain;
+//     display: inline-block;
+//     width: 18px;
+//         height: 18px;
+//         margin-right: 4px;
 
-};
+// };
+
+.weather-icon-location{
+    fill: rgb(51, 0, 255);
+    width: 18px;
+    height: 18px;
+}
 
 .weather-icon{
     margin: 40px 80px;

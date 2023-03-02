@@ -38,7 +38,7 @@ async function loadWeather(params) {
             console.log(5);
             moreWeatherBtn.classList.add('more-weather-is-hidden');
             // const key = 'a0572400057a18022ba680699689d40f';
-            const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric&cnt=7&exclude=current,minutely,hourly,alerts`;
+            const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric&cnt=49&exclude=current,minutely,hourly,alerts`;
             // https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alert&appid=${key}
             // https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric&cnt=7&exclude=current,minutely,hourly,alerts
             const response = await fetch(url);
@@ -102,13 +102,18 @@ function getWeather(data) {
     const weatherDate = new Date(data.dt * 1000).toLocaleDateString( 'en-DE', {year: 'numeric', month: 'short', day: 'numeric' });
 
     const info = `
-    <div class="header">
+    <div class="weather-header">
             <div class="weather-main">
                 <div class="weather-temp">${temp}</div>
                 
                 <div class="additional-weather-info">
                     <div class="weather-status">${weatherStatus}</div>
-                    <div class="weather-city">${location}</div>  
+                    <div class="weather-city">
+                    
+                    <svg class="weather-icon-location">
+                        <use href="/src/images/sprite.svg#icon-location"></use>
+                    </svg>
+                    ${location}</div>  
                 </div>
                 </div>
             
@@ -135,10 +140,14 @@ function getMoreWeather(data) {
     
     
 
-     const markup = data.list;
-     console.log(markup);
+    //  const markup = data.list;
+    //  console.log(markup);
 
-    const moreWeather = markup.map((item) => 
+    // let data = {...} // дані
+    let filteredData = data.list.filter(item => item.dt_txt.includes('12:00:00'));
+    console.log(filteredData);
+
+    const moreWeather = filteredData.map((item) => 
         // const getMoreWeatherDate = new Date(item.dt * 1000).toLocaleDateString("en", {weekday: "long",});
         // const getMoreWeatherTemp = item.main.temp.toFixed(0);
         // const getMoreweatherIcon = item.weather[0].icon;
@@ -150,11 +159,12 @@ function getMoreWeather(data) {
         </div>`
         
         // const moreWeatherMarkup = stringMarkup.join(' ');
+        // hour: "numeric", hour12: false, minute: "numeric"
         
     ).join(' ');
     
     
-    console.log(moreWeather);   
+    // console.log(moreWeather);   
     // weatherContainer.insertAdjacentHTML("beforeend", moreWeather);
     // weekWeather.innerHTML = moreWeather;
     weekWeather.insertAdjacentHTML("beforeend", moreWeather);
