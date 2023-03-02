@@ -95,9 +95,11 @@ font-family: 'Roboto';
 // };
 
 .weather-icon-location{
-    fill: rgb(51, 0, 255);
-    width: 18px;
-    height: 18px;
+    
+    // width: 18px;
+    // height: 18px;
+    fill: #FFFFFF;
+    margin-right: 5px;
 }
 
 .weather-icon{
