@@ -4,14 +4,25 @@
     padding-bottom: 32px;
 
     font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 28px;
-        line-height: 1.17;
-        text-align: center;
-        border-radius: 4px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.17;
+    text-align: center;
+    border-radius: 4px;
     
-        color: #FFFFFF;
+    color: #FFFFFF;
+
+         @media screen and (min-width: 768px) {
+            
+                width: 353px;
+
+        
+         }
+
+        @media screen and (min-width: 1280px) {
+                width: 395px;
+        }
 };
 
 .additional-weather-info {
@@ -33,17 +44,23 @@ padding-top: 32px;
 
     margin-right: 11px;
 
-    font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 55px;
-        line-height: 1.16;
+    font-size: 55px;
+    line-height: 1.16;
 
-        border-right-style: ridge;
-        
-        border-right-width: 0px 63px;
-
-        
+    border-right-style: ridge;
+    
+    @media screen and (min-width: 768px) {
+    
+            font-size: 64px;
+            line-height: 1.17;
+    
+    
+        }
+    
+        // @media screen and (min-width: 1280px) {
+        //     font-size: 64px;
+        //         line-height: 75px;
+        // }
 
 }
 
@@ -57,11 +74,16 @@ padding-top: 32px;
 .weather-status {
     margin-bottom: 5px;
 
-    font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 24px;
-        line-height: 1.16;
+    font-size: 24px;
+    line-height: 1.16;
+
+    @media screen and (min-width: 768px) {
+    
+            font-size: 36px;
+            line-height: 1.16;
+    
+    
+        }
 }
 
 .weather-city {
@@ -69,69 +91,111 @@ padding-top: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
 
 
     background: rgba(254, 254, 255, 0.3);
-        border-radius: 10px;
-        width: 121px;
-        height: 34px;
+    border-radius: 10px;
+    width: 121px;
+    height: 34px;
 
-font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
+
     font-size: 14px;
     line-height: 16px;
+
+    @media screen and (min-width: 768px) {
+    
+            width: 177px;
+                height: 42px;
+        
+        font-size: 20px;
+            line-height: 1.15;
+
+            
+    
+    
+        }
 };
 
-// .weather-city::before{
-//     content: '';
-//     background-image: url("https://cdn-icons-png.flaticon.com/512/599/599502.png");
-//     background-size: contain;
-//     display: inline-block;
-//     width: 18px;
-//         height: 18px;
-//         margin-right: 4px;
-
-// };
 
 .weather-icon-location{
-    
-    // width: 18px;
-    // height: 18px;
+    width: 18px;
+    height: 18px;
     fill: #FFFFFF;
     margin-right: 5px;
+
+    @media screen and (min-width: 768px) {
+    
+
+            max-width: 27px;
+            height: 27px;
+
+            font-size: 20px;
+            line-height: 1.15;
+    
+            width: 177px;
+    
+    
+        }
 }
 
 .weather-icon{
     margin: 40px 80px;
+    width: 128px;
+    // height: 121px;
+
+    @media screen and (min-width: 768px) {
+    
+            width: 165px;
+            // height: 156px;
+            margin: 90px 94px;
+        }
+
+    @media screen and (min-width: 1280px) {
+            margin: 90px 115px;
+        }
 
 }
 
 .weather-date{
-    font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 28px;
-        line-height: 1.17;
-        text-align: center;
-        margin: 0px 66px;
+
+    font-size: 28px;
+    line-height: 1.17;
+    text-align: center;
+    margin: 0px 66px;
+
+    @media screen and (min-width: 768px) {
+    
+            font-size: 36px;
+            line-height: 1.16;
+    
+    
+    
+        }
 }
 
 .more-weather-btn{
 
-    width: 151px;
+        width: 151px;
         height: 34px;
 
-        font-family: 'Roboto';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 1.18;
+        font-size: 16px;
+        line-height: 1.18;
         
-            color: #FFFFFF;
+        color: #FFFFFF;
     
         background: rgba(254, 254, 255, 0.3);
         border-radius: 10px;
+
+        @media screen and (min-width: 768px) {
+        
+            width: 177px;
+            height: 42px;
+
+            font-size: 20px;
+            line-height: 1.15;
+
+            }
 }
 
 .weather-for-week{
@@ -141,11 +205,8 @@ font-family: 'Roboto';
 
     margin-top: 18px;
     
-        font-family: 'Roboto';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 1.18;
+    font-size: 16px;
+    line-height: 1.18;
 }
 
 .week-weather{

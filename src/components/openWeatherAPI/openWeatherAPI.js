@@ -10,7 +10,7 @@ const weekWeather = document.querySelector('.week-weather');
 async function loadWeather(params) {
 
     async function geoSuccess(position) {
-        // do_something(position.coords.latitude, position.coords.longitude);
+ 
         const latitude  = position.coords.latitude;
          const longitude = position.coords.longitude;
         //  console.log(latitude);
@@ -37,10 +37,9 @@ async function loadWeather(params) {
         async function onMoreWeatherBtnClick(params) {
             console.log(5);
             moreWeatherBtn.classList.add('more-weather-is-hidden');
-            // const key = 'a0572400057a18022ba680699689d40f';
+
             const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric&cnt=49&exclude=current,minutely,hourly,alerts`;
-            // https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude=current,minutely,hourly,alert&appid=${key}
-            // https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric&cnt=7&exclude=current,minutely,hourly,alerts
+            
             const response = await fetch(url);
             const data = await response.json();
             console.log(data);
@@ -51,9 +50,6 @@ async function loadWeather(params) {
             } else {
             weatherContainer.innerHTML = data.message;
             }
-
-           
-
 
         }
 
@@ -75,19 +71,8 @@ async function loadWeather(params) {
 
     const wpid = navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
 
-    
-
-
-    
-
-
 }
-
-
     // weatherContainer.innerHTML = `<div class="loading"><img src="./Spinner-1s-200px.gif" alt="Loading"></div>`;
-
-    
-    
 
 
 function getWeather(data) {
@@ -110,9 +95,9 @@ function getWeather(data) {
                     <div class="weather-status">${weatherStatus}</div>
                     <div class="weather-city">
                     
-                    <svg class="weather-icon-location" width="18px" height="18px">
-    <use href="./src/images/sprite.svg#icon-location"></use>
-</svg>
+                    <svg class="weather-icon-location">
+            <use href="/sprite.f14d31f7.svg#icon-location"></use>
+        </svg>
                     ${location}</div>  
                 </div>
                 </div>
@@ -135,15 +120,8 @@ if (weatherContainer) {
 
 
 function getMoreWeather(data) {
-    console.log(data);
+    // console.log(data);
 
-    
-    
-
-    //  const markup = data.list;
-    //  console.log(markup);
-
-    // let data = {...} // дані
     let filteredData = data.list.filter(item => item.dt_txt.includes('12:00:00'));
     console.log(filteredData);
 
@@ -158,17 +136,11 @@ function getMoreWeather(data) {
                 <div class="weather-more-temp">${Math.round(item.main.temp)}</div>
         </div>`
         
-        // const moreWeatherMarkup = stringMarkup.join(' ');
         // hour: "numeric", hour12: false, minute: "numeric"
         
     ).join(' ');
     
-    
-    // console.log(moreWeather);   
-    // weatherContainer.insertAdjacentHTML("beforeend", moreWeather);
-    // weekWeather.innerHTML = moreWeather;
+
     weekWeather.insertAdjacentHTML("beforeend", moreWeather);
-    // moreWatherContainer.insertAdjacentHTML("beforeend", moreWeather);
-            
-    // weatherContainer.innerHTML = moreWeather;
+  
 }
