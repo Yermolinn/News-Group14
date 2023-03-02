@@ -111,8 +111,8 @@ function getWeather(data) {
                     <div class="weather-city">
                     
                     <svg class="weather-icon-location" width="18px" height="18px">
-                        <use href="/src/images/sprite.svg#icon-location" ></use>
-                    </svg>
+    <use href="./src/images/sprite.svg#icon-location"></use>
+</svg>
                     ${location}</div>  
                 </div>
                 </div>
