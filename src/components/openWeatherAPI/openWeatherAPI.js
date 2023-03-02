@@ -1,43 +1,10 @@
-// import { getGeo } from "./scr/getGeo";
+
  
 const weatherContainer = document.querySelector('.weather-container');
 const moreWeatherBtn = document.querySelector('.more-weather-btn');
 const moreWatherContainer = document.querySelector('.weather-for-week'); 
 const weekWeather = document.querySelector('.week-weather');
-// async function getGeo(params) {
-//      function geo_success(position) {
-//         // do_something(position.coords.latitude, position.coords.longitude);
-//         const latitude  = position.coords.latitude;
-//          const longitude = position.coords.longitude;
-//          console.log(latitude);
-//          console.log(longitude);
-         
-//         const key = 'a0572400057a18022ba680699689d40f';
-      
-//         const responce = await fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit={limit}&appid=${key}`)
-//         const result = await responce.json();
-//         console.log(result);
 
-        
-//         }
-
-//         function geo_error() {
-//         alert("No Geo");
-//         }
-
-//         const geo_options = {
-//         enableHighAccuracy: true,
-//         maximumAge        : 30000,
-//         timeout           : 27000
-//         };
-
-//     // console.log(position);
-
-//         const wpid = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
-//         console.log(wpid);
-    
-
-// }
     
 
 async function loadWeather(params) {
@@ -48,12 +15,6 @@ async function loadWeather(params) {
          const longitude = position.coords.longitude;
         //  console.log(latitude);
         //  console.log(longitude);
-         
-        // const key = 'a0572400057a18022ba680699689d40f';
-      
-        // const responce = await fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit={limit}&appid=${key}`)
-        // const result = await responce.json();
-        // console.log(result);
 
         const key = 'a0572400057a18022ba680699689d40f';
 
@@ -111,11 +72,6 @@ async function loadWeather(params) {
     // timeout           : 27000
     // maximumAge        : 30000,
 
-    // console.log(position);
-
-    // const wpid = navigator.geolocation.watchPosition(geoSuccess, geoError, geoOptions);
-    // // alert('wpid');
-
     const wpid = navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
 
     
@@ -143,8 +99,6 @@ function getWeather(data) {
     const weatherIcon = data.weather[0].icon;
     const weatherDay = new Date(data.dt * 1000).toLocaleDateString('en', { weekday: 'short', });
     const weatherDate = new Date(data.dt * 1000).toLocaleDateString( 'en-DE', {year: 'numeric', month: 'short', day: 'numeric' });
-    // const day = new Date(data.dt * 1000).getDay();
-    // console.log(day);
 
     const info = `
     <div class="header">
@@ -198,7 +152,6 @@ function getMoreWeather(data) {
         
     ).join(' ');
     
-            // console.log(moreWeather);
     
     console.log(moreWeather);   
     // weatherContainer.insertAdjacentHTML("beforeend", moreWeather);
@@ -208,36 +161,3 @@ function getMoreWeather(data) {
             
     // weatherContainer.innerHTML = moreWeather;
 }
-
-// moreWeatherBtn.addEventListener('click', onMoreWeatherBtnClick);
- 
-//         async function onMoreWeatherBtnClick(data) {
-//             console.log(5);
-//             weatherContainer.innerHTML = '';
-
-//             const location = data.name;
-//             const temp = Math.round(data.main.temp);
-//             const feelsLike = Math.round(data.main.feels_like);
-//             const weatherStatus = data.weather[0].main;
-//             const weatherIcon = data.weather[0].icon;
-//             const weatherDate = new Date(data.dt * 1000).toDateString();
-//             // const day = new Date(data.dt * 1000).getDay();
-//             // console.log(day);
-
-//             const info = `
-//             <div class="header">
-//                     <div class="weather-main">
-//                         <div class="weather-temp">${temp}</div>
-                        
-//                         <div class="additional-weather-info">
-//                             <div class="weather-status">${weatherStatus}</div>
-//                             <div class="weather-city">${location}</div>  
-//                         </div>
-//                         </div>
-                    
-//                     <div class="weather-icon"><img src="http://openweathermap.org/img/wn/${weatherIcon}@2x.png" alt="${weatherIcon}"></div>
-//                 </div>
-//                 <div class="weather-date">${weatherDate}</div>`;
-            
-//             // weatherContainer.innerHTML = info;
-//             weatherContainer.insertAdjacentHTML("afterbegin", info); }
