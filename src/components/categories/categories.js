@@ -26,11 +26,12 @@ function getNewsCategory(e) {
   fethNewsService.resetPage();
   serchArticlesCategory();
 }
-function serchArticlesCategory() {
-  fethNewsService
+export async function serchArticlesCategory() {
+  await fethNewsService
     .fetchNews()
     .then(data => data.json())
     .then(results => {
-      console.log(results.results);
+      //
+      return results.results;
     });
 }
