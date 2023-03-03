@@ -33,12 +33,11 @@ async function loadWeather(params) {
 
         moreWeatherBtn.addEventListener('click', onMoreWeatherBtnClick);
 
-
         async function onMoreWeatherBtnClick(params) {
             console.log(5);
             moreWeatherBtn.classList.add('more-weather-is-hidden');
-
-            const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric&cnt=49&exclude=current,minutely,hourly,alerts`;
+            
+            const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric&cnt=49`;
             
             const response = await fetch(url);
             const data = await response.json();
@@ -56,8 +55,25 @@ async function loadWeather(params) {
          
     }
 
-        function geoError() {
-        alert("No Geo");
+    async function geoError() {
+            
+        
+            // alert("No Geo");
+        
+            const key = 'a0572400057a18022ba680699689d40f';
+
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=50.45&lon=30.52&appid=${key}&units=metric`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+            if (response.ok) {
+            
+            getWeather(data);
+            
+        } else {
+        weatherContainer.innerHTML = data.message;
+        }
         }
 
         const geoOptions = {
@@ -112,11 +128,12 @@ function getWeather(data) {
 
     
 };
-
+// loadWeather();
 
 if (weatherContainer) {
     loadWeather();
 };
+
 
 
 function getMoreWeather(data) {
