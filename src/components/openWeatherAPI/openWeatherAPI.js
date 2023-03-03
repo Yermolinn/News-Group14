@@ -4,6 +4,7 @@ const weatherContainer = document.querySelector('.weather-container');
 const moreWeatherBtn = document.querySelector('.more-weather-btn');
 const moreWatherContainer = document.querySelector('.weather-for-week'); 
 const weekWeather = document.querySelector('.week-weather');
+const closeMoreWeatherBtn = document.querySelector(".close-more-weather");
 
     
 
@@ -35,7 +36,7 @@ async function loadWeather(params) {
 
         async function onMoreWeatherBtnClick(params) {
             console.log(5);
-            moreWeatherBtn.classList.add('more-weather-is-hidden');
+            
             
             const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric&cnt=49`;
             
@@ -50,9 +51,18 @@ async function loadWeather(params) {
             weatherContainer.innerHTML = data.message;
             }
 
+            moreWeatherBtn.classList.add('more-weather-is-hidden');
+            closeMoreWeatherBtn.classList.remove('more-weather-is-hidden');
+
         }
 
-         
+        closeMoreWeatherBtn.addEventListener('click', onCloseMoreWeatherBTn)
+        
+        function onCloseMoreWeatherBTn(params) {
+            closeMoreWeatherBtn.classList.add('more-weather-is-hidden');
+            weekWeather.innerHTML = "";
+            moreWeatherBtn.classList.remove('more-weather-is-hidden');
+        }
     }
 
     async function geoError() {
@@ -60,7 +70,7 @@ async function loadWeather(params) {
         
             // alert("No Geo");
         
-            const key = 'a0572400057a18022ba680699689d40f';
+        const key = 'a0572400057a18022ba680699689d40f';
 
         const url = `https://api.openweathermap.org/data/2.5/weather?q=Kyiv&appid=${key}&units=metric`;
 
@@ -79,6 +89,7 @@ async function loadWeather(params) {
         async function onMoreWeatherBtnClick(params) {
             console.log(5);
             moreWeatherBtn.classList.add('more-weather-is-hidden');
+
             
             const url = `https://api.openweathermap.org/data/2.5/forecast?q=Kyiv&appid=${key}&units=metric&cnt=49`;
             
@@ -148,12 +159,6 @@ function getWeather(data) {
 
     
 };
-// loadWeather();
-
-if (weatherContainer) {
-    loadWeather();
-};
-
 
 
 function getMoreWeather(data) {
@@ -169,8 +174,8 @@ function getMoreWeather(data) {
 
         `<div class="weather-per-day">
             <div class="weather-more-day">${new Date((item.dt * 1000)).toLocaleDateString("en", { weekday: "short", })}</div>
-                <div class="weather-more-icon"><img src="http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png" alt="${item.weather[0].icon}"></div>
-                <div class="weather-more-temp">${Math.round(item.main.temp)}</div>
+            <div class="weather-more-icon"><img src="http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png" alt="${item.weather[0].icon}"></div>
+            <div class="weather-more-temp">${Math.round(item.main.temp)}</div>
         </div>`
         
         // hour: "numeric", hour12: false, minute: "numeric"
@@ -181,3 +186,10 @@ function getMoreWeather(data) {
     weekWeather.insertAdjacentHTML("beforeend", moreWeather);
   
 }
+
+if (weatherContainer) {
+    loadWeather();
+};
+
+
+
