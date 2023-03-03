@@ -59,8 +59,9 @@ async function loadWeather(params) {
         closeMoreWeatherBtn.addEventListener('click', onCloseMoreWeatherBTn)
         
         function onCloseMoreWeatherBTn(params) {
-            closeMoreWeatherBtn.classList.add('more-weather-is-hidden');
+            
             weekWeather.innerHTML = "";
+            closeMoreWeatherBtn.classList.add('more-weather-is-hidden');
             moreWeatherBtn.classList.remove('more-weather-is-hidden');
         }
     }
