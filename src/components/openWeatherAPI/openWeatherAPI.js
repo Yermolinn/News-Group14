@@ -62,7 +62,7 @@ async function loadWeather(params) {
         
             const key = 'a0572400057a18022ba680699689d40f';
 
-        const url = `https://api.openweathermap.org/data/2.5/weather?lat=50.45&lon=30.52&appid=${key}&units=metric`;
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=Kyiv&appid=${key}&units=metric`;
 
         const response = await fetch(url);
         const data = await response.json();
@@ -73,6 +73,26 @@ async function loadWeather(params) {
             
         } else {
         weatherContainer.innerHTML = data.message;
+        }
+        moreWeatherBtn.addEventListener('click', onMoreWeatherBtnClick);
+
+        async function onMoreWeatherBtnClick(params) {
+            console.log(5);
+            moreWeatherBtn.classList.add('more-weather-is-hidden');
+            
+            const url = `https://api.openweathermap.org/data/2.5/forecast?q=Kyiv&appid=${key}&units=metric&cnt=49`;
+            
+            const response = await fetch(url);
+            const data = await response.json();
+            console.log(data);
+
+            if (response.ok) {
+            getMoreWeather(data);
+            
+            } else {
+            weatherContainer.innerHTML = data.message;
+            }
+
         }
         }
 
