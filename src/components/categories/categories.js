@@ -1,8 +1,10 @@
+import { difference } from 'lodash';
 import { exportCategories } from './fetchCategoryList';
 import { FethNewsService } from './fetchNewsCategory';
-
+import { createNewsCardCategory } from './newCardCategory';
 const container = document.querySelector('.final-menu');
 const fethNewsService = new FethNewsService();
+const newList = document.querySelector('.news-list');
 container.addEventListener('click', getNewsCategory);
 
 // ------------------------<dropdown>
@@ -29,14 +31,57 @@ exportCategories()
     return getArraySections(results);
   })
   .then(resuls => {
-    container.insertAdjacentHTML('afterbegin', getFirstElements(resuls));
-    return resuls;
-  })
-  .then(res => {
-    myDropdown.insertAdjacentHTML('afterbegin', getLastElements(res));
+    getCreateButtonCategory(resuls);
   });
-
 //   ------------------------</category>--------------------------------
+
+function getCreateButtonCategory(array) {
+  if (
+    window.matchMedia('screen and (min-width:480px) and (max-width: 767px)')
+      .matches == true
+  ) {
+    const mark = array
+      .map(res => {
+        return `<button type="button" class="categories-list__btn" data-category="section">${res}</button>`;
+      })
+      .join('');
+    myDropdown.insertAdjacentHTML('afterbegin', mark);
+  } else if (
+    window.matchMedia('screen and (min-width: 768px) and (max-width: 1279px)')
+      .matches == true
+  ) {
+    const newArray = array.splice(0, 3);
+    const mark = newArray
+      .map(res => {
+        return `<button type="button" class="mainbtn" data-category="section">${res}</button>`;
+      })
+      .join('');
+    container.insertAdjacentHTML('afterbegin', mark);
+
+    const newMark = array
+      .map(res => {
+        return `<button type="button" class="categories-list__btn" data-category="section">${res}</button>`;
+      })
+      .join('');
+    myDropdown.insertAdjacentHTML('afterbegin', newMark);
+  } else if (
+    window.matchMedia('screen and (min-width: 1280px)').matches == true
+  ) {
+    const newArray = array.splice(0, 6);
+    const mark = newArray
+      .map(res => {
+        return `<button type="button" class="mainbtn" data-category="section">${res}</button>`;
+      })
+      .join('');
+    container.insertAdjacentHTML('afterbegin', mark);
+    const newMark = array
+      .map(res => {
+        return `<button type="button" class="categories-list__btn" data-category="section">${res}</button>`;
+      })
+      .join('');
+    myDropdown.insertAdjacentHTML('afterbegin', newMark);
+  }
+}
 
 function getArraySections(results) {
   const mark = results.map(res => {
@@ -45,30 +90,11 @@ function getArraySections(results) {
   return mark;
 }
 
-function getFirstElements(results) {
-  const newArray = results.splice(0, 6);
-  const mark = newArray
-    .map(res => {
-      return `<button type="button" class="mainbtn" data-category="section">${res}</button>`;
-    })
-    .join('');
-  return mark;
-}
-
-function getLastElements(results) {
-  const mark = results
-    .map(res => {
-      return `<button type="button" class="categories-list__btn" data-category="section">${res}</button>`;
-    })
-    .join('');
-  return mark;
-}
-
 // -------------------------------</functions galary>--------------------------
 
 function getNewsCategory(e) {
   const element = e.target;
-
+  newList.innerHTML = '';
   if (!element.dataset.category) {
     return;
   }
@@ -82,5 +108,19 @@ export async function serchArticlesCategory() {
     .then(data => data.json())
     .then(results => {
       return results.results;
+    })
+    .then(resolve => {
+      newList.insertAdjacentHTML('afterbegin', createCards(resolve));
     });
+}
+
+//-------------------------------create cadr----------------------------------------
+
+function createCards(arr) {
+  const mark = arr
+    .map(el => {
+      return createNewsCardCategory(el);
+    })
+    .join('');
+  return mark;
 }
