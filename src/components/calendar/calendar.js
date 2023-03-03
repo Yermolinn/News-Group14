@@ -1,13 +1,14 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
-import { getNews } from '../ArticlesSearchAPI/ArticlesSearchAPI';
-
 const refs = {
+  inputWrap: document.querySelector('.calendar-hidden'),
   arrowUpEL: document.querySelector('.icon-arrow-up'),
   arrowDownEL: document.querySelector('.icon-arrow-down'),
   iconDateEl: document.querySelector('.icon-date'),
   inputFlPickr: document.querySelector('.flatpickr'),
+
+  calendarWrapper: document.querySelector('.calendar-wrapper'),
 };
 
 // import('flatpickr/dist/themes / dark.css');
@@ -16,6 +17,7 @@ const options = {
   maxDate: 'today',
   // defaultDate: 'today',
   dateFormat: 'd/m/Y',
+  onReady: [],
   onOpen: [
     function () {
       refs.arrowUpEL.classList.remove('hide');
@@ -48,13 +50,7 @@ const options = {
 
 let selectedDate = flatpickr('#date-picker', options);
 
-function qwe() {
-  const data = getNews();
-  data.then(arr => {
-    arr.map(elem => {
-      console.log(elem.pub_date);
-    });
-  });
-}
-
-qwe();
+refs.calendarWrapper.insertAdjacentElement(
+  'beforeend',
+  selectedDate.calendarContainer
+);
