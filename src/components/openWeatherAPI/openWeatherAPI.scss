@@ -254,6 +254,7 @@
     // display: flex;
     // justify-content: center;
     // align-items: center;
+
     height: 30px;
     margin-right: 10px;
     text-align: end;
@@ -271,4 +272,10 @@
         line-height: 1.15;
 
     }
+}
+
+.more-weather-close-btn {
+    width: 20px;
+    height: 30px;
+    fill: #FFFFFF;
 }
