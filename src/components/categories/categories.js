@@ -13,6 +13,7 @@ exportCategories()
   .then(results => {
     container.insertAdjacentHTML('beforeend', matkUp(results));
   });
+
 function matkUp(results) {
   const mark = results
     .map(res => {
@@ -21,17 +22,20 @@ function matkUp(results) {
     .join('');
   return mark;
 }
+
 function getNewsCategory(e) {
   fethNewsService.section = e.target.textContent.toLowerCase();
   fethNewsService.resetPage();
   serchArticlesCategory();
 }
+
 export async function serchArticlesCategory() {
   await fethNewsService
     .fetchNews()
     .then(data => data.json())
     .then(results => {
       //
+      console.log(results.results);
       return results.results;
     });
 }
