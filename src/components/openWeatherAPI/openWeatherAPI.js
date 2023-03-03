@@ -104,7 +104,18 @@ async function loadWeather(params) {
             } else {
             weatherContainer.innerHTML = data.message;
             }
+            moreWeatherBtn.classList.add('more-weather-is-hidden');
+            closeMoreWeatherBtn.classList.remove('more-weather-is-hidden');
 
+        }
+
+        closeMoreWeatherBtn.addEventListener('click', onCloseMoreWeatherBTn)
+        
+        function onCloseMoreWeatherBTn(params) {
+            
+            weekWeather.innerHTML = "";
+            closeMoreWeatherBtn.classList.add('more-weather-is-hidden');
+            moreWeatherBtn.classList.remove('more-weather-is-hidden');
         }
         }
 
