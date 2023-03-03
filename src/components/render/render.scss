@@ -32,16 +32,24 @@
   line-height: 1.33;
   color: var(--white-text-color);
 }
-.favourite {
+.favourite-btn {
   position: absolute;
   right: 8px;
   bottom: 12px;
-  font-size: 12px;
-  line-height: 1.33;
-  color: var(--blck-text-color);
   background: var(--btn-color);
   border-radius: 20px;
   padding: 6px 12px;
+  display: flex;
+  gap: 5px;
+}
+.btn-text {
+  font-size: 12px;
+  line-height: 1.33;
+  color: var(--blck-text-color);
+}
+
+.icon-favorite {
+  fill: #4440f7;
 }
 .info-item {
   margin-top: 20px;
@@ -84,4 +92,8 @@
   @include tablet {
     font-size: 16px;
   }
+}
+
+.hide-icon {
+  display: none;
 }
