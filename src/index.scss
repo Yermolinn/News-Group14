@@ -2,8 +2,6 @@
 @import './sass/_common';
 @import './sass/_mixin';
 @import './sass/_vars';
-@import './sass/header/logo.scss';
-@import './sass/header/menu.scss';
 
 @import './components/ArticlesSearchAPI/ArticlesSearchAPI.scss';
 @import './components/MostPopularAPI/MostPopularAPI.scss';
@@ -22,3 +20,5 @@
 @import './components/pagination/pagination.scss';
 @import './components/readNews/readNews.scss';
 @import './components/openWeatherAPI/openWeatherAPI.scss';
+@import './components/header/header-styles/logo.scss';
+@import './components/header/header-styles/menu.scss';

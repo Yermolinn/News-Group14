@@ -18,3 +18,4 @@ import './components/openWeatherAPI/openWeatherAPI.js';
 import './components/header/input-hover';
 import './components/header/open-menu';
 import './components/header/close-menu';
+import './components/header/current-page';

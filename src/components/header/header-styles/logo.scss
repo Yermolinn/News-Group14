@@ -65,6 +65,10 @@
   background-color: transparent;
   padding: 7px 0 6px 48px;
   outline: transparent;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
   @include tablet {
     width: 213px;
   }
@@ -80,7 +84,7 @@
   background-color: transparent;
   cursor: pointer;
   position: absolute;
-  top: 6px;
+  top: 8px;
   left: 12px;
 }
 .menu__btn {
@@ -101,7 +105,7 @@
     transform: translateX(0);
   }
   .form__btn {
-    transform: translateX(190px);
+    transform: translateX(170px);
     transition: transform var(--duration) var(--timing-function);
   }
   .shown {
