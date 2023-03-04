@@ -1,9 +1,29 @@
+import { difference } from 'lodash';
 import { exportCategories } from './fetchCategoryList';
 import { FethNewsService } from './fetchNewsCategory';
 
-const container = document.querySelector('.wrap');
+import { selectedDate } from '../calendar/calendar';
+import { createNewsCardCategory } from './newCardCategory';
+const container = document.querySelector('.final-menu');
+
 const fethNewsService = new FethNewsService();
+const newList = document.querySelector('.news-list');
 container.addEventListener('click', getNewsCategory);
+
+// ------------------------<dropdown>
+const myDropdown = document.getElementById('myDropdown');
+const dropdownBtn = document.querySelector('.dropdownbtn');
+dropdownBtn.addEventListener('click', myFunction);
+function myFunction() {
+  myDropdown.classList.toggle('show');
+  dropdownBtn.classList.toggle('active');
+}
+
+// -----------------------</dropdown>---------------------------
+
+// container.insertAdjacentHTML('afterend', matkUp(results));
+/* <button type="button" class="categories-list__btn category-content">Admin</button>; */
+// -------------------------<category>---------------------------
 
 exportCategories()
   .then(data => data.json())
@@ -11,8 +31,70 @@ exportCategories()
     return results.results;
   })
   .then(results => {
-    container.insertAdjacentHTML('beforeend', matkUp(results));
+    return getArraySections(results);
+  })
+  .then(resuls => {
+    getCreateButtonCategory(resuls);
   });
+//   ------------------------</category>--------------------------------
+
+function getCreateButtonCategory(array) {
+  if (
+    window.matchMedia('screen and (min-width:480px) and (max-width: 767px)')
+      .matches == true
+  ) {
+    const mark = array
+      .map(res => {
+        return `<button type="button" class="categories-list__btn" data-category="section">${res}</button>`;
+      })
+      .join('');
+    myDropdown.insertAdjacentHTML('afterbegin', mark);
+  } else if (
+    window.matchMedia('screen and (min-width: 768px) and (max-width: 1279px)')
+      .matches == true
+  ) {
+    const newArray = array.splice(0, 3);
+    const mark = newArray
+      .map(res => {
+        return `<button type="button" class="mainbtn" data-category="section">${res}</button>`;
+      })
+      .join('');
+    container.insertAdjacentHTML('afterbegin', mark);
+
+    const newMark = array
+      .map(res => {
+        return `<button type="button" class="categories-list__btn" data-category="section">${res}</button>`;
+      })
+      .join('');
+    myDropdown.insertAdjacentHTML('afterbegin', newMark);
+  } else if (
+    window.matchMedia('screen and (min-width: 1280px)').matches == true
+  ) {
+    const newArray = array.splice(0, 6);
+    const mark = newArray
+      .map(res => {
+        return `<button type="button" class="mainbtn" data-category="section">${res}</button>`;
+      })
+      .join('');
+    container.insertAdjacentHTML('afterbegin', mark);
+    const newMark = array
+      .map(res => {
+        return `<button type="button" class="categories-list__btn" data-category="section">${res}</button>`;
+      })
+      .join('');
+    myDropdown.insertAdjacentHTML('afterbegin', newMark);
+  }
+}
+
+function getArraySections(results) {
+  const mark = results.map(res => {
+    return res.display_name;
+  });
+  return mark;
+}
+
+// -------------------------------</functions galary>--------------------------
+
 function matkUp(results) {
   const mark = results
     .map(res => {
@@ -21,17 +103,59 @@ function matkUp(results) {
     .join('');
   return mark;
 }
-function getNewsCategory(e) {
-  fethNewsService.section = e.target.textContent.toLowerCase();
+
+async function getNewsCategory(e) {
+  const element = e.target;
+  newList.innerHTML = '';
+  if (!element.dataset.category) {
+    return;
+  }
+  fethNewsService.section = element.textContent.toLowerCase();
   fethNewsService.resetPage();
-  serchArticlesCategory();
+  await serchArticlesCategory();
 }
-export async function serchArticlesCategory() {
-  await fethNewsService
+
+async function serchArticlesCategory() {
+  return await fethNewsService
     .fetchNews()
     .then(data => data.json())
-    .then(results => {
-      //
-      return results.results;
+    .then(({ results }) => {
+      let ourDate = 0;
+
+      if (selectedDate.selectedDates.length === 0) {
+        ourDate = selectedDate
+          .formatDate(new Date(), 'Y-m-d')
+          .split('-')
+          .join('/');
+        return results;
+      } else {
+        ourDate = selectedDate
+          .formatDate(selectedDate.latestSelectedDateObj, 'Y-m-d')
+          .split('-')
+          .join('/');
+      }
+
+      const timeArr = results.filter(elem => {
+        const date = elem.published_date.slice(0, 10).split('-').join('/');
+
+        return date === ourDate;
+      });
+      return timeArr;
+    })
+    .then(resolve => {
+      console.log(resolve);
+      newList.insertAdjacentHTML('afterbegin', createCards(resolve));
     });
+}
+
+//-------------------------------create cadr----------------------------------------
+
+function createCards(arr) {
+  const mark = arr
+    .map(el => {
+      console.log(el);
+      return createNewsCardCategory(el);
+    })
+    .join('');
+  return mark;
 }
