@@ -92,6 +92,16 @@ function getArraySections(results) {
 
 // -------------------------------</functions galary>--------------------------
 
+
+function matkUp(results) {
+  const mark = results
+    .map(res => {
+      return `<button type="button" class ="categories__button">${res.display_name}</button>`;
+    })
+    .join('');
+  return mark;
+}
+
 function getNewsCategory(e) {
   const element = e.target;
   newList.innerHTML = '';
@@ -102,11 +112,13 @@ function getNewsCategory(e) {
   fethNewsService.resetPage();
   serchArticlesCategory();
 }
+
 export async function serchArticlesCategory() {
   await fethNewsService
     .fetchNews()
     .then(data => data.json())
     .then(results => {
+      console.log(results.results);
       return results.results;
     })
     .then(resolve => {
