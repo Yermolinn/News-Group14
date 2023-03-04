@@ -1,8 +1,9 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
+// import { getNewsCategory } from '../categories/categories';
+
 const refs = {
-  inputWrap: document.querySelector('.calendar-hidden'),
   arrowUpEL: document.querySelector('.icon-arrow-up'),
   arrowDownEL: document.querySelector('.icon-arrow-down'),
   iconDateEl: document.querySelector('.icon-date'),
@@ -24,6 +25,7 @@ const options = {
       refs.arrowDownEL.classList.add('hide');
       refs.iconDateEl.classList.add('icon-active');
       refs.inputFlPickr.classList.add('placeholder-white');
+      refs.calendarWrapper.classList.add('calendar-open');
     },
   ],
   onClose: [
@@ -32,6 +34,7 @@ const options = {
       refs.arrowDownEL.classList.remove('hide');
       refs.iconDateEl.classList.remove('icon-active');
       refs.inputFlPickr.classList.remove('placeholder-white');
+      refs.calendarWrapper.classList.remove('calendar-open');
     },
   ],
   onChange: [
@@ -54,3 +57,5 @@ refs.calendarWrapper.insertAdjacentElement(
   'beforeend',
   selectedDate.calendarContainer
 );
+
+// getNewsCategory();
