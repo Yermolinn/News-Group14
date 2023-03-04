@@ -1,8 +1,11 @@
 import { difference } from 'lodash';
 import { exportCategories } from './fetchCategoryList';
 import { FethNewsService } from './fetchNewsCategory';
+
+import { selectedDate } from '../calendar/calendar';
 import { createNewsCardCategory } from './newCardCategory';
 const container = document.querySelector('.final-menu');
+
 const fethNewsService = new FethNewsService();
 const newList = document.querySelector('.news-list');
 container.addEventListener('click', getNewsCategory);
@@ -92,7 +95,6 @@ function getArraySections(results) {
 
 // -------------------------------</functions galary>--------------------------
 
-
 function matkUp(results) {
   const mark = results
     .map(res => {
@@ -102,7 +104,7 @@ function matkUp(results) {
   return mark;
 }
 
-function getNewsCategory(e) {
+async function getNewsCategory(e) {
   const element = e.target;
   newList.innerHTML = '';
   if (!element.dataset.category) {
@@ -110,18 +112,38 @@ function getNewsCategory(e) {
   }
   fethNewsService.section = element.textContent.toLowerCase();
   fethNewsService.resetPage();
-  serchArticlesCategory();
+  await serchArticlesCategory();
 }
 
-export async function serchArticlesCategory() {
-  await fethNewsService
+async function serchArticlesCategory() {
+  return await fethNewsService
     .fetchNews()
     .then(data => data.json())
-    .then(results => {
-      console.log(results.results);
-      return results.results;
+    .then(({ results }) => {
+      let ourDate = 0;
+
+      if (selectedDate.selectedDates.length === 0) {
+        ourDate = selectedDate
+          .formatDate(new Date(), 'Y-m-d')
+          .split('-')
+          .join('/');
+        return results;
+      } else {
+        ourDate = selectedDate
+          .formatDate(selectedDate.latestSelectedDateObj, 'Y-m-d')
+          .split('-')
+          .join('/');
+      }
+
+      const timeArr = results.filter(elem => {
+        const date = elem.published_date.slice(0, 10).split('-').join('/');
+
+        return date === ourDate;
+      });
+      return timeArr;
     })
     .then(resolve => {
+      console.log(resolve);
       newList.insertAdjacentHTML('afterbegin', createCards(resolve));
     });
 }
@@ -131,6 +153,7 @@ export async function serchArticlesCategory() {
 function createCards(arr) {
   const mark = arr
     .map(el => {
+      console.log(el);
       return createNewsCardCategory(el);
     })
     .join('');

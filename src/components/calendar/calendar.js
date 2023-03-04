@@ -1,7 +1,7 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
-// import { getNewsCategory } from '../categories/categories';
+import { qweqwe } from '../categories/categories';
 
 const refs = {
   arrowUpEL: document.querySelector('.icon-arrow-up'),
@@ -18,44 +18,36 @@ const options = {
   maxDate: 'today',
   // defaultDate: 'today',
   dateFormat: 'd/m/Y',
-  onReady: [],
+  altFormat: 'd/m/Y',
+  onReady: [function (first, second) {}],
   onOpen: [
     function () {
-      refs.arrowUpEL.classList.remove('hide');
-      refs.arrowDownEL.classList.add('hide');
-      refs.iconDateEl.classList.add('icon-active');
-      refs.inputFlPickr.classList.add('placeholder-white');
-      refs.calendarWrapper.classList.add('calendar-open');
+      toggleStyleInput();
     },
   ],
   onClose: [
     function () {
-      refs.arrowUpEL.classList.add('hide');
-      refs.arrowDownEL.classList.remove('hide');
-      refs.iconDateEl.classList.remove('icon-active');
-      refs.inputFlPickr.classList.remove('placeholder-white');
-      refs.calendarWrapper.classList.remove('calendar-open');
+      toggleStyleInput();
     },
   ],
-  onChange: [
-    async function (time, second, third) {
-      console.log(time);
-      console.log(second);
-      console.log(third);
-
-      // console.log(data);
-      // const newArr = data.map(elem => {
-      //   console.log(elem);
-      // });
-    },
-  ],
+  onChange: [function (time, second, third) {}],
 };
 
-let selectedDate = flatpickr('#date-picker', options);
+function toggleStyleInput() {
+  refs.arrowUpEL.classList.toggle('hide');
+  refs.arrowDownEL.classList.toggle('hide');
+  refs.iconDateEl.classList.toggle('icon-active');
+  refs.inputFlPickr.classList.toggle('placeholder-white');
+  refs.calendarWrapper.classList.toggle('calendar-open');
+}
 
+let selectedDate = flatpickr('#date-picker', options);
+// selectedDate.clear();
 refs.calendarWrapper.insertAdjacentElement(
   'beforeend',
   selectedDate.calendarContainer
 );
 
-// getNewsCategory();
+// let dateqwqe = selectedDate
+
+export { selectedDate };
