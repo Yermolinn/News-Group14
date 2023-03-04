@@ -48,8 +48,8 @@
   color: var(--blck-text-color);
 }
 
-.icon-favorite {
-  fill: #4440f7;
+.hide-icon {
+  display: none;
 }
 .info-item {
   margin-top: 20px;
@@ -92,8 +92,4 @@
   @include tablet {
     font-size: 16px;
   }
-}
-
-.hide-icon {
-  display: none;
 }
