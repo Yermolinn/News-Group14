@@ -1,6 +1,8 @@
 import { exportCategories } from './fetchCategoryList';
 import { FethNewsService } from './fetchNewsCategory';
 
+import { selectedDate } from '../calendar/calendar';
+
 const container = document.querySelector('.wrap');
 const fethNewsService = new FethNewsService();
 container.addEventListener('click', getNewsCategory);
@@ -23,19 +25,38 @@ function matkUp(results) {
   return mark;
 }
 
-function getNewsCategory(e) {
+async function getNewsCategory(e) {
   fethNewsService.section = e.target.textContent.toLowerCase();
   fethNewsService.resetPage();
-  serchArticlesCategory();
+  const a = await serchArticlesCategory();
+  console.log(a);
 }
 
-export async function serchArticlesCategory() {
-  await fethNewsService
+async function serchArticlesCategory() {
+  return await fethNewsService
     .fetchNews()
     .then(data => data.json())
-    .then(results => {
-      //
-      console.log(results.results);
-      return results.results;
+    .then(({ results }) => {
+      let ourDate = 0;
+
+      if (selectedDate.selectedDates.length === 0) {
+        ourDate = selectedDate
+          .formatDate(new Date(), 'Y-m-d')
+          .split('-')
+          .join('/');
+        return results;
+      } else {
+        ourDate = selectedDate
+          .formatDate(selectedDate.latestSelectedDateObj, 'Y-m-d')
+          .split('-')
+          .join('/');
+      }
+
+      const timeArr = results.filter(elem => {
+        const date = elem.published_date.slice(0, 10).split('-').join('/');
+
+        return date === ourDate;
+      });
+      return timeArr;
     });
 }
