@@ -18,13 +18,19 @@
   font-size: 24px;
   line-height: 1.4;
   color: var(--blck-text-color);
+  transition: color var(--duration) var(--timing-function);
   @include tablet {
     font-size: 32px;
   }
   @include desktop {
     font-size: 42px;
   }
+  &:hover,
+  &:focus {
+    color: var(--active-btn-color);
+  }
 }
+
 .nav__list {
   display: none;
   @include tablet {
@@ -45,11 +51,16 @@
   font-weight: 700;
   line-height: 1.4;
   color: var(--blck-text-color);
+  transition: color var(--duration) var(--timing-function);
   @include tablet {
     font-size: 16px;
   }
   @include desktop {
     font-size: 18px;
+  }
+  &:hover,
+  &:focus {
+    color: var(--active-btn-color);
   }
 }
 .form {
@@ -69,6 +80,7 @@
   font-size: 14px;
   line-height: 1.7;
   letter-spacing: 0.02em;
+  transition: border var(--duration) var(--timing-function);
   @include tablet {
     width: 213px;
   }
@@ -77,6 +89,9 @@
   }
   &::placeholder {
     opacity: 0.4;
+  }
+  &:hover {
+    border: 1px solid var(--active-btn-color);
   }
 }
 
@@ -87,6 +102,13 @@
   top: 8px;
   left: 12px;
 }
+.form__icon {
+  transition: fill var(--duration) var(--timing-function);
+  .form:hover & {
+    fill: var(--active-btn-color);
+  }
+}
+
 .menu__btn {
   @include tablet {
     display: none;
