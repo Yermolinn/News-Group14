@@ -72,16 +72,21 @@ function onError(error) {
   console.error(error);
 }
 export function createNewsCard({
+  // при пошуку......
   headline,
   web_url,
   section_name,
-  lead_paragraph,
+  snippet,
   pub_date,
+  multimedia,
 }) {
-  return `<div class="news-card">
+  const defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
+  const attachURL = `https://www.nytimes.com/`;
+  if (multimedia.length === 0) {
+    return `<div class="news-card">
     <div class="top-wrap">
       <img
-        src=
+        src="${defaultImg}"
         loading="lazy"
         width="288"
         height="395"
@@ -90,16 +95,63 @@ export function createNewsCard({
       <div class="category-wrap">
         <p class="top-text">${section_name}</p>
       </div>
-      <button class="favourite">Add to favorite</button>
+      <button class="favorite-btn">
+        <span class="btn-text">Add to favorite</span>
+        <svg class="icon-favorite-remove" width="16" height="16">
+          <use href="./images/sprite.svg#icon-favorite-remove"></use>
+        </svg>
+         <svg class="icon-favorite-add hide-icon" width="16" height="16">
+          <use href="./images/sprite.svg#icon-favorite-add"></use>
+        </svg>
+      </button>
     </div>
     <div class="info">
       <h2 class="info-item">${headline.main}</h2>
-      <p class="describe">${lead_paragraph.slice(0, 60) + '...'}</p>
+      <p class="describe">${snippet.slice(0, 150) + '...'}</p>
       <div class="lower-content">
-        <p class="news-date">${pub_date.slice(0, 10).replace('-', '/')}</p>
+        <p class="news-date">${pub_date.slice(0, 10).replaceAll('-', '/')}</p>
+        <a class="news-link link" href="${web_url}">Read more</a>
+      </div>
+    </div>
+  </div>
+`;
+  }
+  return `<div class="news-card">
+    <div class="top-wrap">
+      <img
+        src="${attachURL}${multimedia[0].url}"
+        loading="lazy"
+        width="288"
+        height="395"
+      />
+      <p class="isread">Have read</p>
+      <div class="category-wrap">
+        <p class="top-text">${section_name}</p>
+      </div>
+      <button class="favorite-btn">
+        <span class="btn-text">Add to favorite</span>
+        <svg class="icon-favorite-remove" width="16" height="16">
+          <use href="./images/sprite.svg#icon-favorite-remove"></use>
+        </svg>
+         <svg class="icon-favorite-add hide-icon" width="16" height="16">
+          <use href="./images/sprite.svg#icon-favorite-add"></use>
+        </svg>
+      </button>
+    </div>
+    <div class="info">
+      <h2 class="info-item">${headline.main}</h2>
+      <p class="describe">${snippet.slice(0, 150) + '...'}</p>
+      <div class="lower-content">
+        <p class="news-date">${pub_date.slice(0, 10).replaceAll('-', '/')}</p>
         <a class="news-link link" href="${web_url}">Read more</a>
       </div>
     </div>
   </div>
 `;
 }
+
+
+
+
+
+
