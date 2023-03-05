@@ -92,11 +92,12 @@
     display: none;
   }
 }
-
+.mobile__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
 @media screen and (min-width: 320px) and (max-width: 767px) {
-  .menu__btn {
-    margin-left: 14px;
-  }
   .form__input {
     transform: translateX(101%);
     transition: transform var(--duration) var(--timing-function);

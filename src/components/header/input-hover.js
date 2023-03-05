@@ -3,7 +3,11 @@ const formInput = document.querySelector('.form__input');
 
 if (window.matchMedia('(min-width: 320px)').matches) {
   formBtn.addEventListener('mouseover', () => {
-    formInput.classList.toggle('shown');
-    formBtn.classList.toggle('shown');
+    formInput.classList.add('shown');
+    formBtn.classList.add('shown');
+  });
+  formBtn.addEventListener('mouseout', () => {
+    formInput.classList.remove('shown');
+    formBtn.classList.remove('shown');
   });
 }
