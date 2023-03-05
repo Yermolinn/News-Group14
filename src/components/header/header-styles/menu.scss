@@ -8,12 +8,14 @@
   top: 0;
   width: 100vw;
   height: 100vh;
-  padding: 24px 16px 18px 16px;
   z-index: 100;
-  background-color: var(--white-text-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .menu__wrapper {
+  padding: 24px 16px 0 16px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 68px;
@@ -22,6 +24,7 @@
   margin-right: 16px;
 }
 .menu__list {
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -29,11 +32,24 @@
 .menu__link {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 14px;
+  padding-left: 16px;
+  padding-right: 16px;
+  height: 44px;
   font-weight: 500;
   font-size: 16px;
   line-height: 1.4;
   color: var(--blck-text-color);
+}
+.menu--current {
+  background-color: var(--active-btn-color);
+}
+.menu__icon--current {
+  border: 1px solid var(--light-bgc-color);
+}
+.menu-text--current {
+  color: var(--light-bgc-color);
 }
 .menu__icon {
   display: flex;
@@ -43,4 +59,22 @@
   height: 32px;
   border-radius: 50%;
   background-color: var(--active-btn-color);
+}
+.menu__arrow {
+  display: none;
+  transform: rotate(90deg);
+  margin-right: 16px;
+  fill: var(--light-bgc-color);
+}
+.icon--current {
+  display: block;
+}
+.menu__thumb {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.switcher__thumb {
+  margin-bottom: 18px;
+  margin-left: 16px;
 }
