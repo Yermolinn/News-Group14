@@ -91,7 +91,7 @@ export function createNewsCard({
       <div class="category-wrap">
         <p class="top-text">${section_name}</p>
       </div>
-      <button class="favourite">Add to favorite</button>
+      <button class="favorite-btn">Add to favorite</button>
     </div>
     <div class="info">
       <h2 class="info-item">${headline.main}</h2>
@@ -115,7 +115,7 @@ export function updateNews(markup) {
 // Кнопка AddToFavourite
 // //////////////////////////////////////////////////////
 const refs = {
-  addToFavoriteBtn: document.querySelector('.favourite-btn'),
+  addToFavoriteBtn: document.querySelector('.favorite-btn'),
   readMore: document.querySelector('.news-link'),
 };
 let currentId = 0;
