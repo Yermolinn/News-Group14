@@ -1,0 +1,35 @@
+.container-news {
+  max-width: 480px;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+@media screen and (min-width: 767.99px) {
+  .container-news {
+    max-width: 768px;
+  }
+}
+@media screen and (min-width: 1279.99px) {
+  .container-news {
+    max-width: 1280;
+    margin-top: 25px;
+  }
+}
+
+.list-news {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.news-item {
+  background: blue;
+  min-width: 395px;
+  min-height: 685px;
+}/*# sourceMappingURL=collectionNews.css.map */

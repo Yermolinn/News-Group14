@@ -1,0 +1,126 @@
+.mainbtn {
+  padding: 8px 21px;
+  background-color: #fff;
+  border: 1px solid #4440f7;
+  border-radius: 20px;
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  letter-spacing: 0.01em;
+  width: 100%;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  color: #4b48db;
+}
+
+.categories-list__btn {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: left;
+  letter-spacing: 0.01em;
+  background: #f8f8f8;
+  padding: 0;
+  margin: 0;
+  color: #4440f7;
+}
+
+.dropdownbtn {
+  padding: 8px 21px;
+  background-color: #fff;
+  border: 1px solid #4440f7;
+  border-radius: 20px;
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  letter-spacing: 0.01em;
+  color: #4b48db;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+}
+
+.dropdownbtn:hover,
+.dropdownbtn:focus,
+.mainbtn:hover,
+.mainbtn:focus {
+  background-color: #4440f6;
+  border: 1px solid #4b48db;
+  color: #ffffff;
+}
+
+.categories-list__btn:hover,
+.categories-list__btn:focus {
+  text-decoration-line: underline;
+}
+
+.dropdown-content {
+  width: 148px;
+  height: 380px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f8f8f8;
+  border-radius: 20px;
+  overflow: auto;
+  display: none;
+  position: absolute;
+}
+
+.show {
+  display: flex;
+}
+
+.dropdown {
+  position: relative;
+  display: block;
+}
+
+.active {
+  background-color: #4440f6;
+  border: 1px solid #4b48db;
+  color: #ffffff;
+}
+
+.active::after {
+  content: "";
+  display: block;
+  width: 14px;
+  height: 8px;
+  background-size: cover;
+  margin-left: 10px;
+}
+
+.calendarbtn {
+  padding: 8px 21px;
+  background-color: #fff;
+  border: 1px solid #4440f7;
+  border-radius: 20px;
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  letter-spacing: 0.01em;
+  width: 151px;
+  margin-left: 24px;
+}
+
+.categories-menu {
+  display: flex;
+  justify-content: space-between;
+}
+
+.final-menu {
+  display: flex;
+  gap: 14px;
+}/*# sourceMappingURL=categories.css.map */
