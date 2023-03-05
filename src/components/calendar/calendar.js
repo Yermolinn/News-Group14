@@ -1,7 +1,11 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
-import { qweqwe } from '../categories/categories';
+import {
+  newList,
+  arrCategoryElements,
+  createCards,
+} from '../categories/categories';
 
 const refs = {
   arrowUpEL: document.querySelector('.icon-arrow-up'),
@@ -16,21 +20,39 @@ const refs = {
 
 const options = {
   maxDate: 'today',
-  // defaultDate: 'today',
   dateFormat: 'd/m/Y',
   altFormat: 'd/m/Y',
-  onReady: [function (first, second) {}],
+  onReady: [function () {}],
   onOpen: [
-    function () {
+    function (f, s, t) {
       toggleStyleInput();
     },
   ],
   onClose: [
-    function () {
+    function (f, s, t) {
       toggleStyleInput();
     },
   ],
-  onChange: [function (time, second, third) {}],
+  onChange: [
+    function (time, second, third) {
+      if (arrCategoryElements.length === 0) {
+        return;
+      }
+
+      let ourDate = third
+        .formatDate(third.latestSelectedDateObj, 'Y-m-d')
+        .split('-')
+        .join('/');
+
+      const timeArr = arrCategoryElements.filter(elem => {
+        const date = elem.published_date.slice(0, 10).split('-').join('/');
+
+        return date === ourDate;
+      });
+
+      newList.innerHTML = createCards(timeArr);
+    },
+  ],
 };
 
 function toggleStyleInput() {
@@ -43,11 +65,10 @@ function toggleStyleInput() {
 
 let selectedDate = flatpickr('#date-picker', options);
 // selectedDate.clear();
-refs.calendarWrapper.insertAdjacentElement(
-  'beforeend',
-  selectedDate.calendarContainer
-);
-
-// let dateqwqe = selectedDate
+refs.calendarWrapper.appendChild(selectedDate.calendarContainer);
 
 export { selectedDate };
+
+// СДЕЛАТЬ РЕСЕТ!!!!!!
+
+//data-id="disableSpecific"

@@ -1,3 +1,9 @@
+.categories-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .mainbtn {
   padding: 8px 21px;
   background-color: #fff;
@@ -15,6 +21,10 @@
     color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   color: #4b48db;
+
+  @include tablet {
+    padding: 7.5px 24.5px;
+  }
 }
 
 .categories-list__btn {
@@ -133,10 +143,7 @@
   width: 151px;
   margin-left: 24px;
 }
-.categories-menu {
-  display: flex;
-  justify-content: space-between;
-}
+
 .final-menu {
   display: flex;
   gap: 14px;
