@@ -13,7 +13,7 @@ class MostPopularApiService {
     // const URL = `${ENDPOINT}?${API_KEY}&q=${this.searchQuery}`; // це для пошуку
     const mostPopularUrl = `https://api.nytimes.com/svc/mostpopular/v2/viewed/30.json?${API_KEY}`;
     const response = await axios.get(mostPopularUrl);
-    console.log(response.data.results[0].media[0]['media-metadata'][2].url);
+    // console.log(response.data.results[0].media[0]['media-metadata'][2].url);
     return response.data.results;
   }
 
@@ -28,13 +28,13 @@ async function render() {
   const mostPopularApiService = new MostPopularApiService();
 
   const articles = await mostPopularApiService.getNews();
-  console.log('🚀 ~ articles', articles);
+  // console.log('🚀 ~ articles', articles);
   if (articles.length === 0) throw new Error('No data');
   const card = articles.reduce(
     (markup, article) => createMostPopularNews(article) + markup,
     ''
   );
-  console.log(card);
+  // console.log(card);
   updateCard(card);
 }
 
