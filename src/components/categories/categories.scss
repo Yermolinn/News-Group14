@@ -69,6 +69,12 @@
   margin-left: 10px;
 }
 
+.dropdownbtn:hover::after {
+  background-image: url(/src/images/icon-arrow-up.svg);
+}
+
+.dropdownbtn:hover,
+.dropdownbtn:focus,
 .mainbtn:hover,
 .mainbtn:focus {
   background-color: #4440f6;
@@ -117,6 +123,22 @@
   background-image: url(/src/images/icon-arrow-up.svg);
   background-size: cover;
   margin-left: 10px;
+}
+
+.calendarbtn {
+  padding: 8px 21px;
+  background-color: #fff;
+  border: 1px solid #4440f7;
+  border-radius: 20px;
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  letter-spacing: 0.01em;
+  width: 151px;
+  margin-left: 24px;
 }
 
 .final-menu {
