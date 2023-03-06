@@ -15,12 +15,19 @@ container.addEventListener('click', getNewsCategory);
 // ------------------------<dropdown>
 const myDropdown = document.getElementById('myDropdown');
 const dropdownBtn = document.querySelector('.dropdownbtn');
+
 dropdownBtn.addEventListener('click', myFunction);
+dropdownBtn.addEventListener('blur', hideDropdown);
+
 function myFunction() {
   myDropdown.classList.toggle('show');
-  dropdownBtn.classList.toggle('active');
+  dropdownBtn.classList.toggle('active');  
 }
 
+function hideDropdown() {
+  myDropdown.classList.remove('show');
+  dropdownBtn.classList.remove('active');
+}
 // -----------------------</dropdown>---------------------------
 
 // container.insertAdjacentHTML('afterend', matkUp(results));
@@ -42,7 +49,7 @@ exportCategories()
 
 function getCreateButtonCategory(array) {
   if (
-    window.matchMedia('screen and (min-width:320px) and (max-width: 767px)')
+    window.matchMedia('screen and (min-width:480px) and (max-width: 767px)')
       .matches == true
   ) {
     const mark = array
@@ -151,6 +158,7 @@ async function serchArticlesCategory() {
     })
     .then(resolve => {
       console.log(resolve);
+
       newList.insertAdjacentHTML('afterbegin', createCards(resolve));
     });
 }

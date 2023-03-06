@@ -1,0 +1,21 @@
+.read--is-hidden {
+    display: none;
+    height: 0;
+}
+
+.read--one--day {
+    border-bottom: 1px solid #929292;
+    margin-top: 60px;
+    margin-bottom: 40px;
+    display: flex;
+    gap: 8px;
+}
+
+.read--date {
+    margin-bottom: 16px;
+}
+
+.read--news-cards {
+    display: flex;
+    flex-wrap: wrap;
+}
