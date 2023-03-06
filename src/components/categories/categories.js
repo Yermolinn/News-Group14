@@ -151,7 +151,7 @@ async function serchArticlesCategory() {
     })
     .then(resolve => {
       console.log(resolve);
-      newList.appendChild(createCards(resolve));
+      newList.insertAdjacentHTML('afterbegin', createCards(resolve));
     });
 }
 

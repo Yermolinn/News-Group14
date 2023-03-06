@@ -114,100 +114,108 @@ export function updateNews(markup) {
 // ///////////////////////////////////////////////////////
 // Кнопка AddToFavourite
 // //////////////////////////////////////////////////////
-const refs = {
-  addToFavoriteBtn: document.querySelector('.favorite-btn'),
-  readMore: document.querySelector('.news-link'),
-};
-let currentId = 0;
-let isFav = false;
+// const refs = {
+//   addToFavoriteBtn: document.querySelector('.favorite-btn'),
+//   readMore: document.querySelector('.news-link'),
+// };
+// let currentId = 0;
+// let isFav = false;
 
-const STORAGE_KEY = 'favorites';
-const STORAGE_KEY_2 = 'read';
-refs.addToFavoriteBtn.addEventListener('click', handleFavorite);
-refs.readMore.addEventListener('click', addToRead);
+// const STORAGE_KEY = 'favorites';
+// const STORAGE_KEY_2 = 'read';
+// refs.addToFavoriteBtn.addEventListener('click', handleFavorite);
+// refs.readMore.addEventListener('click', addToRead);
 
-function addToRead() {
-  let dateOfRead = new Date()
-    .toLocaleDateString({
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    })
-    .replace(/\//g, '.');
-  const item = {
-    read: {
-      [`${dateOfRead}`]: [
-        {
-          name: document.querySelector('.info-item').textContent, // refs.addToFavoriteBtn.parentElement.parentElement.lastElementChild.firstElementChild.textContent
-          URL: document.querySelector('.news-link').getAttribute('href'), //    refs.addToFavoriteBtn.parentElement.parentElement.lastElementChild.lastElementChild.lastElementChild.getAttribute('href'
-          describe: document.querySelector('.describe').textContent, //refs.addToFavoriteBtn.parentElement.parentElement.lastElementChild.childNodes[3].textContent
-          date: document.querySelector('.news-date').textContent, //    refs.addToFavoriteBtn.parentElement.parentElement.lastElementChild.lastElementChild.firstElementChild.textContent
-          category: document.querySelector('.top-text').textContent, //refs.addToFavoriteBtn.previousElementSibling.firstElementChild.textContent
-          photo: document.querySelector('.top-wrap img').getAttribute('src'), //refs.addToFavoriteBtn.parentElement.parentElement.firstElementChild.firstElementChild.getAttribute("src")
-          currentId,
-        },
-      ],
-    },
-  };
+// function addToRead() {
+//   let dateOfRead = new Date()
+//     .toLocaleDateString({
+//       day: '2-digit',
+//       month: '2-digit',
+//       year: 'numeric',
+//     })
+//     .replace(/\//g, '.');
+//   const item = {
+//     read: {
+//       [`${dateOfRead}`]: [
+//         {
+//           name: document.querySelector('.info-item').textContent, // refs.addToFavoriteBtn.parentElement.parentElement.lastElementChild.firstElementChild.textContent
+//           URL: document.querySelector('.news-link').getAttribute('href'), //    refs.addToFavoriteBtn.parentElement.parentElement.lastElementChild.lastElementChild.lastElementChild.getAttribute('href'
+//           describe: document.querySelector('.describe').textContent, //refs.addToFavoriteBtn.parentElement.parentElement.lastElementChild.childNodes[3].textContent
+//           date: document.querySelector('.news-date').textContent, //    refs.addToFavoriteBtn.parentElement.parentElement.lastElementChild.lastElementChild.firstElementChild.textContent
+//           category: document.querySelector('.top-text').textContent, //refs.addToFavoriteBtn.previousElementSibling.firstElementChild.textContent
+//           photo: document.querySelector('.top-wrap img').getAttribute('src'), //refs.addToFavoriteBtn.parentElement.parentElement.firstElementChild.firstElementChild.getAttribute("src")
+//           currentId,
+//         },
+//       ],
+//     },
+//   };
 
-  currentId += 1;
-  LocalStorageService.save(STORAGE_KEY_2, item);
-}
+//   currentId += 1;
+//   LocalStorageService.save(STORAGE_KEY_2, item);
+// }
+
+
 
 // check if the object already exists in the favorites array in local storage
-const favoritesArray = [];
+// const favoritesArray = [];
+
 
 // const isObjectInFavorites = favoritesArray.some(
 //   obj => obj.name === favObject.name && obj.value === favObject.value
 // );
 
-function handleFavorite() {
-  const item = {
-    name: document.querySelector('.info-item').textContent,
-    URL: document.querySelector('.news-link').getAttribute('href'),
-    describe: document.querySelector('.describe').textContent,
-    date: document.querySelector('.news-date').textContent,
-    category: document.querySelector('.top-text').textContent,
-    photo: document.querySelector('.top-wrap img').getAttribute('src'),
-    isFav,
-    currentId,
-  };
-  if (isFav) {
-    isFav = false;
-    refs.addToFavoriteBtn.firstElementChild.textContent = 'Add to favorite';
-    document
-      .querySelector('.icon-favorite-remove')
-      .classList.remove('hide-icon');
-    document.querySelector('.icon-favorite-add').classList.add('hide-icon');
-  } else {
-    const currentState = LocalStorageService.load(STORAGE_KEY);
-    console.log(currentState);
-    if (currentState.includes(item)) {
-      isFav = true;
-      refs.addToFavoriteBtn.firstElementChild.textContent =
-        'Remove from favorite';
-      document
-        .querySelector('.icon-favorite-remove')
-        .classList.add('hide-icon');
-      document
-        .querySelector('.icon-favorite-add')
-        .classList.remove('hide-icon');
-    } else {
-      isFav = true;
-      refs.addToFavoriteBtn.firstElementChild.textContent =
-        'Remove from favorite';
-      document
-        .querySelector('.icon-favorite-remove')
-        .classList.add('hide-icon');
-      document
-        .querySelector('.icon-favorite-add')
-        .classList.remove('hide-icon');
-      favoritesArray.push(item);
-      currentId += 1;
-      LocalStorageService.save(STORAGE_KEY, favoritesArray);
-    }
-  }
-}
+
+
+
+// function handleFavorite() {
+//   const item = {
+//     name: document.querySelector('.info-item').textContent,
+//     URL: document.querySelector('.news-link').getAttribute('href'),
+//     describe: document.querySelector('.describe').textContent,
+//     date: document.querySelector('.news-date').textContent,
+//     category: document.querySelector('.top-text').textContent,
+//     photo: document.querySelector('.top-wrap img').getAttribute('src'),
+//     isFav,
+//     currentId,
+//   };
+//   if (isFav) {
+//     isFav = false;
+//     refs.addToFavoriteBtn.firstElementChild.textContent = 'Add to favorite';
+//     document
+//       .querySelector('.icon-favorite-remove')
+//       .classList.remove('hide-icon');
+//     document.querySelector('.icon-favorite-add').classList.add('hide-icon');
+//   } else {
+//     const currentState = LocalStorageService.load(STORAGE_KEY);
+//     console.log(currentState);
+//     if (currentState.includes(item)) {
+//       isFav = true;
+//       refs.addToFavoriteBtn.firstElementChild.textContent =
+//         'Remove from favorite';
+//       document
+//         .querySelector('.icon-favorite-remove')
+//         .classList.add('hide-icon');
+//       document
+//         .querySelector('.icon-favorite-add')
+//         .classList.remove('hide-icon');
+//     } else {
+//       isFav = true;
+//       refs.addToFavoriteBtn.firstElementChild.textContent =
+//         'Remove from favorite';
+//       document
+//         .querySelector('.icon-favorite-remove')
+//         .classList.add('hide-icon');
+//       document
+//         .querySelector('.icon-favorite-add')
+//         .classList.remove('hide-icon');
+//       favoritesArray.push(item);
+//       currentId += 1;
+//       LocalStorageService.save(STORAGE_KEY, favoritesArray);
+//     }
+//   }
+// }
+
+
 // function addNewsToStorage(card, date) {
 //   const currentState = LocalStorageService.load(STORAGE_KEY);
 //   if (currentState === undefined) {
