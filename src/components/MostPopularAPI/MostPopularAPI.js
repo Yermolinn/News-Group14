@@ -60,6 +60,7 @@ export function createMostPopularNews({
         loading="lazy"
         width="288"
         height="395"
+        class="news-img"
       />
       <p class="isread">Have read</p>
       <div class="category-wrap">

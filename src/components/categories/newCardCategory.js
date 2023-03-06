@@ -1,17 +1,26 @@
-export function createNewsCardCategory(arr) {
-  return `<div class="news-card">
+export function createNewsCardCategory(arr, i) {
+  return `<div class="news-card grid grid-item-${i}">
     <div class="top-wrap">
       <img
         src=${arr.multimedia[2].url}
         loading="lazy"
         width="288"
         height="395"
+        class="news-img"
       />
       <p class="isread">Have read</p>
       <div class="category-wrap">
         <p class="top-text">${arr.section}</p>
       </div>
-      <button class="favourite">Add to favorite</button>
+      <button class="favorite-btn">
+        <span class="btn-text">Add to favorite</span>
+        <svg class="icon-favorite-remove" width="16" height="16">
+          <use href="./images/sprite.svg#icon-favorite-remove"></use>
+        </svg>
+         <svg class="icon-favorite-add hide-icon" width="16" height="16">
+          <use href="./images/sprite.svg#icon-favorite-add"></use>
+        </svg>
+      </button>
     </div>
     <div class="info">
       <h2 class="info-item">${arr.title}</h2>
