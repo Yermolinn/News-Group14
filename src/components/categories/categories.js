@@ -15,12 +15,19 @@ container.addEventListener('click', getNewsCategory);
 // ------------------------<dropdown>
 const myDropdown = document.getElementById('myDropdown');
 const dropdownBtn = document.querySelector('.dropdownbtn');
+
 dropdownBtn.addEventListener('click', myFunction);
+dropdownBtn.addEventListener('blur', hideDropdown);
+
 function myFunction() {
   myDropdown.classList.toggle('show');
-  dropdownBtn.classList.toggle('active');
+  dropdownBtn.classList.toggle('active');  
 }
 
+function hideDropdown() {
+  myDropdown.classList.remove('show');
+  dropdownBtn.classList.remove('active');
+}
 // -----------------------</dropdown>---------------------------
 
 // container.insertAdjacentHTML('afterend', matkUp(results));
