@@ -1,6 +1,5 @@
 const newsList = document.querySelector('.news-list');
 const API_KEY = 'api-key=HR9YxGV98GGTmMcKHA5eY4Aer5nJgRvJ';
-import { handleFavorite } from '../render/addToFavoriteBtn';
 import LocalStorageService from '../LocalStorageService/LocalStorageService';
 const axios = require('axios').default;
 class MostPopularApiService {
@@ -58,13 +57,20 @@ export function getFavorite() {
 
   return favorite;
 }
+
+export function getRead() {
+  const read = LocalStorageService.load('read');
+
+  return read;
+}
+
 const addFavoriteBtnHTML = `Add to favorite ${createSvgIcon(
   'icon-favorite-remove'
 )}`;
 const removeFavoriteBtnHTML = `Remove from favorite ${createSvgIcon(
   'icon-favorite-add'
 )}`;
-
+const alreadyRead = `Already read${createSvgIcon('icon-read')}`;
 function updateCard(markup) {
   newsList.innerHTML = markup;
 }
@@ -75,26 +81,46 @@ export function createMostPopularNews(article) {
   const { abstract, published_date, section, title, media, url, id } = article;
   setTimeout(() => {
     const btn = document.querySelector(`.favorite-btn--${id}`);
-    const link = document.querySelector('news-link');
+    const link = document.querySelector(`.news-link--${id}`);
+    const p = document.querySelector(`.top-text--${id}`);
+    console.log(p);
     btn.onclick = handleFavorite(id, article, btn);
-    // link.addEventListener('click', handleRead(id, article));
+    link.onclick = handleRead(id, article, p);
   }, 0);
 
   const handleFavorite = (articleId, data, btn) => () => {
     btn.classList.toggle('favorite-btn--active');
+    if (btn.classList.contains('favorite-btn--active')) {
+      btn.innerHTML = removeFavoriteBtnHTML;
+    } else {
+      btn.innerHTML = addFavoriteBtnHTML;
+    }
     const favorite = getFavorite();
     const saveFavorite = {
       [articleId]: data,
     };
+    const newFavorite = { ...favorite, ...saveFavorite };
     console.log(saveFavorite);
-    if (btn.classList.contains('favorite-btn--active')) {
-      btn.innerHTML = removeFavoriteBtnHTML;
-      const newFavorite = { ...favorite, ...saveFavorite };
-      LocalStorageService.save('favorite', newFavorite);
-    } else {
-      btn.innerHTML = addFavoriteBtnHTML;
-      LocalStorageService.remove(saveFavorite);
-    }
+    LocalStorageService.save('favorite', newFavorite);
+  };
+  const handleRead = (articleId, data, p) => () => {
+    p.innerHTML = alreadyRead;
+    const read = getRead();
+    console.log(read);
+    let dateOfRead = new Date()
+      .toLocaleDateString({
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      })
+      .replace(/\//g, '.');
+    const item = {
+      read: {
+        [dateOfRead]: [data],
+      },
+    };
+    item.read[dateOfRead].push(data);
+    console.log(item.read[dateOfRead]);
   };
   const defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
   if (media.length === 0) {
@@ -106,9 +132,9 @@ export function createMostPopularNews(article) {
         width="288"
         height="395"     
       />
-      <p class="isread">Have read</p>
+      <p class="isread ${`top-text--${id}`}"></p>
       <div class="category-wrap">
-        <p class="top-text">${section}</p>
+        <p class="top-text ">${section}</p>
       </div>
       <button class="favorite-btn ${`favorite-btn--${id}`}" data-id="${id}">
         ${addFavoriteBtnHTML}
@@ -121,7 +147,7 @@ export function createMostPopularNews(article) {
         <p class="news-date">${published_date
           .slice(0, 10)
           .replaceAll('-', '/')}</p>
-        <a class="news-link link" href="${url}">Read more</a>
+        <a class="news-link ${`news-link--${id}`} link" href="${url}"  onclick="handleRead()" target="_blank">Read more</a>
       </div>
     </div>
   </div>
@@ -136,7 +162,7 @@ export function createMostPopularNews(article) {
         width="288"
         height="395"
       />
-      <p class="isread">Have read</p>
+      <p class="isread ${`top-text--${id}`}"></p>
       <div class="category-wrap">
         <p class="top-text">${section}</p>
       </div>
@@ -151,7 +177,7 @@ export function createMostPopularNews(article) {
         <p class="news-date">${published_date
           .slice(0, 10)
           .replaceAll('-', '/')}</p>
-        <a class="news-link link" href="${url}">Read more</a>
+        <a class="news-link ${`news-link--${id}`} link" href="${url}"  onclick="handleRead()" target="_blank">Read more</a>
       </div>
     </div>
   </div>
