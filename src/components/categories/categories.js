@@ -21,7 +21,7 @@ dropdownBtn.addEventListener('blur', hideDropdown);
 
 function myFunction() {
   myDropdown.classList.toggle('show');
-  dropdownBtn.classList.toggle('active');  
+  dropdownBtn.classList.toggle('active');
 }
 
 function hideDropdown() {
@@ -115,10 +115,11 @@ function matkUp(results) {
 
 async function getNewsCategory(e) {
   const element = e.target;
-  newList.innerHTML = '';
+
   if (!element.dataset.category) {
     return;
   }
+  newList.innerHTML = '';
   fethNewsService.section = element.textContent.toLowerCase();
   fethNewsService.resetPage();
   await serchArticlesCategory();
@@ -166,10 +167,11 @@ async function serchArticlesCategory() {
 //-------------------------------create cadr----------------------------------------
 
 function createCards(arr) {
+  let numberGridElement = 0;
   const mark = arr
     .map(el => {
-      console.log(el);
-      return createNewsCardCategory(el);
+      numberGridElement++;
+      return createNewsCardCategory(el, numberGridElement);
     })
     .join('');
   return mark;
