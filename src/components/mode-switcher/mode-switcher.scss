@@ -1,7 +1,13 @@
+.toggle-wrapper.tablet {
+  @include mobile {
+    display: none;
+  }
+  @media screen and (max-width: 319px) {
+    display: none;
+  }
+}
+
 .toggle-wrapper {
-    @include mobile {
-        display: none;
-    }
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -105,8 +111,16 @@
     transition: all 0.2s ease;
   }
 }
+#checkbox:checked + .toggle-item {
+  background: #4b48db;
+  &:before {
+    top: 1px;
+    left: 21px;
 
-#checkbox:checked + label {
+    background: #fff;
+  }
+}
+#checkbox-toggle:checked + .toggle-item {
   background: #4b48db;
   &:before {
     top: 1px;
@@ -134,6 +148,32 @@
   & .toggle-sun {
     color: #5f6775;
   }
+
+  & .header {
+    border-bottom: 1px solid rgba(244, 244, 244, 0.2);
+  }
+
+  & .nav__link,
+  & .logo,
+  & .form__btn,
+  & .menu__wrapper,
+  & .menu__link,
+  & .menu__btn {
+    color: #f4f4f4;
+  }
+
+  & .form__input {
+    border: 1px solid #f4f4f4;
+    color: #f4f4f4;
+  }
+
+  & .menu {
+    background-color: #2d2d2d;
+  }
+}
+
+.menu__close-icon, .menu__btn, .form__icon  {
+  fill: currentColor;
 }
 
 .toggle-moon,

@@ -6,6 +6,8 @@ import { selectedDate } from '../calendar/calendar';
 import { createNewsCardCategory } from './newCardCategory';
 const container = document.querySelector('.final-menu');
 
+const arrCategoryElements = [];
+
 const fethNewsService = new FethNewsService();
 const newList = document.querySelector('.news-list');
 container.addEventListener('click', getNewsCategory);
@@ -123,10 +125,13 @@ async function serchArticlesCategory() {
       let ourDate = 0;
 
       if (selectedDate.selectedDates.length === 0) {
-        ourDate = selectedDate
-          .formatDate(new Date(), 'Y-m-d')
-          .split('-')
-          .join('/');
+        // Если нужно выбирать автоматически сегодняшнюю дату
+        // ourDate = selectedDate
+        //   .formatDate(new Date(), 'Y-m-d')
+        //   .split('-')
+        //   .join('/');
+
+        arrCategoryElements.push(...results);
         return results;
       } else {
         ourDate = selectedDate
@@ -140,10 +145,13 @@ async function serchArticlesCategory() {
 
         return date === ourDate;
       });
+
+      arrCategoryElements.push(...timeArr);
       return timeArr;
     })
     .then(resolve => {
       console.log(resolve);
+
       newList.insertAdjacentHTML('afterbegin', createCards(resolve));
     });
 }
@@ -159,3 +167,5 @@ function createCards(arr) {
     .join('');
   return mark;
 }
+
+export { newList, arrCategoryElements, createCards };
