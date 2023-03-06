@@ -18,5 +18,5 @@ import './components/main/main.js';
 import './components/mode-switcher/mode-switcher.js';
 import './components/newsCard/newsCard.js';
 import './components/pagination/pagination.js';
-import './components/readNews/readNews.js';
+// import './components/readNews/readNews.js';
 import './components/openWeatherAPI/openWeatherAPI.js';
