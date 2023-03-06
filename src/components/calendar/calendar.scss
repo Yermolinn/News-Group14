@@ -141,6 +141,7 @@
 }
 
 .flatpickr-calendar.animate.open {
+    left: auto !important;
     margin-top: -31px !important;
     animation: none !important;
     transform: translate(0, 0) !important;

@@ -19,28 +19,34 @@ const refs = {
 // import('flatpickr/dist/themes / dark.css');
 
 const options = {
+  disableMobile: 'true',
+  appendTo: refs.calendarWrapper,
   maxDate: 'today',
   dateFormat: 'd/m/Y',
   altFormat: 'd/m/Y',
   onReady: [function () {}],
   onOpen: [
-    function (f, s, t) {
+    function (fullDate, shortDate, objFlatpickr) {
       toggleStyleInput();
+      // console.dir(t);
+      // onCalendarOpenClick();
+      objFlatpickr.element.addEventListener('click', onCalendarOpenClick);
     },
   ],
   onClose: [
-    function (f, s, t) {
+    function (f, s, objFlatpickr) {
       toggleStyleInput();
+      removeInputCalendarListener(objFlatpickr);
     },
   ],
   onChange: [
-    function (time, second, third) {
+    function (time, second, objFlatpickr) {
       if (arrCategoryElements.length === 0) {
         return;
       }
 
-      let ourDate = third
-        .formatDate(third.latestSelectedDateObj, 'Y-m-d')
+      let ourDate = objFlatpickr
+        .formatDate(objFlatpickr.latestSelectedDateObj, 'Y-m-d')
         .split('-')
         .join('/');
 
@@ -64,11 +70,24 @@ function toggleStyleInput() {
 }
 
 let selectedDate = flatpickr('#date-picker', options);
-// selectedDate.clear();
-refs.calendarWrapper.appendChild(selectedDate.calendarContainer);
+// refs.calendarWrapper.appendChild(selectedDate.calendarContainer);
+
+let counter = 0;
+
+function onCalendarOpenClick() {
+  counter += 1;
+  console.log(counter);
+
+  if (counter % 2 === 0) {
+    selectedDate.close();
+  }
+}
+
+function removeInputCalendarListener(objFlatpickr) {
+  objFlatpickr.element.removeEventListener('click', onCalendarOpenClick);
+  counter = 0;
+}
 
 export { selectedDate };
 
 // СДЕЛАТЬ РЕСЕТ!!!!!!
-
-//data-id="disableSpecific"
