@@ -110,6 +110,11 @@
 }
 
 .menu__btn {
+  transition: fill var(--duration) var(--timing-function);
+  &:hover,
+  &focus {
+    fill: var(--active-btn-color);
+  }
   @include tablet {
     display: none;
   }
@@ -119,6 +124,14 @@
   align-items: center;
   gap: 14px;
 }
+.menu__close-icon {
+  transition: fill var(--duration) var(--timing-function);
+  &:hover,
+  &:focus {
+    fill: var(--active-btn-color);
+  }
+}
+
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .form__input {
     transform: translateX(101%);
