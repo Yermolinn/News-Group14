@@ -1,5 +1,6 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+// import('flatpickr/dist/themes/ dark.css');
 
 import {
   newList,
@@ -13,10 +14,9 @@ const refs = {
   iconDateEl: document.querySelector('.icon-date'),
   inputFlPickr: document.querySelector('.flatpickr'),
 
+  inputDate: document.querySelector('.input-date'),
   calendarWrapper: document.querySelector('.calendar-wrapper'),
 };
-
-// import('flatpickr/dist/themes / dark.css');
 
 const options = {
   disableMobile: 'true',
@@ -29,18 +29,19 @@ const options = {
     function (fullDate, shortDate, objFlatpickr) {
       toggleStyleInput();
       // console.dir(t);
-      // onCalendarOpenClick();
       objFlatpickr.element.addEventListener('click', onCalendarOpenClick);
     },
   ],
   onClose: [
-    function (f, s, objFlatpickr) {
+    function (fullDate, shortDate, objFlatpickr) {
       toggleStyleInput();
       removeInputCalendarListener(objFlatpickr);
     },
   ],
   onChange: [
-    function (time, second, objFlatpickr) {
+    function (fullDate, shortDate, objFlatpickr) {
+      createBtnCross(objFlatpickr);
+
       if (arrCategoryElements.length === 0) {
         return;
       }
@@ -52,7 +53,6 @@ const options = {
 
       const timeArr = arrCategoryElements.filter(elem => {
         const date = elem.published_date.slice(0, 10).split('-').join('/');
-
         return date === ourDate;
       });
 
@@ -70,13 +70,10 @@ function toggleStyleInput() {
 }
 
 let selectedDate = flatpickr('#date-picker', options);
-// refs.calendarWrapper.appendChild(selectedDate.calendarContainer);
-
 let counter = 0;
 
 function onCalendarOpenClick() {
   counter += 1;
-  console.log(counter);
 
   if (counter % 2 === 0) {
     selectedDate.close();
@@ -88,6 +85,29 @@ function removeInputCalendarListener(objFlatpickr) {
   counter = 0;
 }
 
-export { selectedDate };
+let crossElem = undefined;
 
-// СДЕЛАТЬ РЕСЕТ!!!!!!
+function createBtnCross(objFlatpickr) {
+  if (typeof crossElem === 'undefined') {
+    crossElem = document.createElement('button');
+
+    crossElem.setAttribute('type', 'button');
+    crossElem.classList.add('calendar-btn-cross');
+
+    refs.inputDate.appendChild(crossElem);
+
+    crossElem.addEventListener(
+      'click',
+      () => {
+        objFlatpickr.clear();
+        refs.inputDate.removeChild(
+          document.querySelector('.calendar-btn-cross')
+        );
+        crossElem = undefined;
+      },
+      { once: true }
+    );
+  }
+}
+
+export { selectedDate };

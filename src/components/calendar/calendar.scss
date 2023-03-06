@@ -100,15 +100,16 @@
 
 .calendar-wrapper {
     position: absolute;
-    right: 0;
-    width: 100vw;
+    width: 110vw;
     height: 375px;
     overflow: hidden;
     pointer-events: none;
 
+    right: -52px;
+
     @include tablet {
         width: 50vw;
-        transform: translateX(45px);
+        transform: translateX(-5px);
     }
 
     @include desktop {
@@ -122,34 +123,25 @@
 }
 
 .flatpickr-calendar {
-    right: 16px !important;
+    right: 0 !important;
     top: 31px !important; 
+    left: auto !important;
 
-    transform: translate(0, -120%) !important;
+    transform: translate(-45px, -120%) !important;
     transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1) !important;
 
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
     border-radius: 20px !important;
-
-
-    @include desktop {
-        // было 52
-            right: 78px !important; 
-        }
 }
 
 .flatpickr-calendar.animate.open {
-    left: auto !important;
     margin-top: -31px !important;
     animation: none !important;
-    transform: translate(0, 0) !important;
+    transform: translate(-45px, 0) !important;
     box-shadow: 0px 10px 60px 0px #0000001A !important;
-
-    @include tablet {
-            transform: translateX(-15px) !important;
-        }
+    
 }
 
 .flatpickr-months {
@@ -186,4 +178,31 @@
 .flatpickr-months .flatpickr-prev-month:hover svg,
 .flatpickr-months .flatpickr-next-month:hover svg {
     fill: #47f6ed !important;
+}
+
+.calendar-btn-cross {
+    position: absolute;
+    right: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+
+    background-color: transparent;
+}
+
+.calendar-btn-cross::after {
+    content: '\274C';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+}
+
+.calendar-btn-cross:hover {
+    font-size: 20px;
+    transform: scale(1.45) translateY(-35%);
 }
