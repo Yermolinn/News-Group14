@@ -13,7 +13,7 @@ import './components/categories/categories.js';
 import './components/favoriteNews/favoriteNews.js';
 import './components/firebaseAPI/firebaseAPI.js';
 import './components/footer/footer.js';
-import './components/loader/loader.js';
+import './components/pre-loader/pre-loader.js';
 import './components/main/main.js';
 import './components/mode-switcher/mode-switcher.js';
 import './components/newsCard/newsCard.js';
