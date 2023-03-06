@@ -1,7 +1,7 @@
 import LocalStorageService from '../LocalStorageService/LocalStorageService';
 import { getNews } from '../ArticlesSearchAPI/ArticlesSearchAPI';
 
-const axios = require('axios').default;
+
 const ENDPOINT = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
 const API_KEY = 'api-key=HR9YxGV98GGTmMcKHA5eY4Aer5nJgRvJ';
 

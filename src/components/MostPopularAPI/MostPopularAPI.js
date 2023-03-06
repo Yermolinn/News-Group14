@@ -1,7 +1,7 @@
 const newsList = document.querySelector('.news-list');
 const API_KEY = 'api-key=HR9YxGV98GGTmMcKHA5eY4Aer5nJgRvJ';
 import { default as axios } from 'axios';
-const axios = require('axios').default;
+// const axios = require('axios').default;
 class MostPopularApiService {
   //   constructor() {
   //     this.page = 1;
