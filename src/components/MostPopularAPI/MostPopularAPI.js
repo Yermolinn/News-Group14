@@ -167,6 +167,7 @@ export function createMostPopularNews(article) {
         loading="lazy"
         width="288"
         height="395"
+        class="news-img"
       />
       <p class="isread ${`top-text--${id}`}"></p>
       <div class="category-wrap">
