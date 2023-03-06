@@ -1,10 +1,7 @@
 const newsList = document.querySelector('.news-list');
 const API_KEY = 'api-key=HR9YxGV98GGTmMcKHA5eY4Aer5nJgRvJ';
-
 import LocalStorageService from '../LocalStorageService/LocalStorageService';
 const axios = require('axios').default;
-import { default as axios } from 'axios';
-
 class MostPopularApiService {
   //   constructor() {
   //     this.page = 1;
@@ -16,6 +13,7 @@ class MostPopularApiService {
     // const URL = `${ENDPOINT}?${API_KEY}&q=${this.searchQuery}`; // це для пошуку
     const mostPopularUrl = `https://api.nytimes.com/svc/mostpopular/v2/viewed/30.json?${API_KEY}`;
     const response = await axios.get(mostPopularUrl);
+    // console.log(response.data.results[0].media[0]['media-metadata'][0].url);
     return response.data.results;
   }
 
@@ -30,12 +28,13 @@ async function render() {
   const mostPopularApiService = new MostPopularApiService();
 
   const articles = await mostPopularApiService.getNews();
+  console.log('🚀 ~ articles', articles);
   if (articles.length === 0) throw new Error('No data');
   const card = articles.reduce(
     (markup, article) => createMostPopularNews(article) + markup,
     ''
   );
-  // console.log(card);
+  console.log(card);
   updateCard(card);
 }
 
@@ -78,7 +77,6 @@ function updateCard(markup) {
 function onError(error) {
   console.error(error);
 }
-
 export function createMostPopularNews(article) {
   const { abstract, published_date, section, title, media, url, id } = article;
   setTimeout(() => {
@@ -86,8 +84,10 @@ export function createMostPopularNews(article) {
     const link = document.querySelector(`.news-link--${id}`);
     const p = document.querySelector(`.top-text--${id}`);
     console.log(p);
+
     btn.onclick = handleFavorite(id, article, btn);
     link.onclick = handleRead(id, article, p);
+    link.onclick = handleRead(article, p);
   }, 0);
 
   const handleFavorite = (articleId, data, btn) => () => {
@@ -120,9 +120,13 @@ export function createMostPopularNews(article) {
       read: {
         [dateOfRead]: [data],
       },
+      [dateOfRead]: data,
     };
     item.read[dateOfRead].push(data);
     console.log(item.read[dateOfRead]);
+    const newRead = { ...read, ...item };
+    console.log(newRead);
+    LocalStorageService.save('read', newRead);
   };
   const defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
   if (media.length === 0) {
@@ -156,20 +160,10 @@ export function createMostPopularNews(article) {
   
 `;
   }
-export function createMostPopularNews({
-  // при пошуку......
-  title,
-  url,
-  section,
-  abstract,
-  published_date,
-  media,
-}) {
-
   return `<div class="news-card">
     <div class="top-wrap">
       <img
-        src=""
+        src="${media[0]['media-metadata'][2].url}"
         loading="lazy"
         width="288"
         height="395"
@@ -178,19 +172,8 @@ export function createMostPopularNews({
       <div class="category-wrap">
         <p class="top-text">${section}</p>
       </div>
-
       <button class="favorite-btn ${`favorite-btn--${id}`}" data-id="${id}">
         ${addFavoriteBtnHTML}
-
-      <button class="favourite-btn">
-        <span class="btn-text">Add to favorite</span>
-        <svg class="icon-favorite-remove" width="16" height="16">
-          <use href="./images/sprite.svg#icon-favorite-remove"></use>
-        </svg>
-         <svg class="icon-favorite-add hide-icon" width="16" height="16">
-          <use href="./images/sprite.svg#icon-favorite-add"></use>
-        </svg>
-
       </button>
     </div>
     <div class="info">
@@ -204,19 +187,7 @@ export function createMostPopularNews({
       </div>
     </div>
   </div>
+  
 `;
 }
-
 render();
-
-{
-  /* <button class="favorite-btn">
-  <span class="btn-text">Add to favorite</span>
-  <svg class="icon-favorite-remove" width="16" height="16">
-    <use href="./images/sprite.svg#icon-favorite-remove"></use>                            ЦЕ ТЕ ЩО Я ВИРІЗАВ 
-  </svg>
-  <svg class="icon-favorite-add hide-icon" width="16" height="16">
-    <use href="./images/sprite.svg#icon-favorite-add"></use>
-  </svg>
-</button>; */
-}
