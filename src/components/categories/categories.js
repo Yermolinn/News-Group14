@@ -21,7 +21,7 @@ dropdownBtn.addEventListener('blur', hideDropdown);
 
 function myFunction() {
   myDropdown.classList.toggle('show');
-  dropdownBtn.classList.toggle('active');  
+  dropdownBtn.classList.toggle('active');
 }
 
 function hideDropdown() {
@@ -130,6 +130,7 @@ async function serchArticlesCategory() {
     .then(data => data.json())
     .then(({ results }) => {
       let ourDate = 0;
+      arrCategoryElements.length = 0;
 
       if (selectedDate.selectedDates.length === 0) {
         // Если нужно выбирать автоматически сегодняшнюю дату
