@@ -5,6 +5,7 @@ const moreWeatherBtn = document.querySelector('.more-weather-btn');
 const moreWatherContainer = document.querySelector('.weather-for-week'); 
 const weekWeather = document.querySelector('.week-weather');
 const closeMoreWeatherBtn = document.querySelector(".close-more-weather");
+const newsList = document.querySelector('.news-list')
 
     
 
@@ -167,6 +168,7 @@ function getWeather(data) {
     
     // weatherContainer.innerHTML = info;
     weatherContainer.insertAdjacentHTML("afterbegin", info);
+    // newsList.insertAdjacentHTML('beforeend', weatherContainer)
 
 
     
