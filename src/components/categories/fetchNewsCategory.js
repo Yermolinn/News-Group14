@@ -15,9 +15,17 @@ class FethNewsService {
     this.incrementPage();
     return response;
   }
+
   incrementPage() {
     this.page += 1;
   }
+
+  /* descrementPage() {
+    this.page -= 1;
+    if (this.page <= 1) {
+      this.page === 1;
+    }
+  } */
 
   resetPage() {
     this.page = 0;
