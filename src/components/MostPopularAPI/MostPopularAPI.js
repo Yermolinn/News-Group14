@@ -43,6 +43,31 @@ async function render() {
 }
 
 //
+// Перевірка на локалсторедж
+//
+
+let readMoreId = [];
+// console.log(LocalStorageService.load('readMoreLocal').map(elem => elem));
+isLocalEmpty();
+
+function isLocalEmpty() {
+  if (LocalStorageService.load('readMoreLocal') === null) {
+    return;
+  }
+  readMoreId = LocalStorageService.load('readMoreLocal');
+}
+
+function checkLokalStorage(elem, localArr) {
+  if (localArr === null) {
+    return;
+  }
+  for (let i = 0; i < localArr.length; i += 1) {
+    if (localArr[i].uri === elem.uri) {
+      return true;
+    }
+  }
+}
+//
 //            FAVORITE FUNCTIONAL
 //
 const refs = {
@@ -50,7 +75,6 @@ const refs = {
 };
 
 function createSvgIcon(name) {
-
   // створює іконки, але ТІЛЬКИ сердечка
 
   return `
@@ -59,23 +83,6 @@ function createSvgIcon(name) {
     </svg>
   `;
 }
-export function getFavorite() {
-
-  // вигружає з локал стореджа за ключем favorite значення
-
-  const favorite = LocalStorageService.load('favorite');
-
-  return favorite;
-}
-
-export function getRead() {
-
-  // вигружає з локал стореджа за ключем read значення
-
-  const read = LocalStorageService.load('read');
-
-  return read;
-}
 
 const addFavoriteBtnHTML = `Add to favorite ${createSvgIcon(
   'icon-favorite-remove'
@@ -83,7 +90,7 @@ const addFavoriteBtnHTML = `Add to favorite ${createSvgIcon(
 const removeFavoriteBtnHTML = `Remove from favorite ${createSvgIcon(
   'icon-favorite-add'
 )}`;
-const alreadyRead = `Already read${createSvgIcon('icon-read')}`;
+const alreadyRead = `Already read`;
 function updateCard(markup) {
   newsList.innerHTML = markup;
 }
@@ -98,17 +105,29 @@ export function createMostPopularNews(article, i) {
     // виконається після того як з'являться картки
     const btn = document.querySelector(`.favorite-btn--${id}`);
     const link = document.querySelector(`.news-link--${id}`);
-    const p = document.querySelector(`.is-read--${id}`);
-    console.log(p);
+    const p = document.querySelector(`.isread--${id}`);
+    const card = document.querySelector(`.news-card--${id}`);
 
     btn.onclick = handleFavorite(id, article, btn);
-    link.onclick = handleRead(article, p);
+    link.onclick = handleRead(article, p, card);
+
+    let localArr = LocalStorageService.load('readMoreLocal');
+    let check = checkLokalStorage(article, localArr);
+    if (check === true) {
+      p.innerHTML = alreadyRead;
+      card.classList.add('opacity');
+    }
+
+    let isFav = false;
+    let localFavorite = LocalStorageService.load('favorite');
+    let checkFavorite = checkLokalStorage(article, localFavorite);
+    if (checkFavorite === true) {
+      hiddenSpan = 'hidden-span';
+    }
   }, 0);
 
   const handleFavorite = (articleId, data, btn) => () => {
-
     // логіка кнопки фейворіт
-
 
     btn.classList.toggle('favorite-btn--active');
     if (btn.classList.contains('favorite-btn--active')) {
@@ -116,7 +135,6 @@ export function createMostPopularNews(article, i) {
     } else {
       btn.innerHTML = addFavoriteBtnHTML;
     }
-    const favorite = getFavorite();
     const saveFavorite = {
       [articleId]: data,
     };
@@ -124,13 +142,10 @@ export function createMostPopularNews(article, i) {
     console.log(saveFavorite);
     LocalStorageService.save('favorite', newFavorite);
   };
-  const handleRead = (articleId, data, p) => () => {
-
+  const handleRead = (data, p, card) => () => {
     // логіка натискання на read more
-
     p.innerHTML = alreadyRead;
-    const read = getRead();
-    console.log(read);
+    card.classList.add('opacity');
     let dateOfRead = new Date()
       .toLocaleDateString({
         day: '2-digit',
@@ -138,68 +153,43 @@ export function createMostPopularNews(article, i) {
         year: 'numeric',
       })
       .replace(/\//g, '.');
-    const item = {
-      read: {
-        [dateOfRead]: [data],
-      },
-      [dateOfRead]: data,
-    };
-    item.read[dateOfRead].push(data);
-    console.log(item.read[dateOfRead]);
-    const newRead = { ...read, ...item };
-    console.log(newRead);
-    LocalStorageService.save('read', newRead);
-  };
-  const defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
-  if (media.length === 0) {
+    data.dayRead = dateOfRead;
+    console.log(data);
+    for (let i = 0; i < readMoreId.length; i += 1) {
+      if (readMoreId[i].uri === data.uri) {
+        return;
+      }
+    }
+    readMoreId.push(data);
+    LocalStorageService.save(`readMoreLocal`, readMoreId);
+    // const item = {
+    //   read: {
+    //     [dateOfRead]: [data],
+    //   },
+    // };
 
-    return `<div class="news-card grid grid-item-${i}">
+    // item.read[dateOfRead].push(data);
+    // console.log(item.read[dateOfRead]);
+    // const newRead = { ...read, ...item };
+    // console.log(newRead);
+    // LocalStorageService.save('read', newRead);
+  };
+
+  let defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
+  if (media.length !== 0) {
+    defaultImg = media[0]['media-metadata'][2].url;
+  }
+  return `<div class="news-card ${`news-card--${id}`} grid grid-item-${i}">
 
     <div class="top-wrap">
       <img
         src="${defaultImg}"
         loading="lazy"
         width="288"
-        height="395"     
-      />
-
-      <p class="isread ${`isread--${id}`}"></p>
-
-      <div class="category-wrap">
-        <p class="top-text ">${section}</p>
-      </div>
-      <button class="favorite-btn ${`favorite-btn--${id}`}" data-id="${id}">
-        ${addFavoriteBtnHTML}
-      </button>
-    </div>
-    <div class="info">
-      <h2 class="info-item">${title}</h2>
-      <p class="describe">${abstract.slice(0, 150) + '...'}</p>
-      <div class="lower-content">
-        <p class="news-date">${published_date
-          .slice(0, 10)
-          .replaceAll('-', '/')}</p>
-        <a class="news-link ${`news-link--${id}`} link" href="${url}"  onclick="handleRead()" target="_blank">Read more</a>
-      </div>
-    </div>
-  </div>
-  
-`;
-  }
-
-  return `<div class="news-card grid grid-item-${i}">
-
-    <div class="top-wrap">
-      <img
-        src="${media[0]['media-metadata'][2].url}"
-        loading="lazy"
-        width="288"
         height="395"
         class="news-img"
       />
-
       <p class="isread ${`isread--${id}`}"></p>
-
       <div class="category-wrap">
         <p class="top-text">${section}</p>
       </div>
