@@ -101,25 +101,30 @@ function getArraySections(results) {
 
 // -------------------------------</functions galary>--------------------------
 
-function matkUp(results) {
-  const mark = results
-    .map(res => {
-      return `<button type="button" class ="categories__button">${res.display_name}</button>`;
-    })
-    .join('');
-  return mark;
-}
-
 async function getNewsCategory(e) {
   const element = e.target;
-
   if (!element.dataset.category) {
     return;
   }
   newList.innerHTML = '';
-  fethNewsService.section = element.textContent.toLowerCase();
+  fethNewsService.section = getRender(element.textContent.toLowerCase());
   fethNewsService.resetPage();
   await serchArticlesCategory();
+}
+
+function getRender(name) {
+  let newName = name;
+  const newString = name;
+  let indexUmper = newString.indexOf('&');
+  let indexSlesh = newString.indexOf('/');
+  if (indexUmper !== -1) {
+    newName = newString.replace('&', '%26');
+    return newName;
+  } else if (indexSlesh !== -1) {
+    newName = newString.replace('/', '%2F');
+    return newName;
+  }
+  return newName;
 }
 
 async function serchArticlesCategory() {
@@ -157,8 +162,11 @@ async function serchArticlesCategory() {
     })
     .then(resolve => {
       console.log(resolve);
+      // newList.insertAdjacentHTML('afterbegin', createCardOnError('category'));
+      newList.insertAdjacentHTML('afterbegin', createCards(resolve));
+    })
+    .catch(() => {
       newList.insertAdjacentHTML('afterbegin', createCardOnError('category'));
-      // newList.insertAdjacentHTML('afterbegin', createCards(resolve));
     });
 }
 
@@ -166,13 +174,18 @@ async function serchArticlesCategory() {
 
 function createCards(arr) {
   let numberGridElement = 0;
-  const mark = arr
-    .map(el => {
-      numberGridElement++;
-      return createNewsCardCategory(el, numberGridElement);
-    })
-    .join('');
-  return mark;
+  //   const mark = arr
+  //     .map(el => {
+  //       numberGridElement++;
+  //       return createNewsCardCategory(el, numberGridElement);
+  //     })
+  //     .join('');
+  const card = arr.reduce((markup, article) => {
+    numberGridElement++;
+    return markup + createNewsCardCategory(article, numberGridElement);
+  }, '');
+  console.log(card);
+  return card;
 }
 
 export { newList, arrCategoryElements, createCards };
