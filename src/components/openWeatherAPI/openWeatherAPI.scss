@@ -100,8 +100,9 @@
 
     background: rgba(254, 254, 255, 0.3);
     border-radius: 10px;
-    width: 121px;
+    // width: 121px;
     height: 34px;
+    padding: 8px;
 
 
     font-size: 14px;
@@ -109,7 +110,8 @@
 
     @media screen and (min-width: 768px) {
 
-        width: 177px;
+        // width: 177px;
+        padding-right: 17px;
         height: 42px;
 
         font-size: 20px;

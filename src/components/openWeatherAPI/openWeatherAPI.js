@@ -120,10 +120,9 @@ async function loadWeather(params) {
         }
         }
 
-        const geoOptions = {
+    const geoOptions = {
         enableHighAccuracy: true
-        
-        
+          
     };
     
     // timeout           : 27000
