@@ -48,10 +48,7 @@ exportCategories()
 //   ------------------------</category>--------------------------------
 
 function getCreateButtonCategory(array) {
-  if (
-    window.matchMedia('screen and (min-width:480px) and (max-width: 767px)')
-      .matches == true
-  ) {
+  if (window.matchMedia('screen and (max-width: 767px)').matches == true) {
     const mark = array
       .map(res => {
         return `<button type="button" class="categories-list__btn" data-category="section">${res}</button>`;
