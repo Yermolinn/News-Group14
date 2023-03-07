@@ -25,11 +25,9 @@ const options = {
   maxDate: 'today',
   dateFormat: 'd/m/Y',
   altFormat: 'd/m/Y',
-  onReady: [function () {}],
   onOpen: [
     function (fullDate, shortDate, objFlatpickr) {
       toggleStyleInput();
-      // console.dir(t);
       objFlatpickr.element.addEventListener('click', onCalendarOpenClick);
     },
   ],
@@ -43,14 +41,9 @@ const options = {
     function (fullDate, shortDate, objFlatpickr) {
       showBtnCross();
 
-      console.log(arrCategoryElements.length);
-
       if (arrCategoryElements.length === 0) {
-        console.log('In change has done return');
         return;
       }
-
-      console.log(objFlatpickr);
 
       if (objFlatpickr.latestSelectedDateObj !== undefined) {
         let ourDate = objFlatpickr
