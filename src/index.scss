@@ -2,7 +2,7 @@
 @import './sass/_common';
 @import './sass/_mixin';
 @import './sass/_vars';
-@import './sass/constainer';
+@import './sass/container';
 
 @import './components/ArticlesSearchAPI/ArticlesSearchAPI.scss';
 @import './components/MostPopularAPI/MostPopularAPI.scss';
@@ -11,6 +11,9 @@
 @import './components/render/render.scss';
 @import './components/button/button.scss';
 @import './components/categories/categories.scss';
+
+@import './components/collectionNews/collectionNews.scss';
+
 @import './components/favoriteNews/favoriteNews.scss';
 @import './components/firebaseAPI/firebaseAPI.scss';
 @import './components/footer/footer.scss';

@@ -1,5 +1,6 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+// import('flatpickr/dist/themes/ dark.css');
 
 import {
   newList,
@@ -13,10 +14,10 @@ const refs = {
   iconDateEl: document.querySelector('.icon-date'),
   inputFlPickr: document.querySelector('.flatpickr'),
 
+  inputDate: document.querySelector('.input-date'),
   calendarWrapper: document.querySelector('.calendar-wrapper'),
+  btnCross: document.querySelector('.calendar-btn-cross'),
 };
-
-// import('flatpickr/dist/themes / dark.css');
 
 const options = {
   disableMobile: 'true',
@@ -29,34 +30,41 @@ const options = {
     function (fullDate, shortDate, objFlatpickr) {
       toggleStyleInput();
       // console.dir(t);
-      // onCalendarOpenClick();
       objFlatpickr.element.addEventListener('click', onCalendarOpenClick);
     },
   ],
   onClose: [
-    function (f, s, objFlatpickr) {
+    function (fullDate, shortDate, objFlatpickr) {
       toggleStyleInput();
       removeInputCalendarListener(objFlatpickr);
     },
   ],
   onChange: [
-    function (time, second, objFlatpickr) {
+    function (fullDate, shortDate, objFlatpickr) {
+      showBtnCross();
+
+      console.log(arrCategoryElements.length);
+
       if (arrCategoryElements.length === 0) {
+        console.log('In change has done return');
         return;
       }
 
-      let ourDate = objFlatpickr
-        .formatDate(objFlatpickr.latestSelectedDateObj, 'Y-m-d')
-        .split('-')
-        .join('/');
+      console.log(objFlatpickr);
 
-      const timeArr = arrCategoryElements.filter(elem => {
-        const date = elem.published_date.slice(0, 10).split('-').join('/');
+      if (objFlatpickr.latestSelectedDateObj !== undefined) {
+        let ourDate = objFlatpickr
+          .formatDate(objFlatpickr.latestSelectedDateObj, 'Y-m-d')
+          .split('-')
+          .join('/');
 
-        return date === ourDate;
-      });
+        const timeArr = arrCategoryElements.filter(elem => {
+          const date = elem.published_date.slice(0, 10).split('-').join('/');
+          return date === ourDate;
+        });
 
-      newList.innerHTML = createCards(timeArr);
+        newList.innerHTML = createCards(timeArr);
+      }
     },
   ],
 };
@@ -70,13 +78,10 @@ function toggleStyleInput() {
 }
 
 let selectedDate = flatpickr('#date-picker', options);
-// refs.calendarWrapper.appendChild(selectedDate.calendarContainer);
-
 let counter = 0;
 
 function onCalendarOpenClick() {
   counter += 1;
-  console.log(counter);
 
   if (counter % 2 === 0) {
     selectedDate.close();
@@ -88,6 +93,15 @@ function removeInputCalendarListener(objFlatpickr) {
   counter = 0;
 }
 
-export { selectedDate };
+refs.btnCross.addEventListener('click', clearInputCalendar);
 
-// СДЕЛАТЬ РЕСЕТ!!!!!!
+function clearInputCalendar(e) {
+  selectedDate.clear();
+  e.currentTarget.classList.add('visually-hidden');
+}
+
+function showBtnCross() {
+  refs.btnCross.classList.remove('visually-hidden');
+}
+
+export { selectedDate };
