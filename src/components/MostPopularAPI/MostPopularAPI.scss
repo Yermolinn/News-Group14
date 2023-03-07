@@ -1,12 +1,13 @@
 .news-card {
     margin-bottom: 28px;
+    width: 288px;
 
     @include tablet {
-        margin-bottom: 30px;
+        width: 353px;
     }
 
     @include desktop {
-        margin-bottom: 40px;
+        width: 395px;
     }
 
     position: relative;
@@ -68,8 +69,6 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 19px;
-
-    @include tablet {}
 
     @include desktop {
         font-weight: 400;
@@ -134,4 +133,17 @@
     font-size: 12px;
     line-height: 16px;
     text-align: center;
+}
+
+.news-img {
+    width: 288px;
+    border-radius: 4px;
+
+    @include tablet {
+        width: 353px;
+    }
+
+    @include desktop {
+        width: 395px;
+    }
 }

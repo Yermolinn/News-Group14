@@ -163,15 +163,12 @@
 .news-card {
   margin-bottom: 28px;
   width: 288px;
-  height: auto;
 
   @include tablet {
-    margin-bottom: 30px;
     width: 353px;
   }
 
   @include desktop {
-    margin-bottom: 40px;
     width: 395px;
   }
 
@@ -226,6 +223,7 @@
 
 .lower-content {
   margin-top: 20px;
+  top: 0;
 }
 
 .news-date {
@@ -305,7 +303,7 @@
 
 .news-img {
   width: 288px;
-  height: 395px;
+  border-radius: 4px;
 
   @include tablet {
     width: 353px;
