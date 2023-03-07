@@ -49,14 +49,6 @@
   }
 }
 
-.toggle-ligth {
-  color: #4b48db;
-}
-
-.toggle-dark {
-  color: #5f6775;
-}
-
 .toggle-input {
   position: absolute;
 
@@ -82,9 +74,9 @@
   width: 40px;
   height: 20px;
 
-  background: #fff;
+  background: var(--white-text-color);
 
-  border: 1px solid #4b48db;
+  border: 1px solid var(--mode-accent-color);
   border-radius: 50px;
 
   box-shadow: inset 0px 0px 4px 0px rgba(0, 0, 0, 0.2),
@@ -103,7 +95,7 @@
     width: 16px;
     height: 16px;
 
-    background: #4b48db;
+    background: var(--mode-accent-color);
 
     border-radius: 20px;
 
@@ -112,41 +104,59 @@
   }
 }
 #checkbox:checked + .toggle-item {
-  background: #4b48db;
+  background: var(--mode-accent-color);
   &:before {
     top: 1px;
     left: 21px;
 
-    background: #fff;
+    background: var(--white-text-color);
   }
 }
 #checkbox-toggle:checked + .toggle-item {
-  background: #4b48db;
+  background: var(--mode-accent-color);
   &:before {
     top: 1px;
     left: 21px;
 
-    background: #fff;
+    background: var(--white-text-color);
   }
+}
+
+.toggle-ligth,
+.toggle-sun {
+  color: var(--mode-accent-color);
+}
+
+.toggle-dark,
+.toggle-moon {
+  color: var(--mode-color);
+}
+
+.toggle-icon {
+  stroke: currentColor;
 }
 
 .dark {
   background-color: var(--dark-bgc-color);
 
+  & .mask {
+    background-color: var(--dark-bgc-color);
+  }
+
   & .toggle-item {
-    border: 1px solid #ffffff;
+    border: 1px solid var(--white-text-color);
     box-shadow: inset 0px 0px 4px 0px rgba(237, 230, 230, 0.2),
       0 1px 4px rgba(243, 238, 238, 0.15);
   }
 
   & .toggle-dark,
   & .toggle-moon {
-    color: #4b48db;
+    color: var(--mode-accent-color);
   }
 
   & .toggle-ligth,
   & .toggle-sun {
-    color: #5f6775;
+    color: var(--mode-color);
   }
 
   & .header {
@@ -156,23 +166,29 @@
   & .nav__link,
   & .logo,
   & .form__btn,
+  & .form__input,
   & .menu__wrapper,
   & .menu__link,
-  & .menu__btn {
-    color: #f4f4f4;
+  & .menu__btn,
+  & .info-item,
+  & .describe,
+  & .label-date,
+  & .lds-spinner div:after {
+    color: var(--light-bgc-color);
   }
 
   & .form__input {
-    border: 1px solid #f4f4f4;
-    color: #f4f4f4;
+    border: 1px solid var(--light-bgc-color);
   }
 
   & .menu {
-    background-color: #2d2d2d;
+    background-color: var(--dark-bgc-color);
   }
 }
 
-.menu__close-icon, .menu__btn, .form__icon  {
+.menu__close-icon,
+.menu__btn,
+.form__icon {
   fill: currentColor;
 }
 
@@ -188,17 +204,3 @@
     display: none;
   }
 }
-
-.toggle-sun {
-  color: #4b48db;
-}
-
-.toggle-moon {
-  color: #5f6775;
-}
-.toggle-icon {
-  stroke: currentColor;
-}
-
-// --mode-accent-color: #4B48DB;
-// --mode-color: #5F6775;
