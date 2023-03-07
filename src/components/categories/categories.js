@@ -15,12 +15,19 @@ container.addEventListener('click', getNewsCategory);
 // ------------------------<dropdown>
 const myDropdown = document.getElementById('myDropdown');
 const dropdownBtn = document.querySelector('.dropdownbtn');
+
 dropdownBtn.addEventListener('click', myFunction);
+dropdownBtn.addEventListener('blur', hideDropdown);
+
 function myFunction() {
   myDropdown.classList.toggle('show');
   dropdownBtn.classList.toggle('active');
 }
 
+function hideDropdown() {
+  myDropdown.classList.remove('show');
+  dropdownBtn.classList.remove('active');
+}
 // -----------------------</dropdown>---------------------------
 
 // container.insertAdjacentHTML('afterend', matkUp(results));
@@ -108,10 +115,11 @@ function matkUp(results) {
 
 async function getNewsCategory(e) {
   const element = e.target;
-  newList.innerHTML = '';
+
   if (!element.dataset.category) {
     return;
   }
+  newList.innerHTML = '';
   fethNewsService.section = element.textContent.toLowerCase();
   fethNewsService.resetPage();
   await serchArticlesCategory();
@@ -123,6 +131,7 @@ async function serchArticlesCategory() {
     .then(data => data.json())
     .then(({ results }) => {
       let ourDate = 0;
+      arrCategoryElements.length = 0;
 
       if (selectedDate.selectedDates.length === 0) {
         // Если нужно выбирать автоматически сегодняшнюю дату
@@ -159,10 +168,11 @@ async function serchArticlesCategory() {
 //-------------------------------create cadr----------------------------------------
 
 function createCards(arr) {
+  let numberGridElement = 0;
   const mark = arr
     .map(el => {
-      console.log(el);
-      return createNewsCardCategory(el);
+      numberGridElement++;
+      return createNewsCardCategory(el, numberGridElement);
     })
     .join('');
   return mark;

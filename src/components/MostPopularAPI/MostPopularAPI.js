@@ -31,11 +31,13 @@ async function render() {
   const articles = await mostPopularApiService.getNews();
   console.log('🚀 ~ articles', articles);
   if (articles.length === 0) throw new Error('No data');
+
   let i = 0;
   const card = articles.reduce((markup, article) => {
     i++;
     return markup + createMostPopularNews(article, i);
   }, '');
+
   console.log(card);
   updateCard(card);
 }
@@ -48,7 +50,9 @@ const refs = {
 };
 
 function createSvgIcon(name) {
+
   // створює іконки, але ТІЛЬКИ сердечка
+
   return `
     <svg class="icon-favorite-remove" width="16" height="16">
           <use href="${refs.iconSvg}#${name}"></use>
@@ -56,14 +60,18 @@ function createSvgIcon(name) {
   `;
 }
 export function getFavorite() {
+
   // вигружає з локал стореджа за ключем favorite значення
+
   const favorite = LocalStorageService.load('favorite');
 
   return favorite;
 }
 
 export function getRead() {
+
   // вигружає з локал стореджа за ключем read значення
+
   const read = LocalStorageService.load('read');
 
   return read;
@@ -82,6 +90,7 @@ function updateCard(markup) {
 function onError(error) {
   console.error(error);
 }
+
 export function createMostPopularNews(article, i) {
   // створює розмітку популярних новин
   const { abstract, published_date, section, title, media, url, id } = article;
@@ -97,7 +106,10 @@ export function createMostPopularNews(article, i) {
   }, 0);
 
   const handleFavorite = (articleId, data, btn) => () => {
+
     // логіка кнопки фейворіт
+
+
     btn.classList.toggle('favorite-btn--active');
     if (btn.classList.contains('favorite-btn--active')) {
       btn.innerHTML = removeFavoriteBtnHTML;
@@ -113,7 +125,9 @@ export function createMostPopularNews(article, i) {
     LocalStorageService.save('favorite', newFavorite);
   };
   const handleRead = (articleId, data, p) => () => {
+
     // логіка натискання на read more
+
     p.innerHTML = alreadyRead;
     const read = getRead();
     console.log(read);
@@ -138,7 +152,9 @@ export function createMostPopularNews(article, i) {
   };
   const defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
   if (media.length === 0) {
+
     return `<div class="news-card grid grid-item-${i}">
+
     <div class="top-wrap">
       <img
         src="${defaultImg}"
@@ -146,7 +162,9 @@ export function createMostPopularNews(article, i) {
         width="288"
         height="395"     
       />
+
       <p class="isread ${`isread--${id}`}"></p>
+
       <div class="category-wrap">
         <p class="top-text ">${section}</p>
       </div>
@@ -168,15 +186,20 @@ export function createMostPopularNews(article, i) {
   
 `;
   }
+
   return `<div class="news-card grid grid-item-${i}">
+
     <div class="top-wrap">
       <img
         src="${media[0]['media-metadata'][2].url}"
         loading="lazy"
         width="288"
         height="395"
+        class="news-img"
       />
+
       <p class="isread ${`isread--${id}`}"></p>
+
       <div class="category-wrap">
         <p class="top-text">${section}</p>
       </div>
@@ -198,5 +221,4 @@ export function createMostPopularNews(article, i) {
   
 `;
 }
-
 render();

@@ -1,0 +1,152 @@
+.container.main {
+  position: relative;
+  width: 1280px;
+}
+
+.news-list {
+  width: 288px;
+  margin: 0 auto;
+  text-align: center;
+
+  @include tablet {
+    display: grid;
+    width: 768px;
+
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(10, 1fr);
+    gap: 30px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      'grid-item-1 .'
+      'grid-item-2 grid-item-3'
+      'grid-item-4 grid-item-5'
+      'grid-item-6 grid-item-7'
+      'grid-item-8 grid-item-9'
+      'grid-item-10 grid-item-11'
+      'grid-item-12 grid-item-13'
+      'grid-item-14 grid-item-15'
+      'grid-item-16 grid-item-17'
+      'grid-item-18 grid-item-19'
+      'grid-item-20 .';
+  }
+
+  @include desktop {
+    width: 1280px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    grid-column-gap: 32px;
+    grid-row-gap: 40px;
+    grid-template-areas:
+      'grid-item-1 grid-item-2 .'
+      'grid-item-3 grid-item-4 grid-item-5'
+      'grid-item-6 grid-item-7 grid-item-8'
+      ' grid-item-9 grid-item-10 grid-item-11'
+      ' grid-item-12 grid-item-13 grid-item-14'
+      ' grid-item-15 grid-item-16 grid-item-17'
+      ' grid-item-18 grid-item-19 grid-item-20';
+  }
+}
+
+.grid-item-1 {
+  grid-area: grid-item-1;
+}
+
+.grid-item-2 {
+  grid-area: grid-item-2;
+}
+
+.grid-item-3 {
+  grid-area: grid-item-3;
+}
+
+.grid-item-4 {
+  grid-area: grid-item-4;
+}
+
+.grid-item-5 {
+  grid-area: grid-item-5;
+}
+
+.grid-item-6 {
+  grid-area: grid-item-6;
+}
+
+.grid-item-7 {
+  grid-area: grid-item-7;
+}
+
+.grid-item-8 {
+  grid-area: grid-item-8;
+}
+
+.grid-item-9 {
+  grid-area: grid-item-9;
+}
+
+.grid-item-10 {
+  grid-area: grid-item-10;
+}
+
+.grid-item-11 {
+  grid-area: grid-item-11;
+}
+
+.grid-item-12 {
+  grid-area: grid-item-12;
+}
+
+.grid-item-13 {
+  grid-area: grid-item-13;
+}
+
+.grid-item-14 {
+  grid-area: grid-item-14;
+}
+
+.grid-item-15 {
+  grid-area: grid-item-15;
+}
+
+.grid-item-16 {
+  grid-area: grid-item-16;
+}
+
+.grid-item-17 {
+  grid-area: grid-item-17;
+}
+
+.grid-item-18 {
+  grid-area: grid-item-18;
+}
+
+.grid-item-19 {
+  grid-area: grid-item-19;
+}
+
+.grid-item-20 {
+  grid-area: grid-item-20;
+}
+
+// ---------news-card, потім видалити ------------//
+.news-img {
+  object-fit: cover;
+}
+
+.news-card{
+    text-align: left;
+}
+
+// ------------------- weather ------------------ //
+
+.weather-container {
+  margin: 0 auto 28px;
+
+  @include tablet {
+    position: absolute;
+    right: 15px;
+  }
+
+  @include desktop {
+    right: 10px;
+  }
+}
