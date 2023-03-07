@@ -12,6 +12,11 @@ const fethNewsService = new FethNewsService();
 const newList = document.querySelector('.news-list');
 container.addEventListener('click', getNewsCategory);
 
+//додавання змінних попагінаціі//
+/* const btnNextPg = document.querySelector('button.pagination-btn__next');
+const btnPrewPg = document.querySelector('button.pagination-btn__prew');
+btnNextPg.addEventListener ('click', nextPageCategory);
+btnPrewPg.addEventListener ('click', prewPageCategory); */
 // ------------------------<dropdown>
 const myDropdown = document.getElementById('myDropdown');
 const dropdownBtn = document.querySelector('.dropdownbtn');
@@ -112,6 +117,19 @@ async function getNewsCategory(e) {
   await serchArticlesCategory();
 }
 
+
+/* function nextPageCategory() {
+  fethNewsService.incrementPage();
+  serchArticlesCategory();
+}
+
+function prewPageCategory() {
+  fethNewsService.descrementPage();
+  serchArticlesCategory();
+} */
+
+
+
 function getRender(name) {
   let newName = name;
   const newString = name;
@@ -127,11 +145,12 @@ function getRender(name) {
   return newName;
 }
 
+
 async function serchArticlesCategory() {
   return await fethNewsService
     .fetchNews()
     .then(data => data.json())
-    .then(({ results }) => {
+    .then(({ results, /* num_results */ }) => {
       let ourDate = 0;
       arrCategoryElements.length = 0;
 
