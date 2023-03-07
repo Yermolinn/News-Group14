@@ -55,7 +55,7 @@ export function createNewsCardCategory(arr, i) {
         <svg class="icon-favorite-remove" width="16" height="16">
           <use href="./images/sprite.svg#icon-favorite-remove"></use>
         </svg>
-         <svg class="icon-favorite-add hide-icon" width="16" height="16">
+        <svg class="icon-favorite-add hide-icon" width="16" height="16">
           <use href="./images/sprite.svg#icon-favorite-add"></use>
         </svg>
       </button>
