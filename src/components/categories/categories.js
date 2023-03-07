@@ -1,7 +1,7 @@
 import { difference } from 'lodash';
 import { exportCategories } from './fetchCategoryList';
 import { FethNewsService } from './fetchNewsCategory';
-
+import { createCardOnError } from './createCardOnError';
 import { selectedDate } from '../calendar/calendar';
 import { createNewsCardCategory } from './newCardCategory';
 const container = document.querySelector('.final-menu');
@@ -157,8 +157,8 @@ async function serchArticlesCategory() {
     })
     .then(resolve => {
       console.log(resolve);
-
-      newList.insertAdjacentHTML('afterbegin', createCards(resolve));
+      newList.insertAdjacentHTML('afterbegin', createCardOnError('category'));
+      // newList.insertAdjacentHTML('afterbegin', createCards(resolve));
     });
 }
 
