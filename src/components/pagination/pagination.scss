@@ -1,0 +1,97 @@
+.pagination-btn__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60px;
+}
+
+.pagination-btn__prew,
+.pagination-btn__next {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: inherit;
+    width: 82px;
+    height: 31px;
+    background-color: #F4F4F4;
+    border: 1px solid #4440F6;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.pagination-btn__prew {
+    margin-right: 8px;
+}
+
+.pagination-btn__prew:active {
+    background-color: #4440F7;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pagination-btn__next:active {
+    background-color: #4440F7;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pagination-btn {
+    margin-right: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33px;
+    height: 31px;
+    background: #F4F4F4;
+    border: 1px solid #4440F6;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.pagination-btn--active {
+    background-color: #4440F7;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    color: #F4F4F4;
+}
+
+.pagination-btn__prew:hover {
+    background-color: #4440F7;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    color: #F4F4F4;
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pagination-btn:hover {
+    background-color: #4440F7;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    color: #F4F4F4;
+}
+
+.pagination-btn__next:hover {
+    background-color: #4440F7;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    color: #F4F4F4;
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.prew-icon {
+    fill: currentColor;
+}
+
+.next-icon {
+    fill: currentColor;
+}
+
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination__list {
+    display: flex;
+    list-style-type: none;
+}
