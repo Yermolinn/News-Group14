@@ -1,7 +1,7 @@
 import LocalStorageService from '../LocalStorageService/LocalStorageService';
 import { getNews } from '../ArticlesSearchAPI/ArticlesSearchAPI';
 
-
+const axios = require('axios').default;
 const ENDPOINT = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
 const API_KEY = 'api-key=HR9YxGV98GGTmMcKHA5eY4Aer5nJgRvJ';
 
@@ -55,9 +55,13 @@ async function onSubmit(e) {
     const articles = await pixabayApiService.getNews();
     console.log(':ракета: ~ articles', articles);
     if (articles.length === 0) throw new Error('No data');
+    let i = 0;
     const card = articles.reduce(
-      (markup, article) => createNewsCard(article) + markup,
-      ''
+      (markup, article) => {
+        i++
+        return markup + createNewsCard(article, i)
+      
+      }, ''
     );
     console.log(card);
     updateCard(card);
@@ -65,9 +69,12 @@ async function onSubmit(e) {
     onError();
   } formEl.reset()
 }
+
 function updateCard(markup) {
   newsList.innerHTML = markup;
+
 }
+
 function onError(error) {
   console.error(error);
 }
@@ -79,15 +86,16 @@ export function createNewsCard({
   snippet,
   pub_date,
   multimedia,
-}) {
+}, i) {
   const defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
   const attachURL = `https://www.nytimes.com/`;
   if (multimedia.length === 0) {
-    return `<div class="news-card">
+    return `<div class="news-card grid grid-item-${i}">
     <div class="top-wrap">
       <img
         src="${defaultImg}"
         loading="lazy"
+        class="news-img"
         width="288"
         height="395"
       />
@@ -116,13 +124,14 @@ export function createNewsCard({
   </div>
 `;
   }
-  return `<div class="news-card">
-    <div class="top-wrap">
+  return `<div class="news-card grid grid-item-${i}">
+    <div class="top-wrap ">
       <img
         src="${attachURL}${multimedia[0].url}"
         loading="lazy"
         width="288"
         height="395"
+        class="news-img"
       />
       <p class="isread">Have read</p>
       <div class="category-wrap">
