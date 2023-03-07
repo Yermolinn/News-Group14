@@ -38,7 +38,6 @@ async function render() {
     return markup + createMostPopularNews(article, i);
   }, '');
 
-  console.log(card);
   updateCard(card);
 }
 
@@ -47,20 +46,33 @@ async function render() {
 //
 
 let readMoreId = [];
-// console.log(LocalStorageService.load('readMoreLocal').map(elem => elem));
-isLocalEmpty();
+let favoriteId = [];
+// readMoreId = LocalStorageService.save('readMoreLocal', readMoreId);
+console.log(readMoreId);
 
-function isLocalEmpty() {
-  if (LocalStorageService.load('readMoreLocal') === null) {
+// console.log(LocalStorageService.load('readMoreLocal').map(elem => elem));
+isReadEmpty();
+isFavoriteEmpty();
+
+function isReadEmpty() {
+  if (LocalStorageService.load('readMoreLocal') === undefined) {
     return;
   }
   readMoreId = LocalStorageService.load('readMoreLocal');
 }
 
-function checkLokalStorage(elem, localArr) {
-  if (localArr === null) {
+function isFavoriteEmpty() {
+  if (LocalStorageService.load('favorite') === undefined) {
     return;
   }
+  favoriteId = LocalStorageService.load('favorite');
+}
+
+function checkLokalStorage(elem, localArr) {
+  if (localArr === undefined) {
+    return;
+  }
+
   for (let i = 0; i < localArr.length; i += 1) {
     if (localArr[i].uri === elem.uri) {
       return true;
@@ -108,39 +120,42 @@ export function createMostPopularNews(article, i) {
     const p = document.querySelector(`.isread--${id}`);
     const card = document.querySelector(`.news-card--${id}`);
 
-    btn.onclick = handleFavorite(id, article, btn);
-    link.onclick = handleRead(article, p, card);
-
+    let isFav = false;
+    let localFavorite = LocalStorageService.load('favorite');
+    let checkFavorite = checkLokalStorage(article, localFavorite);
+    if (checkFavorite === true) {
+    }
     let localArr = LocalStorageService.load('readMoreLocal');
     let check = checkLokalStorage(article, localArr);
     if (check === true) {
       p.innerHTML = alreadyRead;
       card.classList.add('opacity');
     }
-
-    let isFav = false;
-    let localFavorite = LocalStorageService.load('favorite');
-    let checkFavorite = checkLokalStorage(article, localFavorite);
-    if (checkFavorite === true) {
-      hiddenSpan = 'hidden-span';
-    }
+    btn.onclick = handleFavorite(isFav, article, btn);
+    link.onclick = handleRead(article, p, card);
   }, 0);
 
-  const handleFavorite = (articleId, data, btn) => () => {
+  const handleFavorite = (isFav, data, btn) => () => {
     // логіка кнопки фейворіт
-
     btn.classList.toggle('favorite-btn--active');
+    data.favorite = isFav;
     if (btn.classList.contains('favorite-btn--active')) {
+      isFav = true;
       btn.innerHTML = removeFavoriteBtnHTML;
+      for (let i = 0; i < favoriteId.length; i += 1) {
+        if (favoriteId[i].uri === data.uri) {
+          return;
+        }
+      }
+      favoriteId.push(data);
+      LocalStorageService.save('favorite', favoriteId);
     } else {
+      isFav = false;
       btn.innerHTML = addFavoriteBtnHTML;
+      const index = favoriteId.findIndex(item => item.isFav === false);
+      favoriteId.splice(index, 1);
+      LocalStorageService.save('favorite', favoriteId);
     }
-    const saveFavorite = {
-      [articleId]: data,
-    };
-    const newFavorite = { ...favorite, ...saveFavorite };
-    console.log(saveFavorite);
-    LocalStorageService.save('favorite', newFavorite);
   };
   const handleRead = (data, p, card) => () => {
     // логіка натискання на read more
