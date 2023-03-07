@@ -16,6 +16,7 @@ const refs = {
 
   inputDate: document.querySelector('.input-date'),
   calendarWrapper: document.querySelector('.calendar-wrapper'),
+  btnCross: document.querySelector('.calendar-btn-cross'),
 };
 
 const options = {
@@ -40,23 +41,30 @@ const options = {
   ],
   onChange: [
     function (fullDate, shortDate, objFlatpickr) {
-      createBtnCross(objFlatpickr);
+      showBtnCross();
+
+      console.log(arrCategoryElements.length);
 
       if (arrCategoryElements.length === 0) {
+        console.log('In change has done return');
         return;
       }
 
-      let ourDate = objFlatpickr
-        .formatDate(objFlatpickr.latestSelectedDateObj, 'Y-m-d')
-        .split('-')
-        .join('/');
+      console.log(objFlatpickr);
 
-      const timeArr = arrCategoryElements.filter(elem => {
-        const date = elem.published_date.slice(0, 10).split('-').join('/');
-        return date === ourDate;
-      });
+      if (objFlatpickr.latestSelectedDateObj !== undefined) {
+        let ourDate = objFlatpickr
+          .formatDate(objFlatpickr.latestSelectedDateObj, 'Y-m-d')
+          .split('-')
+          .join('/');
 
-      newList.innerHTML = createCards(timeArr);
+        const timeArr = arrCategoryElements.filter(elem => {
+          const date = elem.published_date.slice(0, 10).split('-').join('/');
+          return date === ourDate;
+        });
+
+        newList.innerHTML = createCards(timeArr);
+      }
     },
   ],
 };
@@ -85,29 +93,15 @@ function removeInputCalendarListener(objFlatpickr) {
   counter = 0;
 }
 
-let crossElem = undefined;
+refs.btnCross.addEventListener('click', clearInputCalendar);
 
-function createBtnCross(objFlatpickr) {
-  if (typeof crossElem === 'undefined') {
-    crossElem = document.createElement('button');
+function clearInputCalendar(e) {
+  selectedDate.clear();
+  e.currentTarget.classList.add('visually-hidden');
+}
 
-    crossElem.setAttribute('type', 'button');
-    crossElem.classList.add('calendar-btn-cross');
-
-    refs.inputDate.appendChild(crossElem);
-
-    crossElem.addEventListener(
-      'click',
-      () => {
-        objFlatpickr.clear();
-        refs.inputDate.removeChild(
-          document.querySelector('.calendar-btn-cross')
-        );
-        crossElem = undefined;
-      },
-      { once: true }
-    );
-  }
+function showBtnCross() {
+  refs.btnCross.classList.remove('visually-hidden');
 }
 
 export { selectedDate };
