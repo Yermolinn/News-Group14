@@ -1,13 +1,15 @@
 .news-card {
     margin-bottom: 28px;
+    width: 288px;
 
     @include tablet {
-        margin-bottom: 30px;
+        width: 353px;
     }
 
     @include desktop {
-        margin-bottom: 40px;
+        width: 395px;
     }
+
     position: relative;
 }
 
@@ -138,7 +140,15 @@
 }
 
 .news-img {
-    width: 394px;
-    height: 395px;
+    width: 288px;
+    border-radius: 4px;
+
+    @include tablet {
+        width: 353px;
+    }
+
+    @include desktop {
+        width: 395px;
+    }
 }
 
