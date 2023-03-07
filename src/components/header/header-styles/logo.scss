@@ -14,6 +14,7 @@
 }
 
 .logo {
+  margin-left: 16px;
   font-weight: 700;
   font-size: 24px;
   line-height: 1.4;
@@ -90,7 +91,8 @@
   &::placeholder {
     opacity: 0.4;
   }
-  &:hover {
+  &:hover,
+  &:focus-within {
     border: 1px solid var(--active-btn-color);
   }
 }
@@ -105,6 +107,9 @@
 .form__icon {
   transition: fill var(--duration) var(--timing-function);
   .form:hover & {
+    fill: var(--active-btn-color);
+  }
+  .form:focus-within & {
     fill: var(--active-btn-color);
   }
 }
@@ -123,6 +128,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  margin-right: 16px;
 }
 .menu__close-icon {
   transition: fill var(--duration) var(--timing-function);
