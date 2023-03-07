@@ -78,5 +78,5 @@ function textCardFormat(e) {
     return liEl;
   }
 
-  displayList(postsData, rows, currentPage);
-  displayPagination(postsData, rows);
+  // displayList(postsData, rows, currentPage);
+  // displayPagination(postsData, rows);
