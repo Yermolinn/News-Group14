@@ -30,7 +30,7 @@ export function createCardOnError(tittleText) {
 		 	${imageErrorX2} 2x"
      media="(min-width: 1280px)"
    />
-        <img src="${imageErrorX1}" alt="Error" width="601" height="478"/>
+        <img src="${imageErrorX1}" alt="Error" width="601"/>
 	</picture>
     </div>
 	 
