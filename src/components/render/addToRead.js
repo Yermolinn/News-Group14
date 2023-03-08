@@ -30,5 +30,5 @@ function addToRead() {
   };
 
   currentId += 1;
-  LocalStorageService.save(STORAGE_KEY_2, item);
+  localStorageService.save(STORAGE_KEY_2, item);
 }
