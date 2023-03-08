@@ -14,3 +14,4 @@ import './components/preLoader/preLoader.js';
 import './components/main/main.js';
 import './components/modeSwitcher/modeSwitcher.js';
 import './components/pagination/pagination.js';
+import './components/localStorageService/localStorageService.js'
