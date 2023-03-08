@@ -125,6 +125,8 @@ export function createMostPopularNews(article, i) {
     let localFavorite = localStorageService.load('favorite');
     let checkFavorite = checkLokalStorage(article, localFavorite);
     if (checkFavorite === true) {
+      btn.innerHTML = removeFavoriteBtnHTML;
+      btn.classList.add('favorite-btn--active');
     }
     let localArr = localStorageService.load('readMoreLocal');
     let check = checkLokalStorage(article, localArr);
@@ -139,7 +141,6 @@ export function createMostPopularNews(article, i) {
   const handleFavorite = (isFav, data, btn) => () => {
     // логіка кнопки фейворіт
     btn.classList.toggle('favorite-btn--active');
-    data.favorite = isFav;
 
     if (btn.classList.contains('favorite-btn--active')) {
       isFav = true;
@@ -149,6 +150,7 @@ export function createMostPopularNews(article, i) {
           return;
         }
       }
+      data.favorite = isFav;
       favoriteId.push(data);
       localStorageService.save('favorite', favoriteId);
     } else {
