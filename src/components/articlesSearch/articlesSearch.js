@@ -1,5 +1,5 @@
-// import LocalStorageService from '../LocalStorageService/LocalStorageService.js';
-// import { getNews } from './articlesSearch';
+import LocalStorageService from '../LocalStorageService/LocalStorageService.js';
+import { getNews } from './articlesSearch';
 
 const axios = require('axios').default;
 const ENDPOINT = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';

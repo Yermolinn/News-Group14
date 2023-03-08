@@ -1,6 +1,6 @@
 // import { save, load, remove } from '../localStorageService/localStorageService';
-// import LocalStorageService from '../LocalStorageService/LocalStorageService.js';
-// import { getNews } from './articlesSearch';
+import localStorageService from '../localStorageService/localStorageService';
+import { getNews } from '../articlesSearch/articlesSearch';
 // const axios = require('axios').default;
 // const ENDPOINT = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
 // const API_KEY = 'api-key=HR9YxGV98GGTmMcKHA5eY4Aer5nJgRvJ';
