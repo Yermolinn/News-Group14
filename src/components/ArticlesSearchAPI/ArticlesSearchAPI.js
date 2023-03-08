@@ -1,4 +1,4 @@
-import localStorageService from '../localStorageServicelLocalStorageService';
+import localStorageService from '../localStorageServicel/localStorageService';
 import { getNews } from '../ArticlesSearchAPI/ArticlesSearchAPI';
 
 const axios = require('axios').default;
