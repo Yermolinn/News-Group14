@@ -1,6 +1,6 @@
 // import { save, load, remove } from '../LocalStorageService/LocalStorageService';
 
-import LocalStorageService from '../LocalStorageService/LocalStorageService';
+import LocalStorage from '../LocalStorageService/LocalStorageService';
 
 import { getNews } from '../ArticlesSearchAPI/ArticlesSearchAPI';
 // const axios = require('axios').default;
