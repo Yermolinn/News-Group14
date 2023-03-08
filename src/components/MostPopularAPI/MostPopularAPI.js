@@ -63,7 +63,6 @@ function isReadEmpty() {
 
 function isFavoriteEmpty() {
   if (LocalStorageService.load('favorite') === undefined) {
-    favoriteId = [];
     return;
   }
   favoriteId = LocalStorageService.load('favorite');
@@ -140,7 +139,6 @@ export function createMostPopularNews(article, i) {
     // логіка кнопки фейворіт
     btn.classList.toggle('favorite-btn--active');
     data.favorite = isFav;
-
     if (btn.classList.contains('favorite-btn--active')) {
       isFav = true;
       btn.innerHTML = removeFavoriteBtnHTML;
