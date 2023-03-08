@@ -47,15 +47,6 @@ async function render() {
 //
 
 let readMoreId = [];
-// console.log(LocalStorageService.load('readMoreLocal').map(elem => elem));
-isLocalEmpty();
-
-function isLocalEmpty() {
-  if (LocalStorageService.load('readMoreLocal') === null) {
-    return;
-  }
-  readMoreId = LocalStorageService.load('readMoreLocal');
-}
 
 function checkLokalStorage(elem, localArr) {
   if (localArr === null) {
@@ -82,6 +73,21 @@ function createSvgIcon(name) {
           <use href="${refs.iconSvg}#${name}"></use>
     </svg>
   `;
+}
+export function getFavorite() {
+  // вигружає з локал стореджа за ключем favorite значення
+
+  const favorite = LocalStorageService.load('favorite');
+
+  return favorite;
+}
+
+export function getRead() {
+  // вигружає з локал стореджа за ключем read значення
+
+  const read = LocalStorageService.load('read');
+
+  return read;
 }
 
 const addFavoriteBtnHTML = `Add to favorite ${createSvgIcon(
@@ -117,13 +123,6 @@ export function createMostPopularNews(article, i) {
       p.innerHTML = alreadyRead;
       card.classList.add('opacity');
     }
-
-    let isFav = false;
-    let localFavorite = LocalStorageService.load('favorite');
-    let checkFavorite = checkLokalStorage(article, localFavorite);
-    if (checkFavorite === true) {
-      hiddenSpan = 'hidden-span';
-    }
   }, 0);
 
   const handleFavorite = (articleId, data, btn) => () => {
@@ -135,6 +134,7 @@ export function createMostPopularNews(article, i) {
     } else {
       btn.innerHTML = addFavoriteBtnHTML;
     }
+    const favorite = getFavorite();
     const saveFavorite = {
       [articleId]: data,
     };
@@ -146,6 +146,8 @@ export function createMostPopularNews(article, i) {
     // логіка натискання на read more
     p.innerHTML = alreadyRead;
     card.classList.add('opacity');
+    const read = getRead();
+    console.log(read);
     let dateOfRead = new Date()
       .toLocaleDateString({
         day: '2-digit',
