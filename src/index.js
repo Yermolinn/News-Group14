@@ -10,7 +10,7 @@ import './components/calendar/calendar.js';
 import './components/render/render.js';
 import './components/button/button.js';
 import './components/categories/categories.js';
-import './components/favoriteNews/favoriteNews.js';
+// import './components/favoriteNews/favoriteNews.js';
 import './components/firebaseAPI/firebaseAPI.js';
 import './components/footer/footer.js';
 import './components/pre-loader/pre-loader.js';
