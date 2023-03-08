@@ -1,4 +1,4 @@
-import localStorageService from '../localStorageService/localStorageService';
+import localStorageService from '../localStorage/localStorageService';
 
 const SWITCH_MODE_KEY = 'currentMode';
 const DARK_MODE = 'dark';
