@@ -6,132 +6,186 @@ const moreWatherContainer = document.querySelector('.weather-for-week');
 const weekWeather = document.querySelector('.week-weather');
 const closeMoreWeatherBtn = document.querySelector(".close-more-weather");
 const newsList = document.querySelector('.news-list')
+const WEATHER_KEY = 'a0572400057a18022ba680699689d40f';
+
+   
+
+// function loadWeather(params) {
+
+//     // if (navigator.geolocation) {
+//     //     getGeo();
+//     // };
+    
+
+    
+//     // getGeo();
+
+// //     if (navigator.geolocation) {
+// //         navigator.geolocation.getCurrentPosition(({coords}) => {
+// //             // const { latitude, longitude } = position.coords;
+// //             console.log(coords);
+// //             weatherByGeo(coords.latitude, coords.longitude)
+// //   // Show a map centered at latitude / longitude.
+// //         });
+        
+// //     };
+// //     defaultWeather();
+
+
+
+    
+    
+
+//     // if (navigator.geolocation) {
+//     //     getGeo();
+//     // };
+    
+//     //     defaultWeather();
 
     
 
-async function loadWeather(params) {
+//     // getGeo(params);
 
-    async function geoSuccess(position) {
+//     // const currentPosition = navigator.geolocation.getCurrentPosition(weatherByGeo, defaultWeather, geoOptions);
+
+//     // if (navigator.geolocation) {
+//     //     navigator.geolocation.getCurrentPosition({ coords: { latitude, longitude } })
+//     // }
+// };
+    // weatherContainer.innerHTML = `<div class="loading"><img src="./Spinner-1s-200px.gif" alt="Loading"></div>`;
+
+async function getGeo(params) {
+
  
-        const latitude  = position.coords.latitude;
-         const longitude = position.coords.longitude;
-        //  console.log(latitude);
-        //  console.log(longitude);
-
-        const key = 'a0572400057a18022ba680699689d40f';
-
-        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric`;
-
-        const response = await fetch(url);
-        const data = await response.json();
-
-        if (response.ok) {
-            getWeather(data);
-            
-        } else {
-        weatherContainer.innerHTML = data.message;
-        }
-
-
-        moreWeatherBtn.addEventListener('click', onMoreWeatherBtnClick);
-
-        async function onMoreWeatherBtnClick(params) {
-            console.log(5);
-            
-            
-            const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${key}&units=metric&cnt=49`;
-            
-            const response = await fetch(url);
-            const data = await response.json();
-            console.log(data);
-
-            if (response.ok) {
-            getMoreWeather(data);
-            
-            } else {
-            weatherContainer.innerHTML = data.message;
-            }
-
-            moreWeatherBtn.classList.add('more-weather-is-hidden');
-            closeMoreWeatherBtn.classList.remove('more-weather-is-hidden');
-
-        }
-
-        closeMoreWeatherBtn.addEventListener('click', onCloseMoreWeatherBTn)
-        
-        function onCloseMoreWeatherBTn(params) {
-            
-            weekWeather.innerHTML = "";
-            closeMoreWeatherBtn.classList.add('more-weather-is-hidden');
-            moreWeatherBtn.classList.remove('more-weather-is-hidden');
-        }
-    }
-
-    async function geoError() {
-            
-        
-            // alert("No Geo");
-        
-        const key = 'a0572400057a18022ba680699689d40f';
-
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=Kyiv&appid=${key}&units=metric`;
-
-        const response = await fetch(url);
-        const data = await response.json();
-
-            if (response.ok) {
-            
-            getWeather(data);
-            
-        } else {
-        weatherContainer.innerHTML = data.message;
-        }
-        moreWeatherBtn.addEventListener('click', onMoreWeatherBtnClick);
-
-        async function onMoreWeatherBtnClick(params) {
-            console.log(5);
-            moreWeatherBtn.classList.add('more-weather-is-hidden');
-
-            
-            const url = `https://api.openweathermap.org/data/2.5/forecast?q=Kyiv&appid=${key}&units=metric&cnt=49`;
-            
-            const response = await fetch(url);
-            const data = await response.json();
-            console.log(data);
-
-            if (response.ok) {
-            getMoreWeather(data);
-            
-            } else {
-            weatherContainer.innerHTML = data.message;
-            }
-            moreWeatherBtn.classList.add('more-weather-is-hidden');
-            closeMoreWeatherBtn.classList.remove('more-weather-is-hidden');
-
-        }
-
-        closeMoreWeatherBtn.addEventListener('click', onCloseMoreWeatherBTn)
-        
-        function onCloseMoreWeatherBTn(params) {
-            
-            weekWeather.innerHTML = "";
-            closeMoreWeatherBtn.classList.add('more-weather-is-hidden');
-            moreWeatherBtn.classList.remove('more-weather-is-hidden');
-        }
-        }
-
     const geoOptions = {
-        enableHighAccuracy: true
-          
+        enableHighAccuracy: true   
     };
+    
     
     // timeout           : 27000
     // maximumAge        : 30000,
+    // defaultWeather();
+    
+    // if (navigator.geolocation) {
+    // weekWeather.innerHTML = ``;
+       const currentPosition = await navigator.geolocation.getCurrentPosition(weatherByGeo, defaultWeather, geoOptions)
 
-    const wpid = navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+    
+    // };
+        
 
+
+    
+    // if (navigator.geolocation) {
+    //    await navigator.geolocation.getCurrentPosition(({ coords }) => {
+    //         // const { latitude, longitude } = position.coords;
+    //         // weatherContainer.innerHTML = ``;
+    //         console.log(coords);
+    //         weatherByGeo(coords.latitude, coords.longitude);
+    //         // Show a map centered at latitude / longitude.
+    //     });
+
+    
+    // };
 }
-    // weatherContainer.innerHTML = `<div class="loading"><img src="./Spinner-1s-200px.gif" alt="Loading"></div>`;
+
+async function weatherByGeo(position) {
+ 
+        const latitude  = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        //  console.log(latitude);
+        //  console.log(longitude);
+
+        // const key = 'a0572400057a18022ba680699689d40f';
+
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${WEATHER_KEY}&units=metric`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        getWeatherRender(response, data);
+        // if (response.ok) {
+        //     getWeather(data);
+            
+        // } else {
+        // weatherContainer.innerHTML = data.message;
+        // }
+
+
+        moreWeatherBtn.addEventListener('click', onMoreWeatherBtnClick);
+
+            async function onMoreWeatherBtnClick() {
+                // console.log(5);
+                
+                
+                const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${WEATHER_KEY}&units=metric&cnt=49`;
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                // console.log(data);
+
+                getMoreWeatherRender(response, data);
+
+                // if (response.ok) {
+                // getMoreWeather(data);
+                
+                // } else {
+                // weatherContainer.innerHTML = data.message;
+                // }
+
+                onMoreWeatherBtn();
+
+                // moreWeatherBtn.classList.add('more-weather-is-hidden');
+                // closeMoreWeatherBtn.classList.remove('more-weather-is-hidden');
+
+            }
+
+        closeMoreWeatherBtn.addEventListener('click', onCloseMoreWeatherBTn)
+        
+        // function onCloseMoreWeatherBTn(params) {
+            
+        //     weekWeather.innerHTML = "";
+        //     closeMoreWeatherBtn.classList.add('more-weather-is-hidden');
+        //     moreWeatherBtn.classList.remove('more-weather-is-hidden');
+        // }
+};
+
+// function errorGeo(params) {
+//     return;
+// };
+
+async function defaultWeather() {
+
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=Kyiv&appid=${WEATHER_KEY}&units=metric`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        getWeatherRender(response, data);
+
+
+        moreWeatherBtn.addEventListener('click', onMoreWeatherBtnClick);
+
+        async function onMoreWeatherBtnClick(params) {
+            // console.log(5);
+            moreWeatherBtn.classList.add('more-weather-is-hidden');
+
+            
+            const url = `https://api.openweathermap.org/data/2.5/forecast?q=Kyiv&appid=${WEATHER_KEY}&units=metric&cnt=49`;
+            
+            const response = await fetch(url);
+            const data = await response.json();
+            // console.log(data);
+
+            getMoreWeatherRender(response, data);
+
+            onMoreWeatherBtn();
+
+        }
+
+        closeMoreWeatherBtn.addEventListener('click', onCloseMoreWeatherBTn)
+        
+};
 
 
 function getWeather(data) {
@@ -139,7 +193,6 @@ function getWeather(data) {
 
     const location = data.name;
     const temp = Math.round(data.main.temp);
-    // const feelsLike = Math.round(data.main.feels_like);
     const weatherStatus = data.weather[0].main;
     const weatherIcon = data.weather[0].icon;
     const weatherDay = new Date(data.dt * 1000).toLocaleDateString('en', { weekday: 'short', });
@@ -165,9 +218,8 @@ function getWeather(data) {
         </div>
         <div class="weather-date">${weatherDay} <br> ${weatherDate}</div>`;
     
-    // weatherContainer.innerHTML = info;
     weatherContainer.insertAdjacentHTML("afterbegin", info);
-    // newsList.insertAdjacentHTML('beforeend', weatherContainer)
+    
 
 
     
@@ -178,7 +230,7 @@ function getMoreWeather(data) {
     // console.log(data);
 
     let filteredData = data.list.filter(item => item.dt_txt.includes('12:00:00'));
-    console.log(filteredData);
+    // console.log(filteredData);
 
     const moreWeather = filteredData.map((item) => 
         // const getMoreWeatherDate = new Date(item.dt * 1000).toLocaleDateString("en", {weekday: "long",});
@@ -198,11 +250,49 @@ function getMoreWeather(data) {
 
     weekWeather.insertAdjacentHTML("beforeend", moreWeather);
   
-}
-
-if (weatherContainer) {
-    loadWeather();
 };
 
+function onCloseMoreWeatherBTn() {
+            
+            weekWeather.innerHTML = "";
+            closeMoreWeatherBtn.classList.add('more-weather-is-hidden');
+            moreWeatherBtn.classList.remove('more-weather-is-hidden');
+};
 
+function onMoreWeatherBtn() {
+    moreWeatherBtn.classList.add('more-weather-is-hidden');
+    closeMoreWeatherBtn.classList.remove('more-weather-is-hidden');
+};
+
+function getWeatherRender(response, data) {
+    if (response.ok) {
+            getWeather(data);
+            
+        } else {
+        weatherContainer.innerHTML = data.message;
+        }
+};
+
+function getMoreWeatherRender(response, data) {
+    if (response.ok) {
+            getMoreWeather(data);
+            
+            } else {
+            weatherContainer.innerHTML = data.message;
+            }
+};
+
+// if (weatherContainer) {
+//     loadWeather();
+// };
+        
+
+
+// if (navigator.geolocation) {
+//     getGeo();
+// };
+
+// weekWeather.innerHTML = `<div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>`;
+
+getGeo();
 
