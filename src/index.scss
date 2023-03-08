@@ -4,25 +4,23 @@
 @import './sass/_vars';
 @import './sass/container';
 
-@import './components/ArticlesSearchAPI/ArticlesSearchAPI.scss';
-@import './components/MostPopularAPI/MostPopularAPI.scss';
-@import './components/TimesNewswireAPI/TimesNewswireAPI.scss';
+@import './components/articlesSearch/articlesSearch.scss';
+@import './components/mostPopular/mostPopular.scss';
+@import './components/timesNewswire/timesNewswire.scss';
 @import './components/calendar/calendar.scss';
 @import './components/render/render.scss';
 @import './components/button/button.scss';
 @import './components/categories/categories.scss';
-
 @import './components/collectionNews/collectionNews.scss';
-
 @import './components/favoriteNews/favoriteNews.scss';
-@import './components/firebaseAPI/firebaseAPI.scss';
+@import './components/firebase/firebase.scss';
 @import './components/footer/footer.scss';
-@import './components/pre-loader/pre-loader.scss';
+@import './components/preLoader/preLoader.scss';
 @import './components/main/main.scss';
-@import './components/mode-switcher/mode-switcher.scss';
+@import './components/modeSwitcher/modeSwitcher.scss';
 @import './components/newsCard/newsCard.scss';
 @import './components/pagination/pagination.scss';
 @import './components/readNews/readNews.scss';
-@import './components/openWeatherAPI/openWeatherAPI.scss';
+@import './components/openWeather/openWeather.scss';
 @import './components/header/header-styles/logo.scss';
 @import './components/header/header-styles/menu.scss';

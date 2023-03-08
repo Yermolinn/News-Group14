@@ -27,12 +27,12 @@ function handleFavorite() {
       .querySelector('.icon-favorite-remove')
       .classList.remove('hide-icon');
     document.querySelector('.icon-favorite-add').classList.add('hide-icon');
-    const currentState = LocalStorageService.load(STORAGE_KEY);
+    const currentState = localStorageService.load(STORAGE_KEY);
     console.log(currentState);
     const index = currentState.findIndex(item => item.isFav === false);
     currentState.splice(index, 1);
     favoritesArray.pop();
-    LocalStorageService.save(STORAGE_KEY, currentState);
+    localStorageService.save(STORAGE_KEY, currentState);
   } else {
     isFav = true;
     refs.addToFavoriteBtn.firstElementChild.textContent =
@@ -41,6 +41,6 @@ function handleFavorite() {
     document.querySelector('.icon-favorite-add').classList.remove('hide-icon');
     favoritesArray.push(item);
     currentId += 1;
-    LocalStorageService.save(STORAGE_KEY, favoritesArray);
+    localStorageService.save(STORAGE_KEY, favoritesArray);
   }
 }
