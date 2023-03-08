@@ -1,6 +1,6 @@
-// import { save, load, remove } from '../localStorageService/localStorageService';
-import localStorageService from '../localStorageService/localStorageService';
-import { getNews } from '../articlesSearch/articlesSearch';
+// import { save, load, remove } from '../LocalStorageService/LocalStorageService';
+import LocalStorageService from '../LocalStorageService/LocalStorageService';
+import { getNews } from '../ArticlesSearchAPI/ArticlesSearchAPI';
 // const axios = require('axios').default;
 // const ENDPOINT = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
 // const API_KEY = 'api-key=HR9YxGV98GGTmMcKHA5eY4Aer5nJgRvJ';
@@ -151,7 +151,7 @@ export function updateNews(markup) {
 //   };
 
 //   currentId += 1;
-//   localStorageService.save(STORAGE_KEY_2, item);
+//   LocalStorageService.save(STORAGE_KEY_2, item);
 // }
 
 
@@ -186,7 +186,7 @@ export function updateNews(markup) {
 //       .classList.remove('hide-icon');
 //     document.querySelector('.icon-favorite-add').classList.add('hide-icon');
 //   } else {
-//     const currentState = localStorageService.load(STORAGE_KEY);
+//     const currentState = LocalStorageService.load(STORAGE_KEY);
 //     console.log(currentState);
 //     if (currentState.includes(item)) {
 //       isFav = true;
@@ -210,19 +210,19 @@ export function updateNews(markup) {
 //         .classList.remove('hide-icon');
 //       favoritesArray.push(item);
 //       currentId += 1;
-//       localStorageService.save(STORAGE_KEY, favoritesArray);
+//       LocalStorageService.save(STORAGE_KEY, favoritesArray);
 //     }
 //   }
 // }
 
 
 // function addNewsToStorage(card, date) {
-//   const currentState = localStorageService.load(STORAGE_KEY);
+//   const currentState = LocalStorageService.load(STORAGE_KEY);
 //   if (currentState === undefined) {
-//     localStorageService.save(STORAGE_KEY, [createCardObject(card, date)]);
+//     LocalStorageService.save(STORAGE_KEY, [createCardObject(card, date)]);
 //   } else {
 //     currentState.push(createCardObject(card, date));
-//     localStorageService.save(STORAGE_KEY, currentState);
+//     LocalStorageService.save(STORAGE_KEY, currentState);
 //   }
 //   currentId += 1;
 // }

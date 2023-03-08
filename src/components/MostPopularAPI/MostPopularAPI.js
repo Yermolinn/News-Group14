@@ -1,6 +1,6 @@
 const newsList = document.querySelector('.news-list');
 const API_KEY = 'api-key=HR9YxGV98GGTmMcKHA5eY4Aer5nJgRvJ';
-import localStorageService from '../localStorageService/localStorageService';
+import LocalStorageService from '../LocalStorageService/LocalStorageService';
 const axios = require('axios').default;
 class MostPopularApiService {
   //   constructor() {
@@ -47,26 +47,26 @@ async function render() {
 
 let readMoreId = [];
 let favoriteId = [];
-// readMoreId = localStorageService.save('readMoreLocal', readMoreId);
+// readMoreId = LocalStorageService.save('readMoreLocal', readMoreId);
 console.log(readMoreId);
 
-// console.log(localStorageService.load('readMoreLocal').map(elem => elem));
+// console.log(LocalStorageService.load('readMoreLocal').map(elem => elem));
 isReadEmpty();
 isFavoriteEmpty();
 
 function isReadEmpty() {
-  if (localStorageService.load('readMoreLocal') === undefined) {
+  if (LocalStorageService.load('readMoreLocal') === undefined) {
     return;
   }
-  readMoreId = localStorageService.load('readMoreLocal');
+  readMoreId = LocalStorageService.load('readMoreLocal');
 }
 
 function isFavoriteEmpty() {
-  if (localStorageService.load('favorite') === undefined) {
+  if (LocalStorageService.load('favorite') === undefined) {
     favoriteId = [];
     return;
   }
-  favoriteId = localStorageService.load('favorite');
+  favoriteId = LocalStorageService.load('favorite');
 }
 
 function checkLokalStorage(elem, localArr) {
@@ -122,11 +122,11 @@ export function createMostPopularNews(article, i) {
     const card = document.querySelector(`.news-card--${id}`);
 
     let isFav = false;
-    let localFavorite = localStorageService.load('favorite');
+    let localFavorite = LocalStorageService.load('favorite');
     let checkFavorite = checkLokalStorage(article, localFavorite);
     if (checkFavorite === true) {
     }
-    let localArr = localStorageService.load('readMoreLocal');
+    let localArr = LocalStorageService.load('readMoreLocal');
     let check = checkLokalStorage(article, localArr);
     if (check === true) {
       p.innerHTML = alreadyRead;
@@ -150,13 +150,13 @@ export function createMostPopularNews(article, i) {
         }
       }
       favoriteId.push(data);
-      localStorageService.save('favorite', favoriteId);
+      LocalStorageService.save('favorite', favoriteId);
     } else {
       isFav = false;
       btn.innerHTML = addFavoriteBtnHTML;
       const index = favoriteId.findIndex(item => item.isFav === false);
       favoriteId.splice(index, 1);
-      localStorageService.save('favorite', favoriteId);
+      LocalStorageService.save('favorite', favoriteId);
     }
   };
   const handleRead = (data, p, card) => () => {
@@ -178,7 +178,7 @@ export function createMostPopularNews(article, i) {
       }
     }
     readMoreId.push(data);
-    localStorageService.save(`readMoreLocal`, readMoreId);
+    LocalStorageService.save(`readMoreLocal`, readMoreId);
     // const item = {
     //   read: {
     //     [dateOfRead]: [data],
@@ -189,7 +189,7 @@ export function createMostPopularNews(article, i) {
     // console.log(item.read[dateOfRead]);
     // const newRead = { ...read, ...item };
     // console.log(newRead);
-    // localStorageService.save('read', newRead);
+    // LocalStorageService.save('read', newRead);
   };
 
   let defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
