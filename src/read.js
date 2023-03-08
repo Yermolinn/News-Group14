@@ -6,7 +6,6 @@ import './components/header/menu-current-page';
 import './components/articlesSearch/articlesSearch.js';
 import './components/timesNewswire/timesNewswire';
 import './components/button/button.js';
-import './components/localStorageService/localStorageService.js'
 import './components/favoriteNews/favoriteNews.js';
 import './components/firebase/firebase.js';
 import './components/footer/footer.js';

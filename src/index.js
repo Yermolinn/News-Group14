@@ -18,4 +18,3 @@ import './components/modeSwitcher/modeSwitcher.js';
 import './components/newsCard/newsCard.js';
 import './components/pagination/pagination.js';
 import './components/openWeather/openWeather.js';
-import './components/localStorageService/localStorageService'
