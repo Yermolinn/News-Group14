@@ -1,6 +1,6 @@
 const newsList = document.querySelector('.news-list');
 const API_KEY = 'api-key=HR9YxGV98GGTmMcKHA5eY4Aer5nJgRvJ';
-
+import LocalStorageService from '../LocalStorageService/LocalStorageService';
 const axios = require('axios').default;
 class MostPopularApiService {
   //   constructor() {
