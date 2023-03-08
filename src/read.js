@@ -9,7 +9,6 @@ import './components/timesNewswire/timesNewswire';
 // import './components/render/render.js';
 import './components/button/button.js';
 import './components/favoriteNews/favoriteNews.js';
-import './components/firebase/firebase.js';
 import './components/footer/footer.js';
 import './components/preLoader/preLoader.js';
 import './components/main/main.js';
