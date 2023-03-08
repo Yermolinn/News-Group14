@@ -1,4 +1,4 @@
-import localStorageService from '../localStorageService/localStorageService';
+import LocalStorageService from '../LocalStorageService/LocalStorageService';
 
 const SWITCH_MODE_KEY = 'currentMode';
 const DARK_MODE = 'dark';
@@ -19,7 +19,7 @@ function onModeChange() {
 
   document.body.className = selectedMode;
 
-  localStorageService.save(SWITCH_MODE_KEY, selectedMode);
+  LocalStorageService.save(SWITCH_MODE_KEY, selectedMode);
 }
 
 function onModeChangeInMenu() {
@@ -31,11 +31,11 @@ function onModeChangeInMenu() {
 
   document.body.className = selectedMode;
 
- localStorageService.save(SWITCH_MODE_KEY, selectedMode);
+ LocalStorageService.save(SWITCH_MODE_KEY, selectedMode);
 }
 
 function onGetMode() {
-  const sevedMode = localStorageService.load(SWITCH_MODE_KEY);
+  const sevedMode = LocalStorageService.load(SWITCH_MODE_KEY);
 
   if (sevedMode === '' || sevedMode === LIGHT_MODE) {
     document.body.className = LIGHT_MODE;
