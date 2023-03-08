@@ -1,4 +1,4 @@
-import localStorageService from '../localStorageService/localStorageService';
+import localStorageService from '../LocalStorageService/localStorageService';
 const favCollectionEl = document.querySelector('.favorite-collection');
 console.log(favCollectionEl);
 
