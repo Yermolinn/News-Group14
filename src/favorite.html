@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Favorite</title>
-    <link rel="stylesheet" href="./index.scss" />
-    <link rel="shortcut icon" href="images/favicon.ico"></link>
-  </head>
 
-  <body id="favorite">
-    <include src="./partials/header.html"></include>
-    <main></main>
-    <include src="./partials/footer.html"></include>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Favorite</title>
+  <link rel="stylesheet" href="./index.scss" />
+  <link rel="shortcut icon" href="images/favicon.ico">
+  </link>
+</head>
 
-    <script src="./favorite.js" type="module"></script>
-  </body>
+<body id="favorite">
+  <include src="./partials/pre-loader.html"></include>
+
+  <include src="./partials/header.html"></include>
+  <main>
+    <div class="favorite-collection container"></div>
+  </main>
+  <include src="./partials/footer.html"></include>
+
+  <script src="./favorite.js" type="module"></script>
+</body>
+
 </html>
