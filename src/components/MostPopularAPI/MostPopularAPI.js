@@ -1,6 +1,6 @@
 const newsList = document.querySelector('.news-list');
 const API_KEY = 'api-key=HR9YxGV98GGTmMcKHA5eY4Aer5nJgRvJ';
-import localStorageService from '../localStorageService/localStorageService';
+import LocalStorageService from '../LocalStorageService/LocalStorageService';
 const axios = require('axios').default;
 class MostPopularApiService {
   //   constructor() {
@@ -55,18 +55,18 @@ isReadEmpty();
 isFavoriteEmpty();
 
 function isReadEmpty() {
-  if (localStorageService.load('readMoreLocal') === undefined) {
+  if (LocalStorageService.load('readMoreLocal') === undefined) {
     return;
   }
-  readMoreId = localStorageService.load('readMoreLocal');
+  readMoreId = LocalStorageService.load('readMoreLocal');
 }
 
 function isFavoriteEmpty() {
-  if (localStorageService.load('favorite') === undefined) {
+  if (LocalStorageService.load('favorite') === undefined) {
     favoriteId = [];
     return;
   }
-  favoriteId = localStorageService.load('favorite');
+  favoriteId = LocalStorageService.load('favorite');
 }
 
 function checkLokalStorage(elem, localArr) {
@@ -122,13 +122,13 @@ export function createMostPopularNews(article, i) {
     const card = document.querySelector(`.news-card--${id}`);
 
     let isFav = false;
-    let localFavorite = localStorageService.load('favorite');
+    let localFavorite = LocalStorageService.load('favorite');
     let checkFavorite = checkLokalStorage(article, localFavorite);
     if (checkFavorite === true) {
       btn.innerHTML = removeFavoriteBtnHTML;
       btn.classList.add('favorite-btn--active');
     }
-    let localArr = localStorageService.load('readMoreLocal');
+    let localArr = LocalStorageService.load('readMoreLocal');
     let check = checkLokalStorage(article, localArr);
     if (check === true) {
       p.innerHTML = alreadyRead;
@@ -152,13 +152,13 @@ export function createMostPopularNews(article, i) {
       }
       data.favorite = isFav;
       favoriteId.push(data);
-      localStorageService.save('favorite', favoriteId);
+      LocalStorageService.save('favorite', favoriteId);
     } else {
       isFav = false;
       btn.innerHTML = addFavoriteBtnHTML;
       const index = favoriteId.findIndex(item => item.isFav === false);
       favoriteId.splice(index, 1);
-      localStorageService.save('favorite', favoriteId);
+      LocalStorageService.save('favorite', favoriteId);
     }
   };
   const handleRead = (data, p, card) => () => {
@@ -180,7 +180,7 @@ export function createMostPopularNews(article, i) {
       }
     }
     readMoreId.push(data);
-    localStorageService.save(`readMoreLocal`, readMoreId);
+    LocalStorageService.save(`readMoreLocal`, readMoreId);
     // const item = {
     //   read: {
     //     [dateOfRead]: [data],
