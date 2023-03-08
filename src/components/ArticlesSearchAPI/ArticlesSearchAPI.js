@@ -1,10 +1,5 @@
-<<<<<<< HEAD:src/components/articlesSearch/articlesSearch.js
-import localStorageService from '../localStorageService/localStorageService.js';
-import { getNews } from './articlesSearch';
-=======
-import LocalStorageService from '../LocalStorageService/LocalStorageService';
+import localStorageService from '../localStorageServicelLocalStorageService';
 import { getNews } from '../ArticlesSearchAPI/ArticlesSearchAPI';
->>>>>>> parent of f40823a (Big Update):src/components/ArticlesSearchAPI/ArticlesSearchAPI.js
 
 const axios = require('axios').default;
 const ENDPOINT = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
