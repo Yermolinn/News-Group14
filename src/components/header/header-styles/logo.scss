@@ -5,11 +5,11 @@
   justify-content: space-between;
   align-items: center;
   @include tablet {
-    gap: 48px;
+    // gap: 48px;
     align-items: baseline;
   }
   @include desktop {
-    gap: 102px;
+    // gap: 102px;
   }
 }
 
