@@ -1,8 +1,8 @@
-import LocalStorageService from '../LocalStorageService/LocalStorageService';
+import localStorageService from '../localStorageService/localStorageService';
 const favCollectionEl = document.querySelector('.favorite-collection');
 console.log(favCollectionEl);
 
-const cardFromLocal = LocalStorageService.load('favorite');
+const cardFromLocal = localStorageService.load('favorite');
 console.log(cardFromLocal)
 const refs = {
     iconSvg: new URL('../../images/sprite.svg', import.meta.url),
