@@ -163,8 +163,8 @@ function getWeather(data) {
                     <div class="weather-status">${weatherStatus}</div>
                     <div class="weather-city">
                     
-                    <svg class="weather-icon-location">
-            <use href="/sprite.f14d31f7.svg#icon-location"></use>
+                    <svg class="weather-icon-location" viewBox="0 0 24 32">
+             <path d="M12.16.881C5.603.889.289 6.202.28 12.759v.019c0 2.685.9 5.16 2.414 7.14l-.021-.028s.324.426.376.486l9.11 10.747 9.114-10.749c.047-.058.372-.483.372-.483l.001-.004a11.674 11.674 0 0 0 2.394-7.11v-.015.001C24.033 6.204 18.718.889 12.16.882h-.001zm0 16.199a4.32 4.32 0 1 1 0-8.642 4.32 4.32 0 1 1 0 8.64z"/>
         </svg>
                     ${location}</div>  
                 </div>
