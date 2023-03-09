@@ -8,6 +8,7 @@ const closeMoreWeatherBtn = document.querySelector(".close-more-weather");
 const newsList = document.querySelector('.news-list')
 const WEATHER_KEY = 'a0572400057a18022ba680699689d40f';
 
+
    
 
 // function loadWeather(params) {
@@ -119,6 +120,7 @@ async function weatherByGeo(position) {
                 
                 
                 const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${WEATHER_KEY}&units=metric&cnt=49`;
+                // const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${MORE_WEATHER_KEY}&units=metric`;
                 
                 const response = await fetch(url);
                 const data = await response.json();
