@@ -15,7 +15,7 @@ const favCollectionEl = document.querySelector('.favorite-collection');
 // console.log(favCollectionEl);
 
 const cardFromLocal = LocalStorageService.load('readMoreLocal');
-// console.log(cardFromLocal)
+console.log(cardFromLocal)
 // const cardFromLocal = JSON.parse(localStorage.getItem('readMoreLocal'));
 // console.log(cardFromLocal);
 const refs = {
@@ -42,25 +42,26 @@ let j = 1;
 let readDate = 1;
 const arrayForCollection = [];
 const markUp = [];
-for (let i = 0; i < cardFromLocal.length; i += 1) {
+if (cardFromLocal) {
+  for (let i = 0; i < cardFromLocal.length; i += 1) {
     // console.log(cardFromLocal[i].title);
-        let defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
-  if (cardFromLocal[i].media.length !== 0) {
-    defaultImg = cardFromLocal[i].media[0]['media-metadata'][2].url;
-  }
-  // console.log(readDate);
-  let headCard = false;
-  if (readDate) {
-        markUp.push(`<div class="read--date--card">
+    let defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
+    if (cardFromLocal[i].media.length !== 0) {
+      defaultImg = cardFromLocal[i].media[0]['media-metadata'][2].url;
+    }
+    // console.log(readDate);
+    let headCard = false;
+    if (readDate) {
+      markUp.push(`<div class="read--date--card">
         <div class="read--one--day">
         <a class="read--date">${cardFromLocal[i].dayRead}</a>
         <svg class="read--contacts__svg" width="15px" height="9px"><use href="./sprite.f14d31f7.svg#icon-arrow-up"></use></svg>
         <svg class="read--contacts__svg_hid read--is-hidden" width="15px" height="9px"><use href="./sprite.f14d31f7.svg#icon-arrow-down"></use></svg>
         </div>
          <div class= "read--day"> <div class="read--news-cards news-list">`);
-  }
+    }
 
-  markUp.push(`<div class="news-card ${`news-card--${cardFromLocal[i].id}`} grid grid-item-${i}">
+    markUp.push(`<div class="news-card ${`news-card--${cardFromLocal[i].id}`} grid grid-item-${i}">
             <div class="top-wrap">
               <img
                 src="${defaultImg}"
@@ -87,34 +88,36 @@ for (let i = 0; i < cardFromLocal.length; i += 1) {
             </div>
           </div>
         `);
-  // console.log(markUp);
-  if (cardFromLocal.length < 2) { readDate = 0 } else {
-    if (j < ((cardFromLocal.length))) {
-      readDate = Math.abs(cardFromLocal[i].dayRead.replace(/[\s.,%]/g, '') - cardFromLocal[j].dayRead.replace(/[\s.,%]/g, ''));
-      j++;
-    } else {
-      console.log('sdl;fsadkjhfkasdfjksadgfjkgasdf');
-    }
-    if (readDate) {
-        
-      markUp.push(`</div> </div> </div>`);
+    // console.log(markUp);
+    if (cardFromLocal.length < 2) { readDate = 0 } else {
+      if (j < (cardFromLocal.length)) {
+        readDate = Math.abs(cardFromLocal[i].dayRead.replace(/[\s.,%]/g, '') - cardFromLocal[j].dayRead.replace(/[\s.,%]/g, ''));
+        j++;
+      }
+      if (readDate) {
+        markUp.push(`</div> </div> </div>`);
+      }
     }
   }
-}
+  // 
+  document.querySelector('.read--cards').insertAdjacentHTML('beforeend', markUp.join(''));
 
-document.querySelector('.read--cards').insertAdjacentHTML('beforeend', markUp.join(''));
+  let dateCardsEls = document.querySelectorAll('.read--date--card');
+  // console.log(dateCardsEls);
 
-let dateCardsEls = document.querySelectorAll('.read--date--card');
-// console.log(dateCardsEls);
-
-for (el of dateCardsEls) {
+  for (el of dateCardsEls) {
     el.addEventListener("click", (event) => {
 
-        if (event.target.querySelector('.read--contacts__svg')) {
-            // event.currentTarget.querySelector('.read--day').style.display = "none"
-          event.currentTarget.querySelector('.read--day').classList.toggle('read--is-hidden');
-          event.target.querySelector('.read--contacts__svg').classList.toggle('read--is-hidden');
-          event.target.querySelector('.read--contacts__svg_hid').classList.toggle('read--is-hidden');
-        }
-});
+      if (event.target.querySelector('.read--contacts__svg')) {
+        // event.currentTarget.querySelector('.read--day').style.display = "none"
+        event.currentTarget.querySelector('.read--day').classList.toggle('read--is-hidden');
+        event.target.querySelector('.read--contacts__svg').classList.toggle('read--is-hidden');
+        event.target.querySelector('.read--contacts__svg_hid').classList.toggle('read--is-hidden');
+      }
+    });
+  }
+}
+else {
+  markUp.push(`<section class="read--underfined">  <p class="read--underfined___title">We haven't found news from <br> this category</p> <picture> <source srcset="./src/images/img-error-mobile-x1.png 1x, ./src/images/img-error-mobile-x2.png 2x" type="image/png" media="(max-width: 479.98px)" alt="underfined-picture"> <source srcset="./src/images/img-error-tablet-x1.png 1x 1x, ./src/images/img-error-tablet-x2.png 2x" type="image/png" media="(max-width:767.98px)" alt="underfined-picture"> <source srcset="./src/images/img-error-x1.png 1x, ./src/images/img-error-x2.png 2x" type="image/png" media="(min-width: 1279.98px)" alt="underfined-picture"> <img class="read--underfined___picture" src="/goIt-news-team-project/mobile.9ca3fe39.png" alt="underfined-picture" width="248" height="198"> </picture>  </section>`);
+  document.querySelector('.read--cards').insertAdjacentHTML('beforeend', markUp.join(''));
 }
