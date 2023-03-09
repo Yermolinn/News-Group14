@@ -15,28 +15,13 @@ const favCollectionEl = document.querySelector('.favorite-collection');
 // console.log(favCollectionEl);
 
 const cardFromLocal = localStorageService.load('readMoreLocal');
-console.log(cardFromLocal)
+// console.log(cardFromLocal)
 // const cardFromLocal = JSON.parse(localStorage.getItem('readMoreLocal'));
 // console.log(cardFromLocal);
 const refs = {
     iconSvg: new URL('../../images/sprite.svg', import.meta.url),
   };
   
-  function createSvgIcon(name) {
-    // створює іконки, але ТІЛЬКИ сердечка
-  
-    return `
-      <svg class="icon-favorite-remove" width="16" height="16">
-            <use href="${refs.iconSvg}#${name}"></use>
-      </svg>
-    `;
-  }
-const addFavoriteBtnHTML = `Add to favorite ${createSvgIcon(
-    'icon-favorite-remove'
-  )}`;
-  const removeFavoriteBtnHTML = `Remove from favorite ${createSvgIcon(
-    'icon-favorite-add'
-  )}`;
 
 let j = 1;
 let readDate = 1;
