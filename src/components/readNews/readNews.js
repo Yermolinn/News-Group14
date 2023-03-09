@@ -1,7 +1,7 @@
 
 // import '../render/addToFavoriteBtn';
 
-import LocalStorageService from '../LocalStorageService/LocalStorageService';
+import localStorageService from '../localStorageService/localStorageService';
 import {
   checkLokalStorage,
   removeFavoriteBtnHTML,
@@ -86,7 +86,7 @@ if (cardFromLocal) {
     }
   }
   // 
-  document.querySelector('.read--cards').insertAdjacentHTML('beforeend', markUp.join(''));
+  document.querySelector('.readCollection').insertAdjacentHTML('beforeend', markUp.join(''));
 
   let dateCardsEls = document.querySelectorAll('.read--date--card');
   // console.log(dateCardsEls);
@@ -105,5 +105,5 @@ if (cardFromLocal) {
 }
 else {
   markUp.push(`<section class="read--underfined">  <p class="read--underfined___title">We haven't found news from <br> this category</p> <picture> <source srcset="./src/images/img-error-mobile-x1.png 1x, ./src/images/img-error-mobile-x2.png 2x" type="image/png" media="(max-width: 479.98px)" alt="underfined-picture"> <source srcset="./src/images/img-error-tablet-x1.png 1x 1x, ./src/images/img-error-tablet-x2.png 2x" type="image/png" media="(max-width:767.98px)" alt="underfined-picture"> <source srcset="./src/images/img-error-x1.png 1x, ./src/images/img-error-x2.png 2x" type="image/png" media="(min-width: 1279.98px)" alt="underfined-picture"> <img class="read--underfined___picture" src="/goIt-news-team-project/mobile.9ca3fe39.png" alt="underfined-picture" width="248" height="198"> </picture>  </section>`);
-  document.querySelector('.read--cards').insertAdjacentHTML('beforeend', markUp.join(''));
+  document.querySelector('.readCollection').insertAdjacentHTML('beforeend', markUp.join(''));
 }

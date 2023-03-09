@@ -1,33 +1,38 @@
-<div class="weather-container">
-    <div class="main-weather-info"></div>
-    <div class="weather-for-week">
-        <div class="week-weather"></div>
-        <button type="button" class="close-more-weather more-weather-is-hidden ">
-            <svg class="more-weather-close-btn">
-                <use href="/src/images/sprite.svg#icon-close"></use>
-            </svg></button>
-        <button type="button" class="more-weather-btn more-weather-is-hidden">weather for week</button>
+<section>
+    <div class="container main">
+        <!-- Погода -->
+        <div class="weather-container">
+            <div class="main-weather-info"></div>
+            <div class="weather-for-week">
+                <div class="week-weather"></div>
+                <button type="button" class="close-more-weather more-weather-is-hidden ">
+                    <svg class="more-weather-close-btn">
+                        <use href="/src/images/sprite.svg#icon-close"></use>
+                    </svg>
+                </button>
+                <button type="button" class="more-weather-btn more-weather-is-hidden">weather for week</button>
+            </div>
+        </div>
+
+            <!-- Картки з новинами -->
+        <div class="news-list"></div>
+
+        <!-- Пагінація -->
+        <div class="pagination-btn__container">
+            <button class="pagination-btn__prew">Prew
+                <svg class="prew-icon" width="7.78" height="12.73">
+                    <use href="/src/images/prew-svg.svg#prew"></use>
+                </svg>
+            </button>
+                
+            <div class="pagination"></div>
+                <button class="pagination-btn__next">Next
+                    <svg class="next-icon" width="5.66" height="8.49">
+                        <use href="/src/images/next-svg.svg#next"></use>
+                    </svg>
+                </button>
+            </div>
+        </div>
     </div>
-
-    
-</div>
-
-    <!-- Import News Cards -->
-    <div class="news-list"></div>
-
-    <div class="pagination-btn__container">
-        <button class="pagination-btn__prew"><svg class="prew-icon" width="7.78" height="12.73">
-                <use href="/src/images/prew-svg.svg#prew"></use>
-            </svg>Prew</button>
-        <div class="pagination"></div>
-        <button class="pagination-btn__next">Next<svg class="next-icon" width="5.66" height="8.49">
-                <use href="/src/images/next-svg.svg#next"></use>
-            </svg></button>
-    </div>
-    </div>
-
-    <!-- Картки новин -->
-    
-</div>
-
+</section>
 
