@@ -3,7 +3,15 @@ import { exportCategories } from './fetchCategoryList';
 import { FethNewsService } from './fetchNewsCategory';
 import { createCardOnError } from './createCardOnError';
 import { selectedDate } from '../calendar/calendar';
-import { createNewsCardCategory } from './newCardCategory';
+import localStorageService from '../localStorageService/localStorageService';
+import {
+  checkLokalStorage,
+  removeFavoriteBtnHTML,
+  addFavoriteBtnHTML,
+  alreadyRead,
+  handleFavorite,
+  handleRead,
+} from '../render/render';
 const container = document.querySelector('.final-menu');
 
 const arrCategoryElements = [];
@@ -117,7 +125,6 @@ async function getNewsCategory(e) {
   await serchArticlesCategory();
 }
 
-
 /* function nextPageCategory() {
   fethNewsService.incrementPage();
   serchArticlesCategory();
@@ -127,8 +134,6 @@ function prewPageCategory() {
   fethNewsService.descrementPage();
   serchArticlesCategory();
 } */
-
-
 
 function getRender(name) {
   let newName = name;
@@ -145,12 +150,11 @@ function getRender(name) {
   return newName;
 }
 
-
 async function serchArticlesCategory() {
   return await fethNewsService
     .fetchNews()
     .then(data => data.json())
-    .then(({ results, /* num_results */ }) => {
+    .then(({ results /* num_results */ }) => {
       let ourDate = 0;
       arrCategoryElements.length = 0;
 
@@ -180,7 +184,6 @@ async function serchArticlesCategory() {
       return timeArr;
     })
     .then(resolve => {
-      console.log(resolve);
       // newList.insertAdjacentHTML('afterbegin', createCardOnError('category'));
       newList.insertAdjacentHTML('afterbegin', createCards(resolve));
     })
@@ -201,10 +204,82 @@ function createCards(arr) {
   //     .join('');
   const card = arr.reduce((markup, article) => {
     numberGridElement++;
-    return markup + createNewsCardCategory(article, numberGridElement);
+    return markup + createMostPopularNews(article, numberGridElement);
   }, '');
   console.log(card);
   return card;
 }
+// -------------------LacalStarage-------------------------------
+function createMostPopularNews(article, i) {
+  // створює розмітку популярних новин
+  const {
+    abstract,
+    published_date,
+    section,
+    title,
+    multimedia,
+    url,
+    slug_name,
+  } = article;
+  setTimeout(() => {
+    // виконається після того як з'являться картки
+    const btn = document.querySelector(`.favorite-btn--${slug_name}`);
+    const link = document.querySelector(`.news-link--${slug_name}`);
+    const p = document.querySelector(`.isread--${slug_name}`);
+    const card = document.querySelector(`.news-card--${slug_name}`);
 
+    let isFav = false;
+    let localFavorite = localStorageService.load('favorite');
+    console.log(localFavorite);
+    let checkFavorite = checkLokalStorage(article, localFavorite);
+    if (checkFavorite === true) {
+      btn.innerHTML = removeFavoriteBtnHTML;
+      btn.classList.add('favorite-btn--active');
+    }
+    let localArr = localStorageService.load('readMoreLocal');
+    let checkRead = checkLokalStorage(article, localArr);
+    if (checkRead === true) {
+      p.innerHTML = alreadyRead;
+      card.classList.add('opacity');
+    }
+    btn.onclick = handleFavorite(isFav, article, btn);
+    link.onclick = handleRead(article, p, card);
+  }, 0);
+  //   console.log((defaultImg = multimedia[2].url));
+  if (multimedia !== null) {
+    defaultImg = multimedia[2].url;
+  }
+  return `<div class="news-card ${`news-card--${slug_name}`} grid grid-item-${i}">
+
+    <div class="top-wrap">
+      <img
+        src="${defaultImg}"
+        loading="lazy"
+        width="288"
+        height="395"
+        class="news-img"
+      />
+      <p class="isread ${`isread--${slug_name}`}"></p>
+      <div class="category-wrap">
+        <p class="top-text">${section}</p>
+      </div>
+      <button class="favorite-btn ${`favorite-btn--${slug_name}`}" data-id="${slug_name}">
+        ${addFavoriteBtnHTML}
+      </button>
+    </div>
+    <div class="info">
+      <h2 class="info-item">${title}</h2>
+      <p class="describe">${abstract.slice(0, 150) + '...'}</p>
+      <div class="lower-content">
+        <p class="news-date">${published_date
+          .slice(0, 10)
+          .replaceAll('-', '/')}</p>
+        <a class="news-link ${`news-link--${slug_name}`} link" href="${url}"  onclick="handleRead()" target="_blank">Read more</a>
+      </div>
+    </div>
+  </div>
+  
+`;
+}
+// ---------------------export--------------------------------------
 export { newList, arrCategoryElements, createCards };

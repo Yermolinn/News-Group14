@@ -39,7 +39,6 @@ async function render() {
   const articles = await mostPopularApiService.getNews();
   console.log('🚀 ~ articles', articles);
   if (articles.length === 0) throw new Error('No data');
-
   let i = 0;
   const card = articles.reduce((markup, article) => {
     i++;
