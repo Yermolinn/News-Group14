@@ -1,4 +1,4 @@
-const CATEGORY_PARAPM = 'limit=8';
+const CATEGORY_PARAPM = 'limit=500';
 const ENDPOINT_CATEGORY = 'https://api.nytimes.com/svc/news/v3/content/all/';
 const CATEGORY_KEY = 'api-key=ACLRvQCjQo6GX0rmeAKsofVnQwGUSZA5';
 
