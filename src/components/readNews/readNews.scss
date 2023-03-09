@@ -9,6 +9,12 @@
     margin-bottom: 40px;
     display: flex;
     gap: 8px;
+    
+}
+
+.read--one--day:hover,
+.read--one--day:focus {
+    cursor: pointer;
 }
 
 .read--date {
@@ -18,4 +24,10 @@
 .read--news-cards {
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 60px;
 }
+
+// .read--cards {
+//     display: flex;
+//     flex-wrap: wrap;
+// }
