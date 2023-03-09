@@ -1,230 +1,111 @@
-// import { save, load, remove } from '../LocalStorageService/LocalStorageService';
-
 import localStorageService from '../localStorageService/localStorageService';
 
-import { getNews } from '../articlesSearch/articlesSearch';
-// const axios = require('axios').default;
-// const ENDPOINT = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
-// const API_KEY = 'api-key=HR9YxGV98GGTmMcKHA5eY4Aer5nJgRvJ';
-// import { default as axios } from 'axios';
-// import { Notify } from 'notiflix/build/notiflix-notify-aio';
-// export default class PixabayApiService {
-//   constructor() {
-//     this.page = 1;
-//     this.searchQuery = '';
-//     this.perPage = 40;
-//   }
+//
+// Перевірка на локалсторедж
+//
 
-//   async getNews() {
-//     const URL = `${ENDPOINT}?${API_KEY}&q=${this.searchQuery}`;
-//     const response = await axios.get(URL);
-//     console.log(response.data.response.docs);
-//     if (this.page === 1) {
-//       Notify.success(`Hooray! We found ${response.data.totalHits} images.`);
-//     }
-//     this.nextPage();
-//     return response.data.response.docs;
-//   }
+let readMoreId = [];
+let favoriteId = [];
+let defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
 
-//   nextPage() {
-//     this.page += 1;
-//   }
-//   resetPage() {
-//     this.page = 1;
-//   }
-// }
-// const pixabayApiService = new PixabayApiService();
+// readMoreId = localStorageService.save('readMoreLocal', readMoreId);
+console.log(readMoreId);
 
-// const formEl = document.getElementById('search-form');
-// const newsList = document.querySelector('.news-list');
-// console.log(newsList);
-// formEl.addEventListener('submit', onSubmit);
-// async function onSubmit(e) {
-//   e.preventDefault();
-//   const formEl = e.currentTarget;
-//   const value = formEl.elements.searchQuery.value.trim();
-//   pixabayApiService.searchQuery = value;
-//   // getNews(value).then(() => {
-//   //   if (articles.length === 0) throw new Error("No data");
-//   //   return articles.reduce((markup, article) =>
-//   //     createNewsCard(article) + markup, "");
-//   // })
-//   // .then(updateCard)
-//   // .catch(onError)
-//   // .finally(() => formEl.reset());
-//   try {
-//     const articles = await pixabayApiService.getNews();
-//     console.log('🚀 ~ articles', articles);
-//     if (articles.length === 0) throw new Error('No data');
-//     const card = articles.reduce(
-//       (markup, article) => createNewsCard(article) + markup,
-//       ''
-//     );
-//     console.log(card);
-//     updateCard(card);
-//   } catch (err) {
-//     onError();
-//   }
-// }
-// function updateCard(markup) {
-//   newsList.innerHTML = markup;
-// }
+// console.log(localStorageService.load('readMoreLocal').map(elem => elem));
+isReadEmpty();
+isFavoriteEmpty();
 
-// function onError(error) {
-//   console.error(error);
-// }
-export function createNewsCard({
-  // при пошуку......
-  headline,
-  web_url,
-  section_name,
-  lead_paragraph,
-  pub_date,
-}) {
-  return `<div class="news-card">
-    <div class="top-wrap">
-      <img
-        src=
-        loading="lazy"
-        width="288"
-        height="395"
-      />
-      <p class="isread">Have read</p>
-      <div class="category-wrap">
-        <p class="top-text">${section_name}</p>
-      </div>
-      <button class="favorite-btn">Add to favorite</button>
-    </div>
-    <div class="info">
-      <h2 class="info-item">${headline.main}</h2>
-      <p class="describe">${lead_paragraph.slice(0, 60) + '...'}</p>
-      <div class="lower-content">
-        <p class="news-date">${pub_date.slice(0, 10).replace('-', '/')}</p>
-        <a class="news-link link" href="${web_url}">Read more</a>
-      </div>
-    </div>
-  </div>
-`;
-}
-function addNews(markup) {
-  newsList.insertAdjacentHTML('beforeend', markup);
+function isReadEmpty() {
+  if (localStorageService.load('readMoreLocal') === undefined) {
+    return;
+  }
+  readMoreId = localStorageService.load('readMoreLocal');
 }
 
-export function updateNews(markup) {
-  newsList.innerHTML = markup;
+function isFavoriteEmpty() {
+  if (localStorageService.load('favorite') === undefined) {
+    favoriteId = [];
+    return;
+  }
+  favoriteId = localStorageService.load('favorite');
 }
-// ///////////////////////////////////////////////////////
-// Кнопка AddToFavourite
-// //////////////////////////////////////////////////////
-// const refs = {
-//   addToFavoriteBtn: document.querySelector('.favorite-btn'),
-//   readMore: document.querySelector('.news-link'),
-// };
-// let currentId = 0;
-// let isFav = false;
 
-// const STORAGE_KEY = 'favorites';
-// const STORAGE_KEY_2 = 'read';
-// refs.addToFavoriteBtn.addEventListener('click', handleFavorite);
-// refs.readMore.addEventListener('click', addToRead);
+export function checkLokalStorage(elem, localArr) {
+  if (localArr === undefined) {
+    return;
+  }
 
-// function addToRead() {
-//   let dateOfRead = new Date()
-//     .toLocaleDateString({
-//       day: '2-digit',
-//       month: '2-digit',
-//       year: 'numeric',
-//     })
-//     .replace(/\//g, '.');
-//   const item = {
-//     read: {
-//       [`${dateOfRead}`]: [
-//         {
-//           name: document.querySelector('.info-item').textContent, // refs.addToFavoriteBtn.parentElement.parentElement.lastElementChild.firstElementChild.textContent
-//           URL: document.querySelector('.news-link').getAttribute('href'), //    refs.addToFavoriteBtn.parentElement.parentElement.lastElementChild.lastElementChild.lastElementChild.getAttribute('href'
-//           describe: document.querySelector('.describe').textContent, //refs.addToFavoriteBtn.parentElement.parentElement.lastElementChild.childNodes[3].textContent
-//           date: document.querySelector('.news-date').textContent, //    refs.addToFavoriteBtn.parentElement.parentElement.lastElementChild.lastElementChild.firstElementChild.textContent
-//           category: document.querySelector('.top-text').textContent, //refs.addToFavoriteBtn.previousElementSibling.firstElementChild.textContent
-//           photo: document.querySelector('.top-wrap img').getAttribute('src'), //refs.addToFavoriteBtn.parentElement.parentElement.firstElementChild.firstElementChild.getAttribute("src")
-//           currentId,
-//         },
-//       ],
-//     },
-//   };
+  for (let i = 0; i < localArr.length; i += 1) {
+    if (localArr[i].uri === elem.uri) {
+      return true;
+    }
+  }
+}
+//
+//            FAVORITE FUNCTIONAL
+//
+const refs = {
+  iconSvg: new URL('../../images/sprite.svg', import.meta.url),
+};
 
-//   currentId += 1;
-//   localStorageService.save(STORAGE_KEY_2, item);
-// }
+function createSvgIcon(name) {
+  // створює іконки, але ТІЛЬКИ сердечка
 
+  return `
+    <svg class="icon-favorite-remove" width="16" height="16">
+          <use href="${refs.iconSvg}#${name}"></use>
+    </svg>
+  `;
+}
 
+export const addFavoriteBtnHTML = `Add to favorite ${createSvgIcon(
+  'icon-favorite-remove'
+)}`;
+export const removeFavoriteBtnHTML = `Remove from favorite ${createSvgIcon(
+  'icon-favorite-add'
+)}`;
+export const alreadyRead = `Already read`;
+export const handleFavorite = (isFav, data, btn) => () => {
+  // логіка кнопки фейворіт
+  btn.classList.toggle('favorite-btn--active');
 
-// check if the object already exists in the favorites array in local storage
-// const favoritesArray = [];
-
-
-// const isObjectInFavorites = favoritesArray.some(
-//   obj => obj.name === favObject.name && obj.value === favObject.value
-// );
-
-
-
-
-// function handleFavorite() {
-//   const item = {
-//     name: document.querySelector('.info-item').textContent,
-//     URL: document.querySelector('.news-link').getAttribute('href'),
-//     describe: document.querySelector('.describe').textContent,
-//     date: document.querySelector('.news-date').textContent,
-//     category: document.querySelector('.top-text').textContent,
-//     photo: document.querySelector('.top-wrap img').getAttribute('src'),
-//     isFav,
-//     currentId,
-//   };
-//   if (isFav) {
-//     isFav = false;
-//     refs.addToFavoriteBtn.firstElementChild.textContent = 'Add to favorite';
-//     document
-//       .querySelector('.icon-favorite-remove')
-//       .classList.remove('hide-icon');
-//     document.querySelector('.icon-favorite-add').classList.add('hide-icon');
-//   } else {
-//     const currentState = LocalStorageService.load(STORAGE_KEY);
-//     console.log(currentState);
-//     if (currentState.includes(item)) {
-//       isFav = true;
-//       refs.addToFavoriteBtn.firstElementChild.textContent =
-//         'Remove from favorite';
-//       document
-//         .querySelector('.icon-favorite-remove')
-//         .classList.add('hide-icon');
-//       document
-//         .querySelector('.icon-favorite-add')
-//         .classList.remove('hide-icon');
-//     } else {
-//       isFav = true;
-//       refs.addToFavoriteBtn.firstElementChild.textContent =
-//         'Remove from favorite';
-//       document
-//         .querySelector('.icon-favorite-remove')
-//         .classList.add('hide-icon');
-//       document
-//         .querySelector('.icon-favorite-add')
-//         .classList.remove('hide-icon');
-//       favoritesArray.push(item);
-//       currentId += 1;
-//       localStorageService.save(STORAGE_KEY, favoritesArray);
-//     }
-//   }
-// }
-
-
-// function addNewsToStorage(card, date) {
-//   const currentState = localStorageService.load(STORAGE_KEY);
-//   if (currentState === undefined) {
-//     localStorageService.save(STORAGE_KEY, [createCardObject(card, date)]);
-//   } else {
-//     currentState.push(createCardObject(card, date));
-//     localStorageService.save(STORAGE_KEY, currentState);
-//   }
-//   currentId += 1;
-// }
+  if (btn.classList.contains('favorite-btn--active')) {
+    isFav = true;
+    btn.innerHTML = removeFavoriteBtnHTML;
+    for (let i = 0; i < favoriteId.length; i += 1) {
+      if (favoriteId[i].uri === data.uri) {
+        return;
+      }
+    }
+    data.favorite = isFav;
+    favoriteId.push(data);
+    localStorageService.save('favorite', favoriteId);
+  } else {
+    isFav = false;
+    btn.innerHTML = addFavoriteBtnHTML;
+    const index = favoriteId.findIndex(item => item.uri === data.uri);
+    favoriteId.splice(index, 1);
+    localStorageService.save('favorite', favoriteId);
+  }
+};
+export const handleRead = (data, p, card) => () => {
+  // логіка натискання на read more
+  p.innerHTML = alreadyRead;
+  card.classList.add('opacity');
+  let dateOfRead = new Date()
+    .toLocaleDateString({
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    })
+    .replace(/\//g, '.');
+  data.dayRead = dateOfRead;
+  console.log(data);
+  for (let i = 0; i < readMoreId.length; i += 1) {
+    if (readMoreId[i].uri === data.uri) {
+      return;
+    }
+  }
+  readMoreId.push(data);
+  localStorageService.save(`readMoreLocal`, readMoreId);
+};
