@@ -14,7 +14,8 @@ import {
 const favCollectionEl = document.querySelector('.favorite-collection');
 // console.log(favCollectionEl);
 
-const cardFromLocal = LocalStorageService.load('readMoreLocal');
+const cardFromLocal = localStorageService.load('readMoreLocal');
+
 // console.log(cardFromLocal)
 // const cardFromLocal = JSON.parse(localStorage.getItem('readMoreLocal'));
 // console.log(cardFromLocal);

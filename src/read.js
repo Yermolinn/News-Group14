@@ -16,4 +16,3 @@ import './components/main/main.js';
 import './components/modeSwitcher/modeSwitcher.js';
 import './components/newsCard/newsCard.js';
 import './components/pagination/pagination.js';
-

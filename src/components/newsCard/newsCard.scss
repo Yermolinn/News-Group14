@@ -1,23 +1,39 @@
 .news-card {
-    max-height: 685px;
-
-    // margin-bottom: 28px;
     width: 288px;
+    margin-bottom: 28px;
+    // max-height: 675px;
+    // height: 469px;
 
     @include tablet {
         width: 353px;
+        margin-bottom: 0;
+        // height: 675px;
     }
 
     @include desktop {
         width: 395px;
+        // height: 675px;
     }
 
     position: relative;
 }
 
+// .info {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+// }
+
+// .info-container-content {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 20px;
+// }
+
 .info-item {
     color: var(--blck-text-color);
     max-width: 395px;
+    height: 132px;
 
     font-weight: 700;
     font-size: 24px;
@@ -27,12 +43,11 @@
         font-weight: 700;
         font-size: 32px;
         line-height: 44px;
+        height: 220px;
     }
 
     @include desktop {
-        font-weight: 700;
-        font-size: 32px;
-        line-height: 44px;
+        height: 176px;
     }
 
     margin-top: 20px;
@@ -41,6 +56,7 @@
 .describe {
     color: var(--blck-text-color);
     max-width: 353px;
+    height: 76px;
 
     font-weight: 400;
     font-size: 14px;
@@ -50,14 +66,9 @@
         font-weight: 400;
         font-size: 16px;
         line-height: 22px;
+        height: 88px;
     }
 
-    @include desktop {
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 22px;
-    }
-    
     margin-top: 20px;
 }
 
@@ -73,10 +84,6 @@
     line-height: 19px;
 
     @include tablet {
-
-    }
-
-    @include desktop {
         font-weight: 400;
         font-size: 16px;
         line-height: 22px;
@@ -99,12 +106,6 @@
     line-height: 19px;
 
     @include tablet {
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 22px;
-    }
-
-    @include desktop {
         font-weight: 400;
         font-size: 16px;
         line-height: 22px;
@@ -153,4 +154,3 @@
         width: 395px;
     }
 }
-
