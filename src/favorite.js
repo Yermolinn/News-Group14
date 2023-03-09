@@ -6,7 +6,6 @@ import './components/header/menu-current-page';
 import './components/articlesSearch/articlesSearch.js';
 // import './components/mostPopular/mostPopular';
 import './components/render/render.js';
-import './components/button/button.js';
 import './components/favoriteNews/favoriteNews.js';
 import './components/localStorageService/localStorageService.js'
 import './components/modeSwitcher/modeSwitcher.js';
