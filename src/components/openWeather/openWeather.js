@@ -1,14 +1,16 @@
+const { get } = require("lodash");
 
  
 const weatherContainer = document.querySelector('.weather-container');
 const moreWeatherBtn = document.querySelector('.more-weather-btn');
-const moreWatherContainer = document.querySelector('.weather-for-week'); 
 const weekWeather = document.querySelector('.week-weather');
 const closeMoreWeatherBtn = document.querySelector(".close-more-weather");
-const newsList = document.querySelector('.news-list');
 const mainWeatherInfo = document.querySelector('.main-weather-info')
 const WEATHER_KEY = 'a0572400057a18022ba680699689d40f';
+// const moreWatherContainer = document.querySelector('.weather-for-week'); 
+// const newsList = document.querySelector('.news-list');
 
+let flag = false;
 
 
 function getGeo(params) {
@@ -21,11 +23,10 @@ function getGeo(params) {
     
     // timeout           : 27000
     // maximumAge        : 30000,
-    // defaultWeather();
+
     
     
-    const currentPosition = navigator.geolocation.getCurrentPosition(weatherByGeo);
-       
+    const currentPosition = navigator.geolocation.getCurrentPosition(weatherByGeo); 
     
         
         
@@ -47,15 +48,18 @@ function getGeo(params) {
 
 async function weatherByGeo(position) {
 
-    
+    flag = true;
  
         const latitude  = position.coords.latitude;
         const longitude = position.coords.longitude;
         //  console.log(latitude);
         //  console.log(longitude);
     
-        try {
-            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${WEATHER_KEY}&units=metric`;
+    try {
+        
+      
+
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${WEATHER_KEY}&units=metric`;
 
         const response = await fetch(url);
         const data = await response.json();
@@ -64,10 +68,11 @@ async function weatherByGeo(position) {
         getWeatherRender(response, data);
     
         // if (data.name !== defaultCityWeather) {
-        moreWeatherBtn.addEventListener('click', onMoreWeatherBtnClick);
-      
         
-
+        if (flag) {
+            moreWeatherBtn.addEventListener('click', onMoreWeatherBtnClick);
+        }
+    
             async function onMoreWeatherBtnClick() {
                 
 
@@ -86,10 +91,7 @@ async function weatherByGeo(position) {
         closeMoreWeatherBtn.addEventListener('click', onCloseMoreWeatherBTn)
         } catch (error) {
             
-        }
-    
-   
-        
+        }    
         
 };
 
@@ -108,31 +110,30 @@ async function defaultWeather() {
 
         getWeatherRender(response, data);
 
+        
+            moreWeatherBtn.addEventListener('click', onMoreWeatherBtnClick);
 
+        
     
-    //    if (data.name === defaultCityWeather) {
-        moreWeatherBtn.addEventListener('click', onMoreWeatherBtnClick);
-    // };
-
-        async function onMoreWeatherBtnClick(params) {
+        
+            async function onMoreWeatherBtnClick(params) {
                 
-            moreWeatherBtn.classList.add('more-weather-is-hidden');
+                moreWeatherBtn.classList.add('more-weather-is-hidden');
 
 
-            const url = `https://api.openweathermap.org/data/2.5/forecast?q=${defaultCityWeather}&appid=${WEATHER_KEY}&units=metric&cnt=49`;
+                const url = `https://api.openweathermap.org/data/2.5/forecast?q=${defaultCityWeather}&appid=${WEATHER_KEY}&units=metric&cnt=49`;
                 
-    
-            const response = await fetch(url);
-            const data = await response.json();
-                // console.log(data);
+                if (flag === false) {
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    // console.log(data);
+                    getMoreWeatherRender(response, data);
 
-            getMoreWeatherRender(response, data);
+                onMoreWeatherBtn();
+                }
 
-            onMoreWeatherBtn();
-                
-
-            }
-
+        }
+        
         closeMoreWeatherBtn.addEventListener('click', onCloseMoreWeatherBTn);
     } catch (error) {
         
@@ -240,7 +241,7 @@ function getMoreWeatherRender(response, data) {
             }
 };
 
+
 defaultWeather();
+
 getGeo();
-
-
