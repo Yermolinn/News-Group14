@@ -3,6 +3,7 @@ import { exportCategories } from './fetchCategoryList';
 import { FethNewsService } from './fetchNewsCategory';
 import { createCardOnError } from './createCardOnError';
 import { selectedDate } from '../calendar/calendar';
+
 import localStorageService from '../localStorageService/localStorageService';
 import {
   checkLokalStorage,
@@ -12,6 +13,7 @@ import {
   handleFavorite,
   handleRead,
 } from '../render/render';
+
 const container = document.querySelector('.final-menu');
 
 const newArrli = [];
@@ -120,6 +122,7 @@ function getArraySections(results) {
 // -------------------------------</functions galary>--------------------------
 
  function getNewsCategory(e) {
+
   const element = e.target;
   if (!element.dataset.category) {
     return;
@@ -155,13 +158,19 @@ function getRender(name) {
   return newName;
 }
 
+
 async function serchArticlesCategory() {
   return await fethNewsService
     .fetchNews()
     .then(data => data.json())
     .then(({ results /* num_results */ }) => {
+
+
+
       let ourDate = 0;
       arrCategoryElements.length = 0;
+
+    
 
       if (selectedDate.selectedDates.length === 0) {
         // Если нужно выбирать автоматически сегодняшнюю дату
@@ -189,20 +198,109 @@ async function serchArticlesCategory() {
       return timeArr;
     })
     .then(resolve => {
+
+  
+
       resolveArray.length = 0;
       resolveArray.push(...resolve);
       let currentPage = 1;
       let rows = 8;
       displayList(resolve, rows, currentPage);
       displayPagination(resolve,rows)
+
       // newList.insertAdjacentHTML('afterbegin', createCardOnError('category'));
       /* newList.insertAdjacentHTML('afterbegin', createCards(resolve));  */
       
      })
+
+
+
+  
+
     .catch(() => {
       newList.insertAdjacentHTML('afterbegin', createCardOnError('category'));
     });
+   
 }
+
+
+function displayList(arrData, rowPerPage, page) {
+   /*  const postsEl = document.querySelector('.news-list'); */
+      /* postsEl.innerHTML = ""; */
+      newList.innerHTML = ""; 
+    /* page--; */
+
+    const start = rowPerPage * page;
+    const end = start + rowPerPage;
+    const paginatedData = arrData.slice(start, end);
+
+       newList.insertAdjacentHTML('afterbegin', createCards(paginatedData));
+      
+   
+  }
+      
+      
+      function displayPagination(arrData, rowPerPage) {
+    const pagesCount = Math.ceil(arrData.length / rowPerPage);
+        newArrli.length = 0;
+    for (let i = 0; i < pagesCount; i++) {
+      const liEl = displayPaginationBtn(i + 1);
+   
+      newArrli.push(liEl);
+        }
+        
+        const spliceArrray = newArrli.slice(0, 3);
+        
+        spliceArrray[0].classList.add(`pagination-btn--active`);
+        ulEl.innerHTML = ``;
+        ulEl.append( ...spliceArrray, `...`, newArrli[newArrli.length - 2]);
+        paginationEl.innerHTML = ``;
+        paginationEl.appendChild(ulEl)
+        ulEl.addEventListener(`click`, showPaginBtns);
+      }
+      
+      function showPaginBtns(e) {
+        const target = e.target;
+        
+        if (!target.classList.contains('pagination-btn')) {
+          return;
+          
+        } 
+        
+        let numberLi = Number(target.textContent);
+        const spliceArrray = newArrli.slice(numberLi - 1, numberLi + 2);
+       
+        if (!target.classList.contains('pagination-btn--active')) {
+          const activeBtn = document.querySelector('.pagination-btn--active');
+        activeBtn.classList.remove('pagination-btn--active');  
+          const currentPage = target.textContent;
+          target.classList.add('pagination-btn--active');
+          displayList(resolveArray, 8, currentPage);
+          
+        } 
+        if ((newArrli.length - numberLi) <= 4) {
+          ulEl.innerHTML = ``;
+        ulEl.append( newArrli[0],`...`,...spliceArrray, newArrli[newArrli.length - 2]);
+        } else {
+          ulEl.innerHTML = ``;
+        ulEl.append( newArrli[0],`...`,...spliceArrray, `...`, newArrli[newArrli.length - 2]);
+        }
+        if (newArrli[0].classList.contains('pagination-btn--active')) {
+          
+        }
+        
+         
+      }
+      
+  function displayPaginationBtn(page) {
+    const liEl = document.createElement("li");
+    liEl.classList.add('pagination-btn')
+    liEl.textContent = page
+
+    return liEl;
+      }
+      
+
 
 //-------------------------------create cadr----------------------------------------
 
@@ -218,6 +316,7 @@ function createCards(arr) {
     numberGridElement++;
     return markup + createMostPopularNews(article, numberGridElement);
   }, '');
+
 /*   console.log(card);
  */  return card;
 }
@@ -292,6 +391,7 @@ function createMostPopularNews(article, i) {
   </div>
   
 `;
+
 }
 
 
