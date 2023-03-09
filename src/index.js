@@ -10,7 +10,6 @@ import './components/mostPopular/mostPopular';
 import './components/calendar/calendar.js';
 import './components/button/button.js';
 import './components/categories/categories.js';
-import './components/favoriteNews/favoriteNews.js';
 import './components/footer/footer.js';
 import './components/preLoader/preLoader.js';
 import './components/main/main.js';
