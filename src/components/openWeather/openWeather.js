@@ -5,76 +5,31 @@ const moreWeatherBtn = document.querySelector('.more-weather-btn');
 const moreWatherContainer = document.querySelector('.weather-for-week'); 
 const weekWeather = document.querySelector('.week-weather');
 const closeMoreWeatherBtn = document.querySelector(".close-more-weather");
-const newsList = document.querySelector('.news-list')
+const newsList = document.querySelector('.news-list');
+const mainWeatherInfo = document.querySelector('.main-weather-info')
 const WEATHER_KEY = 'a0572400057a18022ba680699689d40f';
 
-   
-
-// function loadWeather(params) {
-
-//     // if (navigator.geolocation) {
-//     //     getGeo();
-//     // };
-    
-
-    
-//     // getGeo();
-
-// //     if (navigator.geolocation) {
-// //         navigator.geolocation.getCurrentPosition(({coords}) => {
-// //             // const { latitude, longitude } = position.coords;
-// //             console.log(coords);
-// //             weatherByGeo(coords.latitude, coords.longitude)
-// //   // Show a map centered at latitude / longitude.
-// //         });
-        
-// //     };
-// //     defaultWeather();
 
 
-
-    
-    
-
-//     // if (navigator.geolocation) {
-//     //     getGeo();
-//     // };
-    
-//     //     defaultWeather();
-
-    
-
-//     // getGeo(params);
-
-//     // const currentPosition = navigator.geolocation.getCurrentPosition(weatherByGeo, defaultWeather, geoOptions);
-
-//     // if (navigator.geolocation) {
-//     //     navigator.geolocation.getCurrentPosition({ coords: { latitude, longitude } })
-//     // }
-// };
-    // weatherContainer.innerHTML = `<div class="loading"><img src="./Spinner-1s-200px.gif" alt="Loading"></div>`;
-
-async function getGeo(params) {
+function getGeo(params) {
 
  
-    const geoOptions = {
-        enableHighAccuracy: true   
-    };
-    
+    // const geoOptions = {
+    //     enableHighAccuracy: true   
+    // };
+
     
     // timeout           : 27000
     // maximumAge        : 30000,
     // defaultWeather();
     
-    // if (navigator.geolocation) {
-    // weekWeather.innerHTML = ``;
-       const currentPosition = await navigator.geolocation.getCurrentPosition(weatherByGeo, defaultWeather, geoOptions)
-
     
-    // };
+    const currentPosition = navigator.geolocation.getCurrentPosition(weatherByGeo);
+       
+    
         
-
-
+        
+        // , defaultWeather, geoOptions
     
     // if (navigator.geolocation) {
     //    await navigator.geolocation.getCurrentPosition(({ coords }) => {
@@ -87,37 +42,35 @@ async function getGeo(params) {
 
     
     // };
-}
+};
+
 
 async function weatherByGeo(position) {
+
+    
  
         const latitude  = position.coords.latitude;
         const longitude = position.coords.longitude;
         //  console.log(latitude);
         //  console.log(longitude);
-
-        // const key = 'a0572400057a18022ba680699689d40f';
-
-        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${WEATHER_KEY}&units=metric`;
+    
+        try {
+            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${WEATHER_KEY}&units=metric`;
 
         const response = await fetch(url);
         const data = await response.json();
+        // console.log(data);
 
         getWeatherRender(response, data);
-        // if (response.ok) {
-        //     getWeather(data);
-            
-        // } else {
-        // weatherContainer.innerHTML = data.message;
-        // }
-
-
+    
+        // if (data.name !== defaultCityWeather) {
         moreWeatherBtn.addEventListener('click', onMoreWeatherBtnClick);
+      
+        
 
             async function onMoreWeatherBtnClick() {
-                // console.log(5);
                 
-                
+
                 const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${WEATHER_KEY}&units=metric&cnt=49`;
                 
                 const response = await fetch(url);
@@ -126,64 +79,66 @@ async function weatherByGeo(position) {
 
                 getMoreWeatherRender(response, data);
 
-                // if (response.ok) {
-                // getMoreWeather(data);
-                
-                // } else {
-                // weatherContainer.innerHTML = data.message;
-                // }
-
                 onMoreWeatherBtn();
-
-                // moreWeatherBtn.classList.add('more-weather-is-hidden');
-                // closeMoreWeatherBtn.classList.remove('more-weather-is-hidden');
 
             }
 
         closeMoreWeatherBtn.addEventListener('click', onCloseMoreWeatherBTn)
-        
-        // function onCloseMoreWeatherBTn(params) {
+        } catch (error) {
             
-        //     weekWeather.innerHTML = "";
-        //     closeMoreWeatherBtn.classList.add('more-weather-is-hidden');
-        //     moreWeatherBtn.classList.remove('more-weather-is-hidden');
-        // }
+        }
+    
+   
+        
+        
 };
 
-// function errorGeo(params) {
-//     return;
-// };
 
 async function defaultWeather() {
 
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=Kyiv&appid=${WEATHER_KEY}&units=metric`;
+    
+    const defaultCityWeather = 'Kyiv';
+    
+    try {
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${defaultCityWeather}&appid=${WEATHER_KEY}&units=metric`;
 
         const response = await fetch(url);
         const data = await response.json();
+        // console.log(data);
 
         getWeatherRender(response, data);
 
 
+    
+    //    if (data.name === defaultCityWeather) {
         moreWeatherBtn.addEventListener('click', onMoreWeatherBtnClick);
+    // };
 
         async function onMoreWeatherBtnClick(params) {
-            // console.log(5);
+                
             moreWeatherBtn.classList.add('more-weather-is-hidden');
 
-            
-            const url = `https://api.openweathermap.org/data/2.5/forecast?q=Kyiv&appid=${WEATHER_KEY}&units=metric&cnt=49`;
-            
+
+            const url = `https://api.openweathermap.org/data/2.5/forecast?q=${defaultCityWeather}&appid=${WEATHER_KEY}&units=metric&cnt=49`;
+                
+    
             const response = await fetch(url);
             const data = await response.json();
-            // console.log(data);
+                // console.log(data);
 
             getMoreWeatherRender(response, data);
 
             onMoreWeatherBtn();
+                
 
-        }
+            }
 
-        closeMoreWeatherBtn.addEventListener('click', onCloseMoreWeatherBTn)
+        closeMoreWeatherBtn.addEventListener('click', onCloseMoreWeatherBTn);
+    } catch (error) {
+        
+    }
+    
+        
         
 };
 
@@ -218,8 +173,9 @@ function getWeather(data) {
         </div>
         <div class="weather-date">${weatherDay} <br> ${weatherDate}</div>`;
     
-    weatherContainer.insertAdjacentHTML("afterbegin", info);
-    
+    // weatherContainer.insertAdjacentHTML("afterbegin", info);
+
+    mainWeatherInfo.innerHTML = info;
 
 
     
@@ -248,15 +204,16 @@ function getMoreWeather(data) {
     ).join(' ');
     
 
-    weekWeather.insertAdjacentHTML("beforeend", moreWeather);
+    // weekWeather.insertAdjacentHTML("beforeend", moreWeather);
+    weekWeather.innerHTML = moreWeather;
   
 };
 
 function onCloseMoreWeatherBTn() {
             
-            weekWeather.innerHTML = "";
-            closeMoreWeatherBtn.classList.add('more-weather-is-hidden');
-            moreWeatherBtn.classList.remove('more-weather-is-hidden');
+    weekWeather.innerHTML = "";
+    closeMoreWeatherBtn.classList.add('more-weather-is-hidden');
+    moreWeatherBtn.classList.remove('more-weather-is-hidden');
 };
 
 function onMoreWeatherBtn() {
@@ -266,7 +223,8 @@ function onMoreWeatherBtn() {
 
 function getWeatherRender(response, data) {
     if (response.ok) {
-            getWeather(data);
+        getWeather(data);
+        moreWeatherBtn.classList.remove('more-weather-is-hidden');
             
         } else {
         weatherContainer.innerHTML = data.message;
@@ -282,17 +240,7 @@ function getMoreWeatherRender(response, data) {
             }
 };
 
-// if (weatherContainer) {
-//     loadWeather();
-// };
-        
-
-
-// if (navigator.geolocation) {
-//     getGeo();
-// };
-
-// weekWeather.innerHTML = `<div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>`;
-
+defaultWeather();
 getGeo();
+
 
