@@ -1,4 +1,5 @@
 import localStorageService from '../localStorageService/localStorageService';
+import { createSearchOnError } from './articleSearchCardOnError';
 import {
   checkLokalStorage,
   removeFavoriteBtnHTML,
@@ -12,7 +13,6 @@ const ENDPOINT = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
 const API_KEY = 'api-key=HR9YxGV98GGTmMcKHA5eY4Aer5nJgRvJ';
 
 // import { default as axios } from 'axios';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export default class PixabayApiService {
   constructor() {
@@ -29,9 +29,6 @@ export default class PixabayApiService {
     const URL = `${ENDPOINT}?${API_KEY}&q=${this.searchQuery}`;
     const response = await axios.get(URL);
     console.log(response.data.response.docs);
-    if (this.page === 1) {
-      Notify.success(`Hooray! We found ${response.data.totalHits} images.`);
-    }
     this.nextPage();
     return response.data.response.docs;
   }
@@ -46,6 +43,7 @@ export default class PixabayApiService {
 const pixabayApiService = new PixabayApiService();
 const formEl = document.getElementById('search-form');
 const newsList = document.querySelector('.news-list');
+const weatherContainer = document.querySelector('.weather-container');
 
 formEl.addEventListener('submit', onSubmit);
 
@@ -61,13 +59,14 @@ async function onSubmit(e) {
     if (articles.length === 0) throw new Error('No data');
     let i = 0;
     const card = articles.reduce((markup, article) => {
+      weatherContainer.style.display = "block";
       i++;
       return markup + createMostPopularNews(article, i);
     }, '');
     console.log(card);
     updateCard(card);
   } catch (err) {
-    onError();
+    onError(weatherContainer.style.display = "none");
   }
   formEl.reset();
 }
@@ -77,8 +76,10 @@ function updateCard(markup) {
 }
 
 function onError(error) {
+  newsList.innerHTML = createSearchOnError();
   console.error(error);
 }
+
 function createMostPopularNews(article, i) {
   // створює розмітку популярних новин
   const {
