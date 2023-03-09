@@ -1,7 +1,7 @@
 
 // import '../render/addToFavoriteBtn';
 
-import localStorageService from '../localStorageService/localStorageService';
+import LocalStorageService from '../LocalStorageService/LocalStorageService';
 import {
   checkLokalStorage,
   removeFavoriteBtnHTML,
@@ -15,6 +15,7 @@ const favCollectionEl = document.querySelector('.favorite-collection');
 // console.log(favCollectionEl);
 
 const cardFromLocal = localStorageService.load('readMoreLocal');
+
 // console.log(cardFromLocal)
 // const cardFromLocal = JSON.parse(localStorage.getItem('readMoreLocal'));
 // console.log(cardFromLocal);
