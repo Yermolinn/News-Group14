@@ -38,8 +38,10 @@ async function render() {
   const mostPopularApiService = new MostPopularApiService();
 
   const articles = await mostPopularApiService.getNews();
-  // console.log('🚀 ~ articles', articles);
-  if (articles.length === 0) throw new Error('No data');
+
+/*   console.log('🚀 ~ articles', articles);
+ */  if (articles.length === 0) throw new Error('No data');
+
   let i = 0;
   const card = articles.reduce((markup, article) => {
     i++;
@@ -79,7 +81,10 @@ function createMostPopularNews(article, i) {
 
     let isFav = false;
     let localFavorite = localStorageService.load('favorite');
+    
+    
     let checkFavorite = checkLokalStorage(article, localFavorite);
+
     if (checkFavorite === true) {
       btn.innerHTML = removeFavoriteBtnHTML;
       btn.classList.add('favorite-btn--active');
