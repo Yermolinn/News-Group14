@@ -52,6 +52,7 @@ function updateCard(markup) {
   newsList.innerHTML = markup;
 }
 
+
 function createMostPopularNews(article, i) {
   // створює розмітку популярних новин
   const { abstract, published_date, section, title, media, url, id } = article;
