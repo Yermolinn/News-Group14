@@ -357,6 +357,8 @@ function createMostPopularNews(article, i) {
     link.onclick = handleRead(article, p, card);
   }, 0);
   //   console.log((defaultImg = multimedia[2].url));
+  let defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
+
   if (multimedia !== null) {
     defaultImg = multimedia[2].url;
   }

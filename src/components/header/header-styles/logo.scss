@@ -1,6 +1,8 @@
 .header {
-  padding: 28px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.header__container {
+  padding: 28px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,9 +14,7 @@
     // gap: 102px;
   }
 }
-
 .logo {
-  margin-left: 16px;
   font-weight: 700;
   font-size: 24px;
   line-height: 1.4;
@@ -128,7 +128,6 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-right: 16px;
 }
 .menu__close-icon {
   transition: fill var(--duration) var(--timing-function);

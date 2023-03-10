@@ -3,6 +3,7 @@
     width: 288px;
     height: 469px;
     padding-bottom: 32px;
+    margin-bottom: 20px;
 
     font-family: 'Roboto';
     font-style: normal;
@@ -17,14 +18,14 @@
     @media screen and (min-width: 768px) {
 
         width: 353px;
-        height: 675px;
-
+        height: 741px;
+margin-bottom: 0;
 
     }
 
     @media screen and (min-width: 1280px) {
         width: 395px;
-        height: 675px;
+        height: 741px;
     }
 }
 

@@ -37,8 +37,10 @@ async function render() {
   const mostPopularApiService = new MostPopularApiService();
 
   const articles = await mostPopularApiService.getNews();
+
 /*   console.log('🚀 ~ articles', articles);
  */  if (articles.length === 0) throw new Error('No data');
+
   let i = 0;
   const card = articles.reduce((markup, article) => {
     i++;
@@ -52,6 +54,7 @@ function updateCard(markup) {
   newsList.innerHTML = markup;
 }
 
+
 function createMostPopularNews(article, i) {
   // створює розмітку популярних новин
   const { abstract, published_date, section, title, media, url, id } = article;
@@ -64,8 +67,10 @@ function createMostPopularNews(article, i) {
 
     let isFav = false;
     let localFavorite = localStorageService.load('favorite');
-/*     console.log(localFavorite);
- */    let checkFavorite = checkLokalStorage(article, localFavorite);
+    
+    /*     console.log(localFavorite);*/
+    let checkFavorite = checkLokalStorage(article, localFavorite);
+
     if (checkFavorite === true) {
       btn.innerHTML = removeFavoriteBtnHTML;
       btn.classList.add('favorite-btn--active');
@@ -79,6 +84,7 @@ function createMostPopularNews(article, i) {
     btn.onclick = handleFavorite(isFav, article, btn);
     link.onclick = handleRead(article, p, card);
   }, 0);
+  let defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
   if (media.length !== 0) {
     defaultImg = media[0]['media-metadata'][2].url;
   }
