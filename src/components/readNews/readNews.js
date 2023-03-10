@@ -2,6 +2,15 @@
 // import '../render/addToFavoriteBtn';
 
 import LocalStorageService from '../LocalStorageService/LocalStorageService';
+import {
+  checkLokalStorage,
+  removeFavoriteBtnHTML,
+  addFavoriteBtnHTML,
+  alreadyRead,
+  handleFavorite,
+  handleRead,
+} from '../render/render';
+
 const favCollectionEl = document.querySelector('.favorite-collection');
 // console.log(favCollectionEl);
 
@@ -42,10 +51,9 @@ for (let i = 0; i < cardFromLocal.length; i += 1) {
   // console.log(readDate);
   let headCard = false;
   if (readDate) {
-
         markUp.push(`<div class="read--date--card">
         <div class="read--one--day">
-        <a class="read--date">${cardFromLocal[j].dayRead}</a>
+        <a class="read--date">${cardFromLocal[i].dayRead}</a>
         <svg class="read--contacts__svg" width="15px" height="9px"><use href="./sprite.f14d31f7.svg#icon-arrow-up"></use></svg>
         <svg class="read--contacts__svg_hid read--is-hidden" width="15px" height="9px"><use href="./sprite.f14d31f7.svg#icon-arrow-down"></use></svg>
         </div>
@@ -53,7 +61,6 @@ for (let i = 0; i < cardFromLocal.length; i += 1) {
   }
 
   markUp.push(`<div class="news-card ${`news-card--${cardFromLocal[i].id}`} grid grid-item-${i}">
-
             <div class="top-wrap">
               <img
                 src="${defaultImg}"
@@ -82,7 +89,7 @@ for (let i = 0; i < cardFromLocal.length; i += 1) {
         `);
   // console.log(markUp);
   if (cardFromLocal.length < 2) { readDate = 0 } else {
-    if (j < (cardFromLocal.length)) {
+    if (j < ((cardFromLocal.length))) {
       readDate = Math.abs(cardFromLocal[i].dayRead.replace(/[\s.,%]/g, '') - cardFromLocal[j].dayRead.replace(/[\s.,%]/g, ''));
       j++;
     } else {
