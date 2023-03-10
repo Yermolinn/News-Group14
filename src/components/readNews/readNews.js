@@ -112,7 +112,7 @@ if (cardFromLocal) {
     .querySelector('.readCollection')
     .insertAdjacentHTML('beforeend', markUp.join(''));
 
-  let dateCardsEls = document.querySelectorAll('.read--date--card');
+  let dateCardsEls = document.querySelector('.read--date--card');
 
 
   for (el of dateCardsEls) {
