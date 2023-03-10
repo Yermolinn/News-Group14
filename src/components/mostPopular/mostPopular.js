@@ -51,9 +51,9 @@ function updateCard(markup) {
   newsList.innerHTML = markup;
 }
 
-  // створює розмітку популярних новин
+// створює розмітку популярних новин
 function createMostPopularNews(article, i) {
- // виконається після того як з'являться картки
+  // виконається після того як з'являться картки
   const { abstract, published_date, section, title, media, url, id } = article;
   setTimeout(() => {
     const btn = document.querySelector(`.favorite-btn--${id}`);
@@ -78,6 +78,7 @@ function createMostPopularNews(article, i) {
     btn.onclick = handleFavorite(isFav, article, btn);
     link.onclick = handleRead(article, p, card);
   }, 0);
+  let defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
   if (media.length !== 0) {
     defaultImg = media[0]['media-metadata'][2].url;
   }
@@ -114,9 +115,3 @@ function createMostPopularNews(article, i) {
 `;
 }
 render();
-
-
-
-
-
-
