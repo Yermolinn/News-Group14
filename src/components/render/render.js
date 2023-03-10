@@ -67,7 +67,7 @@ export const addFavoriteBtnHTML = `Add to favorite ${createSvgIcon(
 export const removeFavoriteBtnHTML = `Remove from favorite ${createSvgIcon(
   'icon-favorite-add'
 )}`;
-export const alreadyRead = `Already read`;
+export const alreadyRead = `Already read ${createSvgIcon('icon-read-already')}`;
 
 export const handleFavorite = (isFav, data, btn) => () => {
   btn.classList.toggle('favorite-btn--active');
