@@ -12,7 +12,5 @@ import './components/favoriteNews/favoriteNews.js';
 // import './components/newsCard/newsCard.js';
 import './components/pagination/pagination.js';
 import './components/footer/footer.js';
-import './components/preLoader/preLoader.js';
-
-
+// import './components/preLoader/preLoader.js';
 // import './components/readNews/readNews.js';

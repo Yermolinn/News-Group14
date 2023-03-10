@@ -1,5 +1,5 @@
 const addToFavoriteBtn = document.querySelector('.favourite-btn');
-console.log(addToFavoriteBtn);
+// console.log(addToFavoriteBtn);
 
 let currentId = 0;
 let isFav = false;
@@ -28,7 +28,7 @@ function handleFavorite() {
       .classList.remove('hide-icon');
     document.querySelector('.icon-favorite-add').classList.add('hide-icon');
     const currentState = localStorageService.load(STORAGE_KEY);
-    console.log(currentState);
+    // console.log(currentState);
     const index = currentState.findIndex(item => item.isFav === false);
     currentState.splice(index, 1);
     favoritesArray.pop();

@@ -57,8 +57,8 @@ for (const card of cardFromLocal) {
     const link = document.querySelector(`.news-link--${card.id}`);
     const p = document.querySelector(`.isread--${card.id}`);
     const newsCard = document.querySelector(`.news-card--${card.id}`);
-    console.log(btn);
-    console.log(link);
+    // console.log(btn);
+    // console.log(link);
 
     let isFav = true;
     let localFavorite = localStorageService.load('favorite');

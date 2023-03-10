@@ -39,7 +39,7 @@ export function checkLokalStorage(elem, localArr) {
 
   for (let i = 0; i < localArr.length; i += 1) {
     if (localArr[i].id === elem.id) {
-      console.log(localArr[i].id);
+      // console.log(localArr[i].id);
       return true;
     }
   }
@@ -82,7 +82,7 @@ export const handleFavorite = (isFav, data, btn) => () => {
     }
     data.favorite = isFav;
     favoriteId.push(data);
-    console.log(favoriteId);
+    // console.log(favoriteId);
     localStorageService.save('favorite', favoriteId);
   } else {
     isFav = false;
@@ -105,13 +105,13 @@ export const handleRead = (data, p, card) => () => {
     })
     .replace(/\//g, '.');
   data.dayRead = dateOfRead;
-  console.log(data);
+  // console.log(data);
   for (let i = 0; i < readMoreId.length; i += 1) {
     if (readMoreId[i].id === data.id) {
       return;
     }
   }
   readMoreId.push(data);
-  console.log(readMoreId);
+  // console.log(readMoreId);
   localStorageService.save(`readMoreLocal`, readMoreId);
 };

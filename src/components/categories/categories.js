@@ -41,7 +41,7 @@ const weatherContainer = document.querySelector('.weather-container');
 const fethNewsService = new FethNewsService();
 const newList = document.querySelector('.news-list');
 container.addEventListener('click', getNewsCategory);
-console.log(newList);
+// console.log(newList);
 //додавання змінних попагінаціі//
 /* const btnNextPg = document.querySelector('button.pagination-btn__next');
 const btnPrewPg = document.querySelector('button.pagination-btn__prew');
@@ -384,7 +384,7 @@ function createCardsOnCurrentBtn(element) {
     ];
 
     ulEl.append(...spliceArrray);
-    console.log(ulEl);
+    // console.log(ulEl);
     paginationEl.innerHTML = ``;
     paginationEl.appendChild(ulEl);
     // spliceArrray = [...newArrli]; // 4 элемента-кнопки

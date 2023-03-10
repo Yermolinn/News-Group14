@@ -123,10 +123,10 @@ if (cardFromLocal) {
     .insertAdjacentHTML('beforeend', markUp.join(''));
 
   let dateCardsEls = document.querySelectorAll('.read--date--card');
-  console.log(dateCardsEls);
+  // console.log(dateCardsEls);
 
   for (el of dateCardsEls) {
-    console.log(el);
+    // console.log(el);
   }
 } else {
   markUp.push(
