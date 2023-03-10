@@ -33,8 +33,7 @@ if (cardFromLocal) {
       const newsCard = document.querySelector(
         `.news-card--${cardFromLocal[i].id}`
       );
-      console.log(btn);
-      console.log(link);
+
 
       let isFav = true;
       let localFavorite = localStorageService.load('favorite');
