@@ -238,8 +238,8 @@ function createCards(arr) {
     numberGridElement++;
     let image = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
     if (article.multimedia !== null) {
-    image = article.multimedia[2].url;
-  }
+      image = article.multimedia[2].url;
+    }
     article = {
       image: image,
       section: article.section,
@@ -254,7 +254,7 @@ function createCards(arr) {
 
 
   return card;
-
+}
 
 // -------------------LacalStarage-------------------------------
 function createMostPopularNews(article, i) {
