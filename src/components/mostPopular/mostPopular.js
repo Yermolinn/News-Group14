@@ -14,26 +14,13 @@ import {
 const axios = require('axios').default;
 
 class MostPopularApiService {
-  //   constructor() {
-  //     this.page = 1;
-  //     this.searchQuery = '';
-  //     this.perPage = 40;
-  //   }
+
 
   async getNews() {
-    // const URL = `${ENDPOINT}?${API_KEY}&q=${this.searchQuery}`; // це для пошуку
     const mostPopularUrl = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?${API_KEY}`;
     const response = await axios.get(mostPopularUrl);
-    // console.log(response.data.results[0].media[0]['media-metadata'][0].url);
     return response.data.results;
   }
-
-  //   nextPage() {
-  //     this.page += 1;
-  //   }
-  //   resetPage() {
-  //     this.page = 1;
-  //   }
 }
 async function render() {
   //рендерить  популярні новини
@@ -43,7 +30,6 @@ async function render() {
 
 
   if (articles.length === 0) throw new Error('No data');
-  // console.log('🚀 ~ articles', articles);
 
 
   let i = 0;
@@ -51,7 +37,6 @@ async function render() {
       weatherContainer.style.display = 'block';
     i++;
     let image = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
-    // console.log(defaultImg);
     if (article.media.length !== 0) {
       image = article.media[0]['media-metadata'][2].url;
     }

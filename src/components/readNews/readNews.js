@@ -1,5 +1,3 @@
-// import '../render/addToFavoriteBtn';
-
 import localStorageService from '../localStorageService/localStorageService';
 import {
   checkLokalStorage,
@@ -11,13 +9,11 @@ import {
 } from '../render/render';
 
 const favCollectionEl = document.querySelector('.favorite-collection');
-// console.log(favCollectionEl);
+
 
 const cardFromLocal = localStorageService.load('readMoreLocal');
 
-// console.log(cardFromLocal)
-// const cardFromLocal = JSON.parse(localStorage.getItem('readMoreLocal'));
-// console.log(cardFromLocal);
+
 const refs = {
   iconSvg: new URL('../../images/sprite.svg', import.meta.url),
 };
@@ -51,12 +47,7 @@ if (cardFromLocal) {
       btn.onclick = handleFavorite(isFav, cardFromLocal[i], btn);
     }, 0);
 
-    // console.log(cardFromLocal[i].title);
-    // let image = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
-    // if (cardFromLocal[i].media.length !== 0) {
-    //   image = cardFromLocal[i].media[0]['media-metadata'][2].url;
-    // }
-    // console.log(readDate);
+
     let headCard = false;
     if (readDate) {
       markUp.push(`<div class="read--date--card">
@@ -101,7 +92,7 @@ if (cardFromLocal) {
             </div>
           </div>
         `);
-    // console.log(markUp);
+
     if (cardFromLocal.length < 2) {
       readDate = 0;
     } else {
@@ -123,10 +114,10 @@ if (cardFromLocal) {
     .insertAdjacentHTML('beforeend', markUp.join(''));
 
   let dateCardsEls = document.querySelectorAll('.read--date--card');
-  // console.log(dateCardsEls);
+
 
   for (el of dateCardsEls) {
-    // console.log(el);
+
   }
 } else {
   markUp.push(

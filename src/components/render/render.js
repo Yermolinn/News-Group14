@@ -8,10 +8,8 @@ let readMoreId = [];
 let favoriteId = [];
 let defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
 
-// readMoreId = localStorageService.save('readMoreLocal', readMoreId);
-// console.log(readMoreId);
 
-// console.log(localStorageService.load('readMoreLocal').map(elem => elem));
+
 isReadEmpty();
 isFavoriteEmpty();
 isReadEmpty();
@@ -82,7 +80,7 @@ export const handleFavorite = (isFav, data, btn) => () => {
     }
     data.favorite = isFav;
     favoriteId.push(data);
-    // console.log(favoriteId);
+
     localStorageService.save('favorite', favoriteId);
   } else {
     isFav = false;
@@ -105,13 +103,13 @@ export const handleRead = (data, p, card) => () => {
     })
     .replace(/\//g, '.');
   data.dayRead = dateOfRead;
-  // console.log(data);
+
   for (let i = 0; i < readMoreId.length; i += 1) {
     if (readMoreId[i].id === data.id) {
       return;
     }
   }
   readMoreId.push(data);
-  // console.log(readMoreId);
+
   localStorageService.save(`readMoreLocal`, readMoreId);
 };

@@ -27,12 +27,7 @@ import {
 
 const container = document.querySelector('.final-menu');
 
-/* const newArrli = [];
-const paginationEl = document.querySelector('.pagination');
-const resolveArray = [];
-const ulEl = document.querySelector(`.pagination-list`);
-const btnNextPg = document.querySelector('.pagination-btn__next');
-const btnPrewPg = document.querySelector('.pagination-btn__prew'); */
+
 
 const arrCategoryElements = [];
 const weatherContainer = document.querySelector('.weather-container');
@@ -41,12 +36,9 @@ const weatherContainer = document.querySelector('.weather-container');
 const fethNewsService = new FethNewsService();
 const newList = document.querySelector('.news-list');
 container.addEventListener('click', getNewsCategory);
-// console.log(newList);
+
 //додавання змінних попагінаціі//
-/* const btnNextPg = document.querySelector('button.pagination-btn__next');
-const btnPrewPg = document.querySelector('button.pagination-btn__prew');
-btnNextPg.addEventListener ('click', nextPageCategory);
-btnPrewPg.addEventListener ('click', prewPageCategory); */
+
 // ------------------------<dropdown>
 const myDropdown = document.getElementById('myDropdown');
 const dropdownBtn = document.querySelector('.dropdownbtn');
@@ -63,10 +55,7 @@ function hideDropdown() {
   myDropdown.classList.remove('show');
   dropdownBtn.classList.remove('active');
 }
-// -----------------------</dropdown>---------------------------
 
-// container.insertAdjacentHTML('afterend', matkUp(results));
-/* <button type="button" class="categories-list__btn category-content">Admin</button>; */
 // -------------------------<category>---------------------------
 
 exportCategories()
@@ -147,15 +136,6 @@ function getNewsCategory(e) {
   serchArticlesCategory();
 }
 
-/* function nextPageCategory() {
-  fethNewsService.incrementPage();
-  serchArticlesCategory();
-}
-
-function prewPageCategory() {
-  fethNewsService.descrementPage();
-  serchArticlesCategory();
-} */
 
 function getRender(name) {
   let newName = name;
@@ -212,10 +192,7 @@ async function serchArticlesCategory() {
       let rows = 8;
       displayList(resolve, rows, currentPage);
       displayPagination(resolve, rows);
-      
-      /* console.log(displayList(resolve, rows, currentPage)); */
-      // newList.insertAdjacentHTML('afterbegin', createCardOnError('category'));
-      /* newList.insertAdjacentHTML('afterbegin', createCards(resolve));  */
+    
     })
     
     .catch(() => {
@@ -230,12 +207,6 @@ btnNextPg.addEventListener(`click`, onNextBtn);
 
 function createCards(arr) {
   let numberGridElement = 0;
-  //   const mark = arr
-  //     .map(el => {
-  //       numberGridElement++;
-  //       return createNewsCardCategory(el, numberGridElement);
-  //     })
-  //     .join('');
   const card = arr.reduce((markup, article) => {
       weatherContainer.style.display = 'block';
     numberGridElement++;
@@ -321,10 +292,8 @@ function createMostPopularNews(article, i) {
 //----------------------Pagination-------------------------------//
 
 function displayList(arrData, rowPerPage, page) {
-  /*  const postsEl = document.querySelector('.news-list'); */
-  /* postsEl.innerHTML = ""; */
   newList.innerHTML = '';
-  /* page--; */
+
 
   const start = rowPerPage * page;
   const end = start + rowPerPage;
@@ -384,10 +353,10 @@ function createCardsOnCurrentBtn(element) {
     ];
 
     ulEl.append(...spliceArrray);
-    // console.log(ulEl);
+
     paginationEl.innerHTML = ``;
     paginationEl.appendChild(ulEl);
-    // spliceArrray = [...newArrli]; // 4 элемента-кнопки
+
   } else {
     spliceArrray = newArrli.slice(numberLi - 1, numberLi + 2);
   }
