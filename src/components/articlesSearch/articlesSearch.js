@@ -58,7 +58,8 @@ async function onSubmit(e) {
     // console.log(':ракета: ~ articles', articles);
     if (articles.length === 0) throw new Error('No data');
     let i = 0;
-    const card = articles.reduce((markup, article) => {
+    const articles8 = articles.splice(0, 8)
+    const card = articles8.reduce((markup, article) => {
       weatherContainer.style.display = 'block';
       i++;
       const attachURL = `https://www.nytimes.com/`;
