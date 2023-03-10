@@ -35,12 +35,13 @@ class MostPopularApiService {
 async function render() {
   //рендерить  популярні новини
   const mostPopularApiService = new MostPopularApiService();
+
   const articles = await mostPopularApiService.getNews();
+  // console.log('🚀 ~ articles', articles);
   if (articles.length === 0) throw new Error('No data');
   let i = 0;
   const card = articles.reduce((markup, article) => {
     i++;
-
     return markup + createMostPopularNews(article, i);
   }, '');
 
@@ -51,11 +52,11 @@ function updateCard(markup) {
   newsList.innerHTML = markup;
 }
 
-  // створює розмітку популярних новин
 function createMostPopularNews(article, i) {
- // виконається після того як з'являться картки
+  // створює розмітку популярних новин
   const { abstract, published_date, section, title, media, url, id } = article;
   setTimeout(() => {
+    // виконається після того як з'являться картки
     const btn = document.querySelector(`.favorite-btn--${id}`);
     const link = document.querySelector(`.news-link--${id}`);
     const p = document.querySelector(`.isread--${id}`);
@@ -63,7 +64,7 @@ function createMostPopularNews(article, i) {
 
     let isFav = false;
     let localFavorite = localStorageService.load('favorite');
-    console.log(localFavorite);
+    // console.log(localFavorite);
     let checkFavorite = checkLokalStorage(article, localFavorite);
     if (checkFavorite === true) {
       btn.innerHTML = removeFavoriteBtnHTML;
@@ -78,6 +79,7 @@ function createMostPopularNews(article, i) {
     btn.onclick = handleFavorite(isFav, article, btn);
     link.onclick = handleRead(article, p, card);
   }, 0);
+  let defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
   if (media.length !== 0) {
     defaultImg = media[0]['media-metadata'][2].url;
   }
@@ -96,7 +98,7 @@ function createMostPopularNews(article, i) {
         <p class="top-text">${section}</p>
       </div>
       <button class="favorite-btn ${`favorite-btn--${id}`}" data-id="${id}">
-        LIKE
+        ${addFavoriteBtnHTML}
       </button>
     </div>
     <div class="info">
@@ -114,9 +116,3 @@ function createMostPopularNews(article, i) {
 `;
 }
 render();
-
-
-
-
-
-
