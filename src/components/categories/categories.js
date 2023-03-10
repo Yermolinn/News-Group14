@@ -204,33 +204,37 @@ function createCards(arr) {
   //     .join('');
   const card = arr.reduce((markup, article) => {
     numberGridElement++;
+    let image = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
+    if (article.multimedia !== null) {
+    image = article.multimedia[2].url;
+  }
+    article = {
+      image: image,
+      section: article.section,
+      title: article.title,
+      description: article.abstract,
+      date: article.published_date,
+      url: article.url,
+      id: article.slug_name,
+    };
     return markup + createMostPopularNews(article, numberGridElement);
   }, '');
-  console.log(card);
+
   return card;
 }
 // -------------------LacalStarage-------------------------------
 function createMostPopularNews(article, i) {
   // створює розмітку популярних новин
-  const {
-    abstract,
-    published_date,
-    section,
-    title,
-    multimedia,
-    url,
-    slug_name,
-  } = article;
+  const { image, section, title, description, date, url, id } = article;
   setTimeout(() => {
     // виконається після того як з'являться картки
-    const btn = document.querySelector(`.favorite-btn--${slug_name}`);
-    const link = document.querySelector(`.news-link--${slug_name}`);
-    const p = document.querySelector(`.isread--${slug_name}`);
-    const card = document.querySelector(`.news-card--${slug_name}`);
+    const btn = document.querySelector(`.favorite-btn--${id}`);
+    const link = document.querySelector(`.news-link--${id}`);
+    const p = document.querySelector(`.isread--${id}`);
+    const card = document.querySelector(`.news-card--${id}`);
 
     let isFav = false;
     let localFavorite = localStorageService.load('favorite');
-    console.log(localFavorite);
     let checkFavorite = checkLokalStorage(article, localFavorite);
     if (checkFavorite === true) {
       btn.innerHTML = removeFavoriteBtnHTML;
@@ -245,38 +249,30 @@ function createMostPopularNews(article, i) {
     btn.onclick = handleFavorite(isFav, article, btn);
     link.onclick = handleRead(article, p, card);
   }, 0);
-  //   console.log((defaultImg = multimedia[2].url));
-  let defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
-
-  if (multimedia !== null) {
-    defaultImg = multimedia[2].url;
-  }
-  return `<div class="news-card ${`news-card--${slug_name}`} grid grid-item-${i}">
+  return `<div class="news-card ${`news-card--${id}`} grid grid-item-${i}">
 
     <div class="top-wrap">
       <img
-        src="${defaultImg}"
+        src="${image}"
         loading="lazy"
         width="288"
         height="395"
         class="news-img"
       />
-      <p class="isread ${`isread--${slug_name}`}"></p>
+      <p class="isread ${`isread--${id}`}"></p>
       <div class="category-wrap">
         <p class="top-text">${section}</p>
       </div>
-      <button class="favorite-btn ${`favorite-btn--${slug_name}`}" data-id="${slug_name}">
+      <button class="favorite-btn ${`favorite-btn--${id}`}" data-id="${id}">
         ${addFavoriteBtnHTML}
       </button>
     </div>
     <div class="info">
       <h2 class="info-item">${title}</h2>
-      <p class="describe">${abstract.slice(0, 150) + '...'}</p>
+      <p class="describe">${description.slice(0, 150) + '...'}</p>
       <div class="lower-content">
-        <p class="news-date">${published_date
-          .slice(0, 10)
-          .replaceAll('-', '/')}</p>
-        <a class="news-link ${`news-link--${slug_name}`} link" href="${url}"  onclick="handleRead()" target="_blank">Read more</a>
+        <p class="news-date">${date.slice(0, 10).replaceAll('-', '/')}</p>
+        <a class="news-link ${`news-link--${id}`} link" href="${url}"  onclick="handleRead()" target="_blank">Read more</a>
       </div>
     </div>
   </div>
