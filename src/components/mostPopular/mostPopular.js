@@ -35,13 +35,12 @@ class MostPopularApiService {
 async function render() {
   //рендерить  популярні новини
   const mostPopularApiService = new MostPopularApiService();
-
   const articles = await mostPopularApiService.getNews();
-  console.log('🚀 ~ articles', articles);
   if (articles.length === 0) throw new Error('No data');
   let i = 0;
   const card = articles.reduce((markup, article) => {
     i++;
+
     return markup + createMostPopularNews(article, i);
   }, '');
 
@@ -52,11 +51,11 @@ function updateCard(markup) {
   newsList.innerHTML = markup;
 }
 
-function createMostPopularNews(article, i) {
   // створює розмітку популярних новин
+function createMostPopularNews(article, i) {
+ // виконається після того як з'являться картки
   const { abstract, published_date, section, title, media, url, id } = article;
   setTimeout(() => {
-    // виконається після того як з'являться картки
     const btn = document.querySelector(`.favorite-btn--${id}`);
     const link = document.querySelector(`.news-link--${id}`);
     const p = document.querySelector(`.isread--${id}`);
@@ -97,7 +96,7 @@ function createMostPopularNews(article, i) {
         <p class="top-text">${section}</p>
       </div>
       <button class="favorite-btn ${`favorite-btn--${id}`}" data-id="${id}">
-        ${addFavoriteBtnHTML}
+        LIKE
       </button>
     </div>
     <div class="info">
@@ -115,3 +114,9 @@ function createMostPopularNews(article, i) {
 `;
 }
 render();
+
+
+
+
+
+
