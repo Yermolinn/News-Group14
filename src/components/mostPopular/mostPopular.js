@@ -1,5 +1,7 @@
 const newsList = document.querySelector('.news-list');
 const API_KEY = 'api-key=HR9YxGV98GGTmMcKHA5eY4Aer5nJgRvJ';
+const weatherContainer = document.querySelector('.weather-container');
+
 import localStorageService from '../localStorageService/localStorageService';
 import {
   removeFavoriteBtnHTML,
@@ -44,6 +46,7 @@ async function render() {
 
   let i = 0;
   const card = articles.reduce((markup, article) => {
+      weatherContainer.style.display = 'block';
     i++;
     let image = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
     // console.log(defaultImg);

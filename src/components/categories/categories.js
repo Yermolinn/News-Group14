@@ -35,6 +35,8 @@ const btnNextPg = document.querySelector('.pagination-btn__next');
 const btnPrewPg = document.querySelector('.pagination-btn__prew'); */
 
 const arrCategoryElements = [];
+const weatherContainer = document.querySelector('.weather-container');
+
 
 const fethNewsService = new FethNewsService();
 const newList = document.querySelector('.news-list');
@@ -196,9 +198,9 @@ async function serchArticlesCategory() {
 
       const timeArr = results.filter(elem => {
         const date = elem.published_date.slice(0, 10).split('-').join('/');
-
         return date === ourDate;
       });
+      
 
       arrCategoryElements.push(...timeArr);
       return timeArr;
@@ -235,6 +237,7 @@ function createCards(arr) {
   //     })
   //     .join('');
   const card = arr.reduce((markup, article) => {
+      weatherContainer.style.display = 'block';
     numberGridElement++;
     let image = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
     if (article.multimedia !== null) {

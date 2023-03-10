@@ -30,11 +30,12 @@ const arrayForCollection = [];
 const markUp = [];
 if (cardFromLocal) {
   for (let i = 0; i < cardFromLocal.length; i += 1) {
+    
     // console.log(cardFromLocal[i].title);
-    let defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
-    if (cardFromLocal[i].media.length !== 0) {
-      defaultImg = cardFromLocal[i].media[0]['media-metadata'][2].url;
-    }
+    // let image = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
+    // if (cardFromLocal[i].media.length !== 0) {
+    //   image = cardFromLocal[i].media[0]['media-metadata'][2].url;
+    // }
     // console.log(readDate);
     let headCard = false;
     if (readDate) {
@@ -50,7 +51,7 @@ if (cardFromLocal) {
     markUp.push(`<div class="news-card ${`news-card--${cardFromLocal[i].id}`} grid grid-item-${i}">
             <div class="top-wrap">
               <img
-                src="${defaultImg}"
+                src="${cardFromLocal[i].image}"
                 loading="lazy"
                 width="288"
                 height="395"
@@ -66,9 +67,9 @@ if (cardFromLocal) {
             </div>
             <div class="info">
               <h2 class="info-item">${cardFromLocal[i].title}</h2>
-              <p class="describe">${cardFromLocal[i].abstract}</p>
+              <p class="describe">${cardFromLocal[i].description}</p>
               <div class="lower-content">
-                <p class="news-date">${cardFromLocal[i].published_date}</p>
+                <p class="news-date">${cardFromLocal[i].date.slice(0, 10).replaceAll('-', '/')}</p>
                 <a class="news-link ${`news-link--${cardFromLocal[i].id}`} link" href="${cardFromLocal[i].url}"  onclick="handleRead()" target="_blank">Read more</a>
               </div>
             </div>
