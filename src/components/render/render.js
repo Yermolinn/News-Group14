@@ -9,7 +9,7 @@ let favoriteId = [];
 let defaultImg = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
 
 // readMoreId = localStorageService.save('readMoreLocal', readMoreId);
-console.log(readMoreId);
+// console.log(readMoreId);
 
 // console.log(localStorageService.load('readMoreLocal').map(elem => elem));
 isReadEmpty();
@@ -48,6 +48,7 @@ const refs = {
   iconSvg: new URL('../../images/sprite.svg', import.meta.url),
 };
 
+
 function createSvgIcon(name) {
   // створює іконки, але ТІЛЬКИ сердечка
 
@@ -65,8 +66,10 @@ export const removeFavoriteBtnHTML = `Remove from favorite ${createSvgIcon(
   'icon-favorite-add'
 )}`;
 export const alreadyRead = `Already read`;
-export const handleFavorite = (isFav, data, btn) => () => {
+
+
   // логіка кнопки фейворіт
+export const handleFavorite = (isFav, data, btn) => () => {
   btn.classList.toggle('favorite-btn--active');
 
   if (btn.classList.contains('favorite-btn--active')) {
@@ -88,8 +91,10 @@ export const handleFavorite = (isFav, data, btn) => () => {
     localStorageService.save('favorite', favoriteId);
   }
 };
-export const handleRead = (data, p, card) => () => {
+
+
   // логіка натискання на read more
+export const handleRead = (data, p, card) => () => {
   p.innerHTML = alreadyRead;
   card.classList.add('opacity');
   let dateOfRead = new Date()
