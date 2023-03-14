@@ -14,24 +14,15 @@ import {
   handleRead,
 } from '../render/render';
 
-
 import {
-  newArrli,
-  paginationEl,
   resolveArray,
-  ulEl,
-  btnNextPg,
-  btnPrewPg
-} from '../pagination/pagination'; 
-
+  startGeneratePagination,
+} from '../pagination/pagination';
 
 const container = document.querySelector('.final-menu');
 
-
-
 const arrCategoryElements = [];
 const weatherContainer = document.querySelector('.weather-container');
-
 
 const fethNewsService = new FethNewsService();
 const newList = document.querySelector('.news-list');
@@ -136,7 +127,6 @@ function getNewsCategory(e) {
   serchArticlesCategory();
 }
 
-
 function getRender(name) {
   let newName = name;
   const newString = name;
@@ -180,7 +170,6 @@ async function serchArticlesCategory() {
         const date = elem.published_date.slice(0, 10).split('-').join('/');
         return date === ourDate;
       });
-      
 
       arrCategoryElements.push(...timeArr);
       return timeArr;
@@ -190,25 +179,27 @@ async function serchArticlesCategory() {
       resolveArray.push(...resolve);
       let currentPage = 1;
       let rows = 8;
-      displayList(resolve, rows, currentPage);
-      displayPagination(resolve, rows);
-    
+      startGeneratePagination(resolve, rows, currentPage);
+
+      /* console.log(displayList(resolve, rows, currentPage)); */
+      // newList.insertAdjacentHTML('afterbegin', createCardOnError('category'));
+      /* newList.insertAdjacentHTML('afterbegin', createCards(resolve));  */
     })
-    
+
     .catch(() => {
       newList.insertAdjacentHTML('afterbegin', createCardOnError('category'));
     });
 }
 
-btnPrewPg.addEventListener(`click`, onPrewBtn);
-btnNextPg.addEventListener(`click`, onNextBtn);
+// btnPrewPg.addEventListener(`click`, onPrewBtn);
+// btnNextPg.addEventListener(`click`, onNextBtn);
 
 //-------------------------------create cadr----------------------------------------
 
 function createCards(arr) {
   let numberGridElement = 0;
   const card = arr.reduce((markup, article) => {
-      weatherContainer.style.display = 'block';
+    weatherContainer.style.display = 'block';
     numberGridElement++;
     let image = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
     if (article.multimedia !== null) {
@@ -225,7 +216,6 @@ function createCards(arr) {
     };
     return markup + createMostPopularNews(article, numberGridElement);
   }, '');
-
 
   return card;
 }
@@ -258,8 +248,8 @@ function createMostPopularNews(article, i) {
     btn.onclick = handleFavorite(isFav, article, btn);
     link.onclick = handleRead(article, p, card);
   }, 0);
-  return `<div class="news-card ${`news-card--${id}`} grid grid-item-${i}">
 
+  return `<div class="news-card ${`news-card--${id}`} grid grid-item-${i}">
     <div class="top-wrap">
       <img
         src="${image}"
@@ -287,134 +277,6 @@ function createMostPopularNews(article, i) {
   </div>
   
 `;
-}
-
-//----------------------Pagination-------------------------------//
-
-function displayList(arrData, rowPerPage, page) {
-  newList.innerHTML = '';
-
-
-  const start = rowPerPage * page;
-  const end = start + rowPerPage;
-  const paginatedData = arrData.slice(start, end);
-
-  newList.insertAdjacentHTML('afterbegin', createCards(paginatedData));
-}
-
-function displayPagination(arrData, rowPerPage) {
-  const pagesCount = Math.ceil(arrData.length / rowPerPage);
-  newArrli.length = 0;
-  for (let i = 0; i < pagesCount; i++) {
-    const liEl = displayPaginationBtn(i + 1);
-
-    newArrli.push(liEl);
-  }
-  let spliceArrray = null;
-
-  if (newArrli.length < 5) {
-    spliceArrray = [...newArrli];
-
-    spliceArrray[0].classList.add(`pagination-btn--active`);
-    ulEl.innerHTML = ``;
-    ulEl.append(...spliceArrray);
-  } else {
-    spliceArrray = newArrli.slice(0, 3);
-    spliceArrray[0].classList.add(`pagination-btn--active`);
-    ulEl.innerHTML = ``;
-    ulEl.append(...spliceArrray, `...`, newArrli[newArrli.length - 1]);
-  }
-
-  paginationEl.innerHTML = ``;
-  paginationEl.appendChild(ulEl);
-  ulEl.addEventListener(`click`, showPaginBtns);
-}
-
-function showPaginBtns(e) {
-  const target = e.target;
-
-  if (!target.classList.contains('pagination-btn')) {
-    return;
-  }
-  createCardsOnCurrentBtn(target);
-}
-
-function createCardsOnCurrentBtn(element) {
-  let numberLi = Number(element.textContent); //2
-  let spliceArrray = null;
-
-  if (numberLi === newArrli.length - 3) {
-    ulEl.innerHTML = '';
-
-    spliceArrray = [
-      newArrli[newArrli.length - 3],
-      newArrli[newArrli.length - 2],
-      newArrli[newArrli.length - 1],
-    ];
-
-    ulEl.append(...spliceArrray);
-
-    paginationEl.innerHTML = ``;
-    paginationEl.appendChild(ulEl);
-
-  } else {
-    spliceArrray = newArrli.slice(numberLi - 1, numberLi + 2);
-  }
-
-  if (!element.classList.contains('pagination-btn--active')) {
-    const activeBtn = document.querySelector('.pagination-btn--active');
-    activeBtn.classList.remove('pagination-btn--active');
-
-    const currentPage = element.textContent;
-    element.classList.add('pagination-btn--active');
-
-    displayList(resolveArray, 8, currentPage);
-  }
-
-  ulEl.innerHTML = ``;
-
-  if (newArrli.length < 5) {
-    ulEl.append(newArrli[0], `...`, ...newArrli);
-  } else if (newArrli.length - numberLi <= 4) {
-    ulEl.append(
-      newArrli[0],
-      `...`,
-      ...spliceArrray,
-      newArrli[newArrli.length - 1]
-    );
-  } else {
-    ulEl.append(
-      newArrli[0],
-      `...`,
-      ...spliceArrray,
-      `...`,
-      newArrli[newArrli.length - 1]
-    );
-  }
-}
-
-function displayPaginationBtn(page) {
-  const liEl = document.createElement('li');
-  liEl.classList.add('pagination-btn');
-  liEl.textContent = page;
-
-  return liEl;
-}
-
-function onPrewBtn() {
-  const activeBtn = document.querySelector(`.pagination-btn--active`);
-  let prevActiveBtn = Number(activeBtn.textContent) - 2;
-  if (Number(activeBtn.textContent) >= 2) {
-    createCardsOnCurrentBtn(newArrli[prevActiveBtn]);
-  }
-}
-
-function onNextBtn() {
-  const activeBtn = document.querySelector(`.pagination-btn--active`);
-  let nextActiveBtn = Number(activeBtn.textContent);
-  if (Number(activeBtn.textContent) <= newArrli.length - 2) {
-    createCardsOnCurrentBtn(newArrli[nextActiveBtn]);
-  }
 }
 
 // ---------------------export--------------------------------------

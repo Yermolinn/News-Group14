@@ -14,8 +14,6 @@ import {
 const axios = require('axios').default;
 
 class MostPopularApiService {
-
-
   async getNews() {
     const mostPopularUrl = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?${API_KEY}`;
     const response = await axios.get(mostPopularUrl);
@@ -28,13 +26,12 @@ async function render() {
 
   const articles = await mostPopularApiService.getNews();
 
-
   if (articles.length === 0) throw new Error('No data');
-
 
   let i = 0;
   const card = articles.reduce((markup, article) => {
-      weatherContainer.style.display = 'block';
+    weatherContainer.style.display = 'block';
+
     i++;
     let image = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
     if (article.media.length !== 0) {
@@ -71,8 +68,7 @@ function createMostPopularNews(article, i) {
 
     let isFav = false;
     let localFavorite = localStorageService.load('favorite');
-    
-    
+
     let checkFavorite = checkLokalStorage(article, localFavorite);
 
     if (checkFavorite === true) {
@@ -89,7 +85,6 @@ function createMostPopularNews(article, i) {
     link.onclick = handleRead(article, p, card);
   }, 0);
   return `<div class="news-card ${`news-card--${id}`} grid grid-item-${i}">
-
     <div class="top-wrap">
       <img
         src="${image}"
