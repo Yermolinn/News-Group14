@@ -1,5 +1,7 @@
 const newsList = document.querySelector('.news-list');
 const API_KEY = 'api-key=HR9YxGV98GGTmMcKHA5eY4Aer5nJgRvJ';
+const weatherContainer = document.querySelector('.weather-container');
+
 import localStorageService from '../localStorageService/localStorageService';
 import {
   removeFavoriteBtnHTML,
@@ -12,26 +14,11 @@ import {
 const axios = require('axios').default;
 
 class MostPopularApiService {
-  //   constructor() {
-  //     this.page = 1;
-  //     this.searchQuery = '';
-  //     this.perPage = 40;
-  //   }
-
   async getNews() {
-    // const URL = `${ENDPOINT}?${API_KEY}&q=${this.searchQuery}`; // це для пошуку
     const mostPopularUrl = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?${API_KEY}`;
     const response = await axios.get(mostPopularUrl);
-    // console.log(response.data.results[0].media[0]['media-metadata'][0].url);
     return response.data.results;
   }
-
-  //   nextPage() {
-  //     this.page += 1;
-  //   }
-  //   resetPage() {
-  //     this.page = 1;
-  //   }
 }
 async function render() {
   //рендерить  популярні новини
@@ -39,14 +26,13 @@ async function render() {
 
   const articles = await mostPopularApiService.getNews();
 
-/*   console.log('🚀 ~ articles', articles);
- */  if (articles.length === 0) throw new Error('No data');
+  if (articles.length === 0) throw new Error('No data');
 
   let i = 0;
   const card = articles.reduce((markup, article) => {
+    weatherContainer.style.display = 'block';
     i++;
     let image = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
-    // console.log(defaultImg);
     if (article.media.length !== 0) {
       image = article.media[0]['media-metadata'][2].url;
     }
@@ -81,8 +67,7 @@ function createMostPopularNews(article, i) {
 
     let isFav = false;
     let localFavorite = localStorageService.load('favorite');
-    
-    
+
     let checkFavorite = checkLokalStorage(article, localFavorite);
 
     if (checkFavorite === true) {
@@ -99,7 +84,6 @@ function createMostPopularNews(article, i) {
     link.onclick = handleRead(article, p, card);
   }, 0);
   return `<div class="news-card ${`news-card--${id}`} grid grid-item-${i}">
-
     <div class="top-wrap">
       <img
         src="${image}"

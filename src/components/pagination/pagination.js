@@ -1,42 +1,75 @@
 /* import { FethNewsService } from "../categories/fetchNewsCategory";
 import { fethNewsService } from "../categories/categories";  */
 
+import { newList, createCards } from '../categories/categories';
+
+import { render } from '../mostPopular/mostPopular';
+
 //-----------Змінні для пагінації, що мають експортуватися-----------//
-export const newArrli = [];
-export  const paginationEl = document.querySelector('.pagination');
-export const resolveArray = [];
-export const ulEl = document.querySelector(`.pagination-list`);
-export const btnNextPg = document.querySelector('.pagination-btn__next');
-export const btnPrewPg = document.querySelector('.pagination-btn__prew');
+const newArrli = [];
+const paginationEl = document.querySelector('.pagination');
+const resolveArray = [];
+const ulEl = document.querySelector(`.pagination-list`);
+const btnNextPg = document.querySelector('.pagination-btn__next');
+const btnPrewPg = document.querySelector('.pagination-btn__prew');
 
+const LEFT_THREE_DOTS = displayPaginationBtn('...');
+LEFT_THREE_DOTS.classList.add('left-three-dots');
 
+const RIGHT_THREE_DOTS = displayPaginationBtn('...');
+RIGHT_THREE_DOTS.classList.add('right-three-dots');
 
 //-----------функції пагінації-----------------------//
 
+let numberPaginationActiveBtn = 0;
 
-//---------функція що виводить 8 карток на сторінку(ключова)----//
- export function displayList(arrData, rowPerPage, page) {
-  /*  const postsEl = document.querySelector('.news-list'); */
-  /* postsEl.innerHTML = ""; */
+btnPrewPg.addEventListener(`click`, onPrewBtn);
+btnNextPg.addEventListener(`click`, onNextBtn);
+
+// ---------------------New-Code-------------------
+
+function startGeneratePagination(resolve, rows, currentPage) {
+  displayList(resolve, rows, currentPage);
+  displayPagination(resolve, rows);
+}
+
+function mostPopularPaginatio(arrData, rowPerPage, page) {
   newList.innerHTML = '';
-  /* page--; */
-
   const start = rowPerPage * page;
   const end = start + rowPerPage;
   const paginatedData = arrData.slice(start, end);
 
-  newList.insertAdjacentHTML('afterbegin', createCards(paginatedData));
+  newList.insertAdjacentHTML('afterbegin', render(paginatedData));
+}
+
+//---------функція що виводить 8 карток на сторінку(ключова)----//
+
+function displayList(arrData, rowPerPage, page) {
+  newList.innerHTML = '';
+  const start = rowPerPage * (page - 1);
+  const end = start + rowPerPage;
+
+  if (end > arrData.length) {
+    const paginatedData = arrData.slice(start);
+    newList.insertAdjacentHTML('afterbegin', createCards(paginatedData));
+  } else {
+    const paginatedData = arrData.slice(start, end);
+    newList.insertAdjacentHTML('afterbegin', createCards(paginatedData));
+  }
 }
 
 //-------------функція створює кнопки пагінації----------//
-export function displayPagination(arrData, rowPerPage) {
+function displayPagination(arrData, rowPerPage) {
   const pagesCount = Math.ceil(arrData.length / rowPerPage);
+  numberPaginationActiveBtn = 0;
+
   newArrli.length = 0;
   for (let i = 0; i < pagesCount; i++) {
     const liEl = displayPaginationBtn(i + 1);
 
     newArrli.push(liEl);
   }
+
   let spliceArrray = null;
 
   if (newArrli.length < 5) {
@@ -46,11 +79,19 @@ export function displayPagination(arrData, rowPerPage) {
     ulEl.innerHTML = ``;
     ulEl.append(...spliceArrray);
   } else {
-    spliceArrray = newArrli.slice(0, 3);
+    spliceArrray = newArrli.slice(0, 4);
     spliceArrray[0].classList.add(`pagination-btn--active`);
     ulEl.innerHTML = ``;
-    ulEl.append(...spliceArrray, `...`, newArrli[newArrli.length - 1]);
+    ulEl.append(
+      ...spliceArrray,
+      RIGHT_THREE_DOTS,
+      newArrli[newArrli.length - 1]
+    );
   }
+
+  //---------Початкове блокування кнопки "назад" для пагінації-----
+  btnPrewPg.disabled = true;
+  //----------
 
   paginationEl.innerHTML = ``;
   paginationEl.appendChild(ulEl);
@@ -59,7 +100,7 @@ export function displayPagination(arrData, rowPerPage) {
 
 //------------виводить активну кнопку-------------//
 
-export function showPaginBtns(e) {
+function showPaginBtns(e) {
   const target = e.target;
 
   if (!target.classList.contains('pagination-btn')) {
@@ -70,63 +111,88 @@ export function showPaginBtns(e) {
 
 //-------------відповідає за логіку перемикання кнопок пагінації-------//
 
-export function createCardsOnCurrentBtn(element) {
-  let numberLi = Number(element.textContent); //2
+function createCardsOnCurrentBtn(element) {
+  //-------логіка натискання на три крапки--------
+
+  const activeBtnForThreeDots =
+    Number(document.querySelector('.pagination-btn--active').textContent) - 1;
+  if (element.classList.contains('right-three-dots')) {
+    element = newArrli[activeBtnForThreeDots + 4];
+  } else if (element.classList.contains('left-three-dots')) {
+    element = newArrli[activeBtnForThreeDots - 3];
+  }
+
+  let numberLi = Number(element.textContent);
   let spliceArrray = null;
 
-  if (numberLi === newArrli.length - 3) {
-    ulEl.innerHTML = '';
+  ulEl.innerHTML = ``;
 
+  //--------Блокування кнопок вперед та назад--------
+
+  if (numberLi === 1) {
+    btnPrewPg.disabled = true;
+  } else if (numberLi === newArrli.length) {
+    btnPrewPg.disabled = false;
+    btnNextPg.disabled = true;
+  } else if (numberLi > 1 && numberLi !== newArrli.length) {
+    btnPrewPg.disabled = false;
+    btnNextPg.disabled = false;
+  }
+
+  //--------Логіка виведення кнопок до ul
+
+  if (newArrli.length < 5) {
+    ulEl.append(...newArrli);
+  } else if (numberLi === 1) {
+    spliceArrray = [newArrli[0], newArrli[1], newArrli[2], newArrli[3]];
+    ulEl.append(
+      ...spliceArrray,
+      RIGHT_THREE_DOTS,
+      newArrli[newArrli.length - 1]
+    );
+  } else if (numberLi === 2 || numberLi === 3) {
+    spliceArrray = [newArrli[0], newArrli[1], newArrli[2], newArrli[3]];
+    ulEl.append(
+      ...spliceArrray,
+      RIGHT_THREE_DOTS,
+      newArrli[newArrli.length - 1]
+    );
+  } else if (newArrli.length - numberLi < 4) {
     spliceArrray = [
+      newArrli[newArrli.length - 4],
       newArrli[newArrli.length - 3],
       newArrli[newArrli.length - 2],
       newArrli[newArrli.length - 1],
     ];
-
-    ulEl.append(...spliceArrray);
-    console.log(ulEl);
-    paginationEl.innerHTML = ``;
-    paginationEl.appendChild(ulEl);
-    // spliceArrray = [...newArrli]; // 4 элемента-кнопки
+    ulEl.append(newArrli[0], LEFT_THREE_DOTS, ...spliceArrray);
   } else {
     spliceArrray = newArrli.slice(numberLi - 1, numberLi + 2);
+    ulEl.append(
+      newArrli[0],
+      LEFT_THREE_DOTS,
+      ...spliceArrray,
+      RIGHT_THREE_DOTS,
+      newArrli[newArrli.length - 1]
+    );
   }
 
+  const previousActiveBtn = newArrli[numberPaginationActiveBtn];
+  const activeBtn = newArrli[numberLi - 1];
+
+  // Перевірка на активний елемент
   if (!element.classList.contains('pagination-btn--active')) {
-    const activeBtn = document.querySelector('.pagination-btn--active');
-    activeBtn.classList.remove('pagination-btn--active');
+    previousActiveBtn.classList.remove('pagination-btn--active');
+    activeBtn.classList.add('pagination-btn--active');
+    numberPaginationActiveBtn = numberLi - 1;
+    currentPage = element.textContent;
+  } else return;
 
-    const currentPage = element.textContent;
-    element.classList.add('pagination-btn--active');
-
-    displayList(resolveArray, 8, currentPage);
-  }
-
-  ulEl.innerHTML = ``;
-
-  if (newArrli.length < 5) {
-    ulEl.append(newArrli[0], `...`, ...newArrli);
-  } else if (newArrli.length - numberLi <= 4) {
-    ulEl.append(
-      newArrli[0],
-      `...`,
-      ...spliceArrray,
-      newArrli[newArrli.length - 1]
-    );
-  } else {
-    ulEl.append(
-      newArrli[0],
-      `...`,
-      ...spliceArrray,
-      `...`,
-      newArrli[newArrli.length - 1]
-    );
-  }
+  displayList(resolveArray, 8, currentPage);
 }
 
 //---------безпосереднє створення кнопок пагінації(генерує лішки)-----//
 
-export function displayPaginationBtn(page) {
+function displayPaginationBtn(page) {
   const liEl = document.createElement('li');
   liEl.classList.add('pagination-btn');
   liEl.textContent = page;
@@ -134,27 +200,28 @@ export function displayPaginationBtn(page) {
   return liEl;
 }
 
-
 //--------фунції функціоналу кнопок вперед та назад по пагінації------//
 
-export function onPrewBtn() {
-  const activeBtn = document.querySelector(`.pagination-btn--active`);
-  let prevActiveBtn = Number(activeBtn.textContent) - 2;
-  if (Number(activeBtn.textContent) >= 2) {
-    createCardsOnCurrentBtn(newArrli[prevActiveBtn]);
-  }
+function onPrewBtn() {
+  const activeBtn = document.querySelector('.pagination-btn--active'); //2
+  const numberActivBtn = Number(activeBtn.textContent); //2
+  let prevActiveBtn = numberActivBtn - 1;
+
+  if (numberActivBtn >= 2) {
+    createCardsOnCurrentBtn(newArrli[prevActiveBtn - 1]);
+  } else return;
 }
 
-export function onNextBtn() {
+function onNextBtn() {
   const activeBtn = document.querySelector(`.pagination-btn--active`);
-  let nextActiveBtn = Number(activeBtn.textContent);
-  if (Number(activeBtn.textContent) <= newArrli.length - 2) {
+  const numberActivBtn = Number(activeBtn.textContent);
+  let nextActiveBtn = numberActivBtn;
+
+  if (numberActivBtn <= newArrli.length - 1) {
     createCardsOnCurrentBtn(newArrli[nextActiveBtn]);
-  }
+  } else return;
 }
-
 
 //-----------слухачі на кнопки вперед та назад пагінації--------//
 
-/* btnPrewPg.addEventListener(`click`, onPrewBtn);
-btnNextPg.addEventListener(`click`, onNextBtn); */
+export { resolveArray, startGeneratePagination, mostPopularPaginatio };
