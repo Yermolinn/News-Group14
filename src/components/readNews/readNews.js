@@ -112,11 +112,19 @@ if (cardFromLocal) {
     .querySelector('.readCollection')
     .insertAdjacentHTML('beforeend', markUp.join(''));
 
-  let dateCardsEls = document.querySelector('.read--date--card');
+  let dateCardsEls = document.querySelectorAll('.read--date--card');
 
 
   for (el of dateCardsEls) {
+    el.addEventListener("click", (event) => {
 
+      if (event.target.querySelector('.read--contacts__svg')) {
+        // event.currentTarget.querySelector('.read--day').style.display = "none"
+        event.currentTarget.querySelector('.read--day').classList.toggle('read--is-hidden');
+        event.target.querySelector('.read--contacts__svg').classList.toggle('read--is-hidden');
+        event.target.querySelector('.read--contacts__svg_hid').classList.toggle('read--is-hidden');
+      }
+    });
   }
 } else {
   markUp.push(
