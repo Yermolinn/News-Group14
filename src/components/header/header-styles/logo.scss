@@ -2,7 +2,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 .header__container {
-  padding: 28px 0;
+  padding: 28px 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -72,6 +72,7 @@
 }
 
 .form__input {
+  width: 173px;
   border: 1px solid var(--blck-text-color);
   border-radius: 20px;
   background-color: transparent;
@@ -146,7 +147,7 @@
     transform: translateX(0);
   }
   .form__btn {
-    transform: translateX(170px);
+    transform: translateX(135px);
     transition: transform var(--duration) var(--timing-function);
   }
   .shown {

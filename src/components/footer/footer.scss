@@ -1,5 +1,5 @@
 .footer-container {
-  background-color: var(--blue-text-color);
+  background-color: var(--mode-color);
   font-weight: 700;
   // padding-top: 15px;
   // padding-bottom: 30px;
@@ -16,67 +16,67 @@
   }
 }
 
-.menu-link {
-  text-decoration: none;
-  color: var(--blck-text-color);
-}
+// .menu-link {
+//   text-decoration: none;
+//   color: var(--blck-text-color);
+// }
 
-.menu-mob {
-  font-size: 16px;
-  line-height: 22px;
+// .menu-mob {
+//   font-size: 16px;
+//   line-height: 22px;
 
-  @include tablet {
-    display: none;
-  }
-}
+//   @include tablet {
+//     display: none;
+//   }
+// }
 
-.logo-header {
-  font-size: 24px;
-  line-height: 33px;
+// .logo-header {
+//   font-size: 24px;
+//   line-height: 33px;
 
-  @include tablet {
-    font-size: 32px;
-    line-height: 44px;
-  }
+//   @include tablet {
+//     font-size: 32px;
+//     line-height: 44px;
+//   }
 
-  @include desktop {
-    font-size: 42px;
-    line-height: 57px;
-  }
-}
+//   @include desktop {
+//     font-size: 42px;
+//     line-height: 57px;
+//   }
+// }
 
-.menu-list {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  list-style: none;
+// .menu-list {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   margin: 0 auto;
+//   list-style: none;
 
-  @include tablet {
-    gap: 70px;
-  }
+//   @include tablet {
+//     gap: 70px;
+//   }
 
-  @include desktop {
-    gap: 68px;
-  }
-}
+//   @include desktop {
+//     gap: 68px;
+//   }
+// }
 
-.menu-item {
-  display: none;
-  text-decoration: none;
+// .menu-item {
+//   display: none;
+//   text-decoration: none;
 
-  @include tablet {
-    display: flex;
-    font-size: 16px;
-    line-height: 22px;
-  }
+//   @include tablet {
+//     display: flex;
+//     font-size: 16px;
+//     line-height: 22px;
+//   }
 
-  @include desktop {
-    display: flex;
-    font-size: 18px;
-    line-height: 25px;
-  }
-}
+//   @include desktop {
+//     display: flex;
+//     font-size: 18px;
+//     line-height: 25px;
+//   }
+// }
 
 .team-name {
   color: var(--white-text-color);

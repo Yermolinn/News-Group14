@@ -8,21 +8,17 @@ import {
   handleFavorite,
 } from '../render/render';
 const favCollectionEl = document.querySelector('.favorite-collection');
-// console.log(favCollectionEl);
+
 const cardFromLocal = localStorageService.load('favorite');
-// console.log(cardFromLocal);
+
 const readFromLocal = localStorageService.load('readMoreLocal');
-// console.log(readFromLocal);
+
 
 let i = 0;
 const arrayForCollection = [];
-// console.log(arrayForCollection);
 for (const card of cardFromLocal) {
   i += 1;
-  // let image = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
-  // if (card.media.length !== 0) {
-  //   image = card.media[0]['media-metadata'][2].url;
-  // }
+
   let markup = `<div class="news-card ${`news-card--${card.id}`} grid grid-item-${i}">
 
     <div class="top-wrap">
@@ -57,8 +53,6 @@ for (const card of cardFromLocal) {
     const link = document.querySelector(`.news-link--${card.id}`);
     const p = document.querySelector(`.isread--${card.id}`);
     const newsCard = document.querySelector(`.news-card--${card.id}`);
-    console.log(btn);
-    console.log(link);
 
     let isFav = true;
     let localFavorite = localStorageService.load('favorite');
@@ -78,7 +72,6 @@ for (const card of cardFromLocal) {
     link.onclick = handleRead(card, p, newsCard);
   }, 0);
 
-  // console.log(markup);
   arrayForCollection.push(markup);
 }
 favCollectionEl.insertAdjacentHTML('beforeend', arrayForCollection.join(''));

@@ -55,7 +55,7 @@ async function onSubmit(e) {
 
   try {
     const articles = await pixabayApiService.getNews();
-    // console.log(':ракета: ~ articles', articles);
+
     if (articles.length === 0) throw new Error('No data');
     let i = 0;
     const card = articles.reduce((markup, article) => {
@@ -77,7 +77,7 @@ async function onSubmit(e) {
       };
       return markup + createMostPopularNews(article, i);
     }, '');
-    // console.log(card);
+
     updateCard(card);
   } catch (err) {
     onError((weatherContainer.style.display = 'none'));

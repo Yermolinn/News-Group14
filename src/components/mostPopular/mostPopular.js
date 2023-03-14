@@ -31,6 +31,7 @@ async function render() {
   let i = 0;
   const card = articles.reduce((markup, article) => {
     weatherContainer.style.display = 'block';
+
     i++;
     let image = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
     if (article.media.length !== 0) {

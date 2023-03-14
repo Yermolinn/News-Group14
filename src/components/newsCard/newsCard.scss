@@ -1,21 +1,21 @@
 .news-card {
-    width: 288px;
-    margin-bottom: 28px;
-    // max-height: 675px;
-    // height: 469px;
+  width: 288px;
+  margin-bottom: 28px;
+  // max-height: 675px;
+  // height: 469px;
 
-    @include tablet {
-        width: 353px;
-        margin-bottom: 0;
-        // height: 675px;
-    }
+  @include tablet {
+    width: 353px;
+    margin-bottom: 0;
+    // height: 675px;
+  }
 
-    @include desktop {
-        width: 395px;
-        // height: 675px;
-    }
+  @include desktop {
+    width: 395px;
+    // height: 675px;
+  }
 
-    position: relative;
+  position: relative;
 }
 
 // .info {
@@ -31,126 +31,134 @@
 // }
 
 .info-item {
-    color: var(--blck-text-color);
-    max-width: 395px;
-    height: 132px;
+  cursor: pointer;
+  color: var(--blck-text-color);
+  max-width: 395px;
+  max-height: 132px;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
 
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 33px;
+
+  @include tablet {
     font-weight: 700;
-    font-size: 24px;
-    line-height: 33px;
+    font-size: 2.8vw;
+    line-height: 44px;
+    height: 220px;
+  }
 
-    @include tablet {
-        font-weight: 700;
-        font-size: 32px;
-        line-height: 44px;
-        height: 220px;
-    }
+  @include desktop {
+    font-size: 2vw;
+    height: 176px;
+  }
 
-    @include desktop {
-        height: 176px;
-    }
-
-    margin-top: 20px;
+  margin-top: 20px;
+  &:hover {
+    // color: var(--active-btn-color);
+    overflow-y: scroll;
+  }
 }
 
 .describe {
-    color: var(--blck-text-color);
-    max-width: 353px;
-    height: 76px;
+  color: var(--blck-text-color);
+  max-width: 353px;
+  height: 76px;
 
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 19px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
 
-    @include tablet {
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 22px;
-        height: 88px;
-    }
-
-    margin-top: 20px;
-}
-
-.lower-content {
-    margin-top: 20px;
-}
-
-.news-date {
-    color: var(--grey-text-color);
-
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 19px;
-
-    @include tablet {
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 22px;
-    }
-}
-
-.news-link {
+  @include tablet {
     font-weight: 400;
     font-size: 16px;
     line-height: 22px;
+    height: 88px;
+  }
 
-    color: #4440F7;
+  margin-top: 20px;
+}
+
+.lower-content {
+  margin-top: 20px;
+}
+
+.news-date {
+  color: var(--grey-text-color);
+
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+
+  @include tablet {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
+
+.news-link {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #4440f7;
 }
 
 .isread {
-    color: #00DD73;
+  color: #00dd73;
 
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+
+  @include tablet {
     font-weight: 400;
-    font-size: 14px;
-    line-height: 19px;
-
-    @include tablet {
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 22px;
-    }
+    font-size: 16px;
+    line-height: 22px;
+  }
 }
 
 .favorite-btn {
-    background-color: var(--white-text-color);
+  background-color: var(--white-text-color);
 
-    border-radius: 20px;
+  border-radius: 20px;
 
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    text-align: center;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
 
-    padding: 6px 12px;
-    display: flex;
-    position: absolute;
-    bottom: 12px;
-    right: 8px;
-    position: absolute;
+  padding: 6px 12px;
+  display: flex;
+  position: absolute;
+  bottom: 12px;
+  right: 8px;
+  position: absolute;
 
-    @include tablet {
-        right: 12px;
-    }
+  @include tablet {
+    right: 12px;
+  }
 }
 
 .btn-text {
-    color: var(--blck-text-color);
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    text-align: center;
+  color: var(--blck-text-color);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
 }
 
 .news-img {
-    width: 288px;
-    border-radius: 4px;
+  width: 288px;
+  border-radius: 4px;
 
-    @include tablet {
-        width: 353px;
-    }
+  @include tablet {
+    width: 353px;
+  }
 
-    @include desktop {
-        width: 395px;
-    }
+  @include desktop {
+    width: 395px;
+  }
 }
