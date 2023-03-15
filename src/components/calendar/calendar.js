@@ -1,11 +1,12 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
+import { arrCategoryElements } from '../categories/categories';
+
 import {
-  newList,
-  arrCategoryElements,
-  createCards,
-} from '../categories/categories';
+  resolveArray,
+  startGeneratePagination,
+} from '../pagination/pagination';
 
 const refs = {
   arrowUpEL: document.querySelector('.icon-arrow-up'),
@@ -55,7 +56,14 @@ const options = {
           return date === ourDate;
         });
 
-        newList.innerHTML = createCards(timeArr);
+        // newList.innerHTML = createCards(timeArr);
+
+        resolveArray.length = 0;
+        resolveArray.push(...timeArr);
+        let currentPage = 1;
+        let rows = 8;
+
+        startGeneratePagination(timeArr, rows, currentPage);
       }
     },
   ],

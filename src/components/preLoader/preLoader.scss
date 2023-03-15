@@ -1,4 +1,4 @@
-.mask {
+.mask, .mask-container {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -10,6 +10,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.mask-container{
+  position: absolute;
+  background: var(--light-bgc-color);
 }
 
 .lds-spinner {
@@ -91,6 +96,3 @@
   }
 }
 
-.hide {
-  opacity: 0;
-}

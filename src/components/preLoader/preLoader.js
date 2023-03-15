@@ -1,10 +1,10 @@
 const mask = document.querySelector('.mask');
 
-window.addEventListener('load', getRemuveLoader);
+window.addEventListener('load', getRemuveLoader, { once: true });
 
-function getRemuveLoader() {
-  mask.classList.add('.hide');
+export default function getRemuveLoader() {
+  mask.classList.remove('visually-hidden');
   setTimeout(() => {
-    mask.remove();
+    mask.classList.add('visually-hidden');
   }, 600);
 }

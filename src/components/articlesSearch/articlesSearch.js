@@ -8,9 +8,20 @@ import {
   handleFavorite,
   handleRead,
 } from '../render/render';
+
+import {
+  resolveArray,
+  searchPagination,
+  displayPagination,
+} from '../pagination/pagination';
+
+import { acum } from '../categories/categories';
+
 const axios = require('axios').default;
 const ENDPOINT = 'https://api.nytimes.com/svc/search/v2/articlesearch.json';
 const API_KEY = 'api-key=HR9YxGV98GGTmMcKHA5eY4Aer5nJgRvJ';
+
+let acumulator = 'search';
 
 // import { default as axios } from 'axios';
 
@@ -41,6 +52,7 @@ export default class PixabayApiService {
 }
 
 const pixabayApiService = new PixabayApiService();
+
 const formEl = document.getElementById('search-form');
 const newsList = document.querySelector('.news-list');
 const weatherContainer = document.querySelector('.weather-container');
@@ -49,40 +61,58 @@ formEl.addEventListener('submit', onSubmit);
 
 async function onSubmit(e) {
   e.preventDefault();
+
   const formEl = e.currentTarget;
   const value = formEl.elements.searchQuery.value.trim();
   pixabayApiService.searchQuery = value;
 
   try {
-    const articles = await pixabayApiService.getNews();
+    const articles = await pixabayApiService.getNews().then(resolve => {
+      resolveArray.length = 0;
+      resolveArray.push(...resolve);
 
-    if (articles.length === 0) throw new Error('No data');
-    let i = 0;
-    const card = articles.reduce((markup, article) => {
-      weatherContainer.style.display = 'block';
-      i++;
-      const attachURL = `https://www.nytimes.com/`;
-      let image = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
-      if (article.multimedia.length !== 0) {
-        image = `${attachURL}${article.multimedia[0].url}`;
-      }
-      article = {
-        image: image,
-        section: article.section_name,
-        title: article.headline.main,
-        description: article.snippet,
-        date: article.pub_date,
-        url: article.web_url,
-        id: article.uri.slice(20, article.uri.length),
-      };
-      return markup + createMostPopularNews(article, i);
-    }, '');
+      let currentPage = 1;
+      let rows = 8;
 
-    updateCard(card);
+      searchPagination(resolve, rows, currentPage);
+      displayPagination(resolve, rows);
+    });
+    // renderCards(articles);
   } catch (err) {
     onError((weatherContainer.style.display = 'none'));
   }
   formEl.reset();
+}
+
+function renderCards(articles) {
+  if (articles.length === 0) throw new Error('No data');
+
+  let i = 0;
+  const card = articles.reduce((markup, article) => {
+    weatherContainer.style.display = 'block';
+    i++;
+    const attachURL = `https://www.nytimes.com/`;
+    let image = `https://cdn.create.vista.com/api/media/small/251043028/stock-photo-selective-focus-black-news-lettering`;
+
+    if (article.multimedia.length !== 0) {
+      image = `${attachURL}${article.multimedia[0].url}`;
+    }
+    article = {
+      image: image,
+      section: article.section_name,
+      title: article.headline.main,
+      description: article.snippet,
+      date: article.pub_date,
+      url: article.web_url,
+      id: article.uri.slice(20, article.uri.length),
+    };
+
+    return markup + createMostPopularNews(article, i);
+  }, '');
+
+  return card;
+
+  // updateCard(card);
 }
 
 function updateCard(markup) {
@@ -150,3 +180,5 @@ function createMostPopularNews(article, i) {
   
 `;
 }
+
+export { renderCards, acumulator };

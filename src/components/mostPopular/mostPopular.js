@@ -13,6 +13,12 @@ import {
 } from '../render/render';
 const axios = require('axios').default;
 
+import {
+  resolveArray,
+  mostPopularPagination,
+  displayPagination,
+} from '../pagination/pagination';
+
 class MostPopularApiService {
   async getNews() {
     const mostPopularUrl = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?${API_KEY}`;
@@ -20,12 +26,21 @@ class MostPopularApiService {
     return response.data.results;
   }
 }
-async function render() {
+
+const mostPopularApiService = new MostPopularApiService();
+const articles = mostPopularApiService.getNews().then(resolve => {
+  resolveArray.length = 0;
+  resolveArray.push(...resolve);
+
+  let currentPage = 1;
+  let rows = 8;
+
+  mostPopularPagination(resolve, rows, currentPage);
+  displayPagination(resolve, rows);
+});
+
+function render(articles) {
   //рендерить  популярні новини
-  const mostPopularApiService = new MostPopularApiService();
-
-  const articles = await mostPopularApiService.getNews();
-
   if (articles.length === 0) throw new Error('No data');
 
   let i = 0;
@@ -49,7 +64,8 @@ async function render() {
     return markup + createMostPopularNews(article, i);
   }, '');
 
-  updateCard(card);
+  return card;
+  // updateCard(card);
 }
 
 function updateCard(markup) {
@@ -113,4 +129,6 @@ function createMostPopularNews(article, i) {
   
 `;
 }
-render();
+// render();
+
+export { render };
