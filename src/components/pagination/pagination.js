@@ -4,6 +4,7 @@ import { fethNewsService } from "../categories/categories";  */
 import { newList, createCards } from '../categories/categories';
 
 import { render } from '../mostPopular/mostPopular';
+import { renderCards } from '../articlesSearch/articlesSearch';
 
 //-----------Змінні для пагінації, що мають експортуватися-----------//
 const newArrli = [];
@@ -19,6 +20,8 @@ LEFT_THREE_DOTS.classList.add('left-three-dots');
 const RIGHT_THREE_DOTS = displayPaginationBtn('...');
 RIGHT_THREE_DOTS.classList.add('right-three-dots');
 
+let acumulator = null;
+
 //-----------функції пагінації-----------------------//
 
 let numberPaginationActiveBtn = 0;
@@ -33,13 +36,34 @@ function startGeneratePagination(resolve, rows, currentPage) {
   displayPagination(resolve, rows);
 }
 
-function mostPopularPaginatio(arrData, rowPerPage, page) {
+function searchPagination(arrData, rowPerPage, page) {
   newList.innerHTML = '';
-  const start = rowPerPage * page;
+  const start = rowPerPage * (page - 1);
   const end = start + rowPerPage;
-  const paginatedData = arrData.slice(start, end);
+  acumulator = 'search';
 
-  newList.insertAdjacentHTML('afterbegin', render(paginatedData));
+  if (end > arrData.length) {
+    const paginatedData = arrData.slice(start);
+    newList.insertAdjacentHTML('afterbegin', renderCards(paginatedData));
+  } else {
+    const paginatedData = arrData.slice(start, end);
+    newList.insertAdjacentHTML('afterbegin', renderCards(paginatedData));
+  }
+}
+
+function mostPopularPagination(arrData, rowPerPage, page) {
+  newList.innerHTML = '';
+  const start = rowPerPage * (page - 1);
+  const end = start + rowPerPage;
+  acumulator = 'popular';
+
+  if (end > arrData.length) {
+    const paginatedData = arrData.slice(start);
+    newList.insertAdjacentHTML('afterbegin', render(paginatedData));
+  } else {
+    const paginatedData = arrData.slice(start, end);
+    newList.insertAdjacentHTML('afterbegin', render(paginatedData));
+  }
 }
 
 //---------функція що виводить 8 карток на сторінку(ключова)----//
@@ -48,6 +72,7 @@ function displayList(arrData, rowPerPage, page) {
   newList.innerHTML = '';
   const start = rowPerPage * (page - 1);
   const end = start + rowPerPage;
+  acumulator = 'categories';
 
   if (end > arrData.length) {
     const paginatedData = arrData.slice(start);
@@ -91,6 +116,7 @@ function displayPagination(arrData, rowPerPage) {
 
   //---------Початкове блокування кнопки "назад" для пагінації-----
   btnPrewPg.disabled = true;
+  btnNextPg.disabled = false;
   //----------
 
   paginationEl.innerHTML = ``;
@@ -187,7 +213,13 @@ function createCardsOnCurrentBtn(element) {
     currentPage = element.textContent;
   } else return;
 
-  displayList(resolveArray, 8, currentPage);
+  if (acumulator === 'categories') {
+    displayList(resolveArray, 8, currentPage);
+  } else if (acumulator === 'search') {
+    searchPagination(resolveArray, 8, currentPage);
+  } else {
+    mostPopularPagination(resolveArray, 8, currentPage);
+  }
 }
 
 //---------безпосереднє створення кнопок пагінації(генерує лішки)-----//
@@ -224,4 +256,10 @@ function onNextBtn() {
 
 //-----------слухачі на кнопки вперед та назад пагінації--------//
 
-export { resolveArray, startGeneratePagination, mostPopularPaginatio };
+export {
+  resolveArray,
+  startGeneratePagination,
+  mostPopularPagination,
+  displayPagination,
+  searchPagination,
+};
