@@ -3,8 +3,13 @@ import './components/TimesNewswireAPI/TimesNewswireAPI';
 import './components/MostPopularAPI/MostPopularAPI';
 // import './components/render/render.js';
 import './components/button/button.js';
+<<<<<<< Updated upstream
 import './components/favoriteNews/favoriteNews.js';
 import './components/firebaseAPI/firebaseAPI.js';
+=======
+// import './components/favoriteNews/favoriteNews.js';
+// import './components/firebaseAPI/firebaseAPI.js';
+>>>>>>> Stashed changes
 import './components/footer/footer.js';
 import './components/loader/loader.js';
 import './components/main/main.js';

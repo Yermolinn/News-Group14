@@ -1,14 +1,12 @@
 
 // import '../render/addToFavoriteBtn';
 
-// import LocalStorageService from '../LocalStorageService/LocalStorageService';
+import LocalStorageService from '../LocalStorageService/LocalStorageService';
 // const favCollectionEl = document.querySelector('.favorite-collection');
 // console.log(favCollectionEl);
 
-// const cardFromLocal = LocalStorageService.load('readMoreLocal');
+const cardFromLocal = LocalStorageService.load('readMoreLocal');
 // console.log(cardFromLocal)
-const cardFromLocal = JSON.parse(localStorage.getItem('readMoreLocal'));
-// console.log(cardFromLocal);
 const refs = {
     iconSvg: new URL('../../images/sprite.svg', import.meta.url),
   };
@@ -29,6 +27,7 @@ const addFavoriteBtnHTML = `Add to favorite ${createSvgIcon(
     'icon-favorite-add'
   )}`;
 
+
 let j = 1;
 let readDate = 1;
 const arrayForCollection = [];
@@ -39,7 +38,7 @@ for (let i = 0; i < cardFromLocal.length; i += 1) {
   if (cardFromLocal[i].media.length !== 0) {
     defaultImg = cardFromLocal[i].media[0]['media-metadata'][2].url;
   }
-  console.log(readDate);
+  // console.log(readDate);
   if (readDate) {
         markUp.push(`<div class="read--date--card">
         <div class="read--one--day">
@@ -79,17 +78,11 @@ for (let i = 0; i < cardFromLocal.length; i += 1) {
           </div>
         `);
   // console.log(markUp);
-    if (j < (cardFromLocal.length-1)) {
-        // console.log(cardFromLocal[i].dayRead.replace(/[\s.,%]/g, ''));
-        // console.log(cardFromLocal[j].dayRead.replace(/[\s.,%]/g, ''));
-  readDate = Math.abs(cardFromLocal[i].dayRead.replace(/[\s.,%]/g, '') - cardFromLocal[j].dayRead.replace(/[\s.,%]/g, ''));
-        j++;
-  } else {readDate = 2}
-    if (readDate) {
-        console.log('sdl;fsadkjhfkasdfjksadgfjkgasdf');
-
-        markUp.push(`</div> </div> </div>`);
-    }
+  if (j < cardFromLocal.length) {
+  readDate = (cardFromLocal[i].dayRead.replace(/[\s.,%]/g, '') - cardFromLocal[j].dayRead.replace(/[\s.,%]/g, ''));
+  j++;
+  }
+  if (readDate) { markUp.push(`</div> </div> </div>`); }
 
   
 }
