@@ -5,6 +5,9 @@ import { createCardOnError } from './createCardOnError';
 import { selectedDate } from '../calendar/calendar';
 
 import localStorageService from '../localStorageService/localStorageService';
+
+import getRemuveLoader from '../preLoader/preLoader';
+
 import {
   checkLokalStorage,
   removeFavoriteBtnHTML,
@@ -116,15 +119,24 @@ function getArraySections(results) {
 
 // -------------------------------</functions galary>--------------------------
 
-function getNewsCategory(e) {
+async function getNewsCategory(e) {
+  const mask = document.querySelector('.mask-container');
   const element = e.target;
   if (!element.dataset.category) {
     return;
   }
+
+  // getRemuveLoader();
+
+  // newList.addEventListener('load', getRemuveLoader, { once: true });
+  mask.classList.remove('visually-hidden');
+
   newList.innerHTML = '';
   fethNewsService.section = getRender(element.textContent.toLowerCase());
   fethNewsService.resetPage();
-  serchArticlesCategory();
+  await serchArticlesCategory();
+
+  mask.classList.add('visually-hidden');
 }
 
 function getRender(name) {
@@ -179,6 +191,7 @@ async function serchArticlesCategory() {
       resolveArray.push(...resolve);
       let currentPage = 1;
       let rows = 8;
+
       startGeneratePagination(resolve, rows, currentPage);
 
       /* console.log(displayList(resolve, rows, currentPage)); */
